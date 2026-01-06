@@ -1,0 +1,74 @@
+{
+  "navigation": {
+    "home": "Home",
+    "farmers": "For Farmers",
+    "buyers": "For Buyers",
+    "haulers": "For Haulers",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "headline": "Rewriting the Code of Agriculture",
+    "subheadline": "Farm-Fresh Produce, Direct to You",
+    "description": "CropFresh connects farmers directly with buyers. Quality-verified produce, AI-powered pricing, instant payments, and full traceability from farm to fork.",
+    "cta_farmer": "I'm a Farmer",
+    "cta_buyer": "I'm a Buyer",
+    "cta_hauler": "I'm a Hauler",
+    "watch_film": "Watch Film"
+  },
+  "stats": {
+    "farmers": "Farmers Onboarded",
+    "buyers": "Buyers Served",
+    "deliveries": "Deliveries Completed",
+    "earnings": "Farmer Earnings"
+  },
+  "problems": {
+    "title": "The Problems We Solve",
+    "farmer_problems": "Farmer Challenges",
+    "buyer_problems": "Buyer Challenges",
+    "middlemen": "30-40% lost to middlemen",
+    "delayed_payments": "15-30 day payment delays",
+    "no_transparency": "No price transparency",
+    "wastage": "20-30% produce wastage",
+    "quality_inconsistency": "Inconsistent quality",
+    "no_traceability": "No traceability",
+    "unreliable_supply": "Unreliable supply",
+    "hidden_costs": "Hidden cost markups"
+  },
+  "solutions": {
+    "title": "How CropFresh Solves It",
+    "direct_access": "Direct Access to Buyers",
+    "direct_access_desc": "No middlemen, keep more earnings",
+    "instant_payment": "Instant Payment (T+0)",
+    "instant_payment_desc": "Get paid via UPI immediately on delivery",
+    "fair_pricing": "AI-Powered Fair Pricing",
+    "fair_pricing_desc": "DPLE calculates market-fair prices",
+    "voice_listing": "Voice Listing",
+    "voice_listing_desc": "List crops without typing in Kannada"
+  },
+  "footer": {
+    "tagline": "Rewriting the Code of Agriculture",
+    "company": "Company",
+    "about_us": "About Us",
+    "careers": "Careers",
+    "press": "Press",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "refund": "Refund Policy",
+    "support": "Support",
+    "help_center": "Help Center",
+    "contact_us": "Contact Us",
+    "faq": "FAQ",
+    "connect": "Connect",
+    "copyright": "© 2025 CropFresh. All rights reserved."
+  },
+  "common": {
+    "learn_more": "Learn More",
+    "get_started": "Get Started",
+    "download_app": "Download App",
+    "coming_soon": "Coming Soon",
+    "language": "Language"
+  }
+}
