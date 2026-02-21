@@ -70,5 +70,69 @@
     "download_app": "Download App",
     "coming_soon": "Coming Soon",
     "language": "Language"
+  },
+  "farmers": {
+    "hero": {
+      "headline": "Join 500+ Farmers Earning More",
+      "subheadline": "Get fair prices, instant payment, and sell directly to buyers",
+      "cta_download": "Download App",
+      "cta_callback": "Get a Call Back"
+    },
+    "benefits": {
+      "title": "Why Farmers Love CropFresh",
+      "fairPrice": {
+        "title": "Fair Prices",
+        "description": "No middlemen. Keep 100% of your earnings."
+      },
+      "instantPayment": {
+        "title": "Instant Payment",
+        "description": "Get paid via UPI the same day you sell."
+      },
+      "freeVerification": {
+        "title": "Free Quality Check",
+        "description": "Our agents verify quality at no cost to you."
+      },
+      "voiceListing": {
+        "title": "Voice Listing",
+        "description": "List crops by speaking in Kannada or English."
+      }
+    },
+    "getStarted": {
+      "title": "How to Get Started",
+      "step1": {
+        "title": "Download the App",
+        "description": "Get CropFresh Farmer from Play Store"
+      },
+      "step2": {
+        "title": "Register",
+        "description": "Sign up with your phone number"
+      },
+      "step3": {
+        "title": "Start Selling",
+        "description": "List your crop and get paid!"
+      }
+    },
+    "form": {
+      "title": "Get a Call Back",
+      "subtitle": "Prefer to talk? An agent will call you.",
+      "name": "Your Name",
+      "phone": "Mobile Number",
+      "village": "Village/District",
+      "language": "Preferred Language",
+      "submit": "Request Call Back",
+      "success": "Thank you! An agent will contact you within 24 hours.",
+      "errors": {
+        "nameRequired": "Name is required",
+        "nameMin": "Name must be at least 2 characters",
+        "phoneRequired": "Mobile number is required",
+        "phoneInvalid": "Enter a valid 10-digit mobile number",
+        "villageRequired": "Select your village/district"
+      }
+    },
+    "download": {
+      "title": "Download CropFresh Farmer App",
+      "playStore": "Get it on Google Play",
+      "apk": "Download APK"
+    }
   }
 }

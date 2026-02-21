@@ -173,3 +173,56 @@ export const pageTransition: Variants = {
         },
     },
 };
+
+// Organic Float Drift for trust pills & decorative elements
+export const floatDrift: Variants = {
+    initial: (custom: { x: number; y: number }) => ({
+        x: custom.x,
+        y: custom.y,
+        opacity: 0,
+        scale: 0.8,
+    }),
+    animate: (custom: { x: number; y: number; delay?: number }) => ({
+        x: [custom.x, custom.x + 15, custom.x - 10, custom.x],
+        y: [custom.y, custom.y - 20, custom.y + 10, custom.y],
+        opacity: 1,
+        scale: 1,
+        transition: {
+            opacity: { duration: 0.8, delay: custom.delay || 0 },
+            scale: { duration: 0.6, delay: custom.delay || 0 },
+            x: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: custom.delay || 0 },
+            y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: custom.delay || 0 },
+        },
+    }),
+};
+
+// Hero stagger orchestrator
+export const heroStagger: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15,
+            delayChildren: 0.3,
+        },
+    },
+};
+
+// Hero child item animation
+export const heroChildFade: Variants = {
+    hidden: {
+        opacity: 0,
+        y: 30,
+        filter: "blur(4px)",
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: {
+            duration: 0.7,
+            ease: [0.25, 0.1, 0.25, 1],
+        },
+    },
+};
+

@@ -90,12 +90,12 @@ export const trackSignupInteraction = (
  * Track language change
  */
 export const trackLanguageChange = (
-    fromLang: string,
-    toLang: string
+    newLanguage: string,
+    previousLanguage?: string
 ): void => {
     trackEvent("language_change", {
-        from_language: fromLang,
-        to_language: toLang,
+        new_language: newLanguage,
+        previous_language: previousLanguage,
     });
 };
 

@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   creator: "CropFresh",
   publisher: "CropFresh",
   metadataBase: new URL("https://cropfresh.in"),
-  
+
   // Open Graph (Facebook, LinkedIn)
   openGraph: {
     type: "website",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  
+
   // Twitter Card
   twitter: {
     card: "summary_large_image",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
     creator: "@cropfresh",
   },
-  
+
   // Additional SEO
   robots: {
     index: true,
@@ -82,14 +82,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  
+
   // Icons
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  
+
   // Manifest
   manifest: "/site.webmanifest",
 };
@@ -108,7 +108,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
         {/* Preconnect to fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -119,7 +119,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${outfit.variable} ${inter.variable} antialiased bg-background text-foreground`}
+        className={`${outfit.variable} ${inter.variable} antialiased bg-[var(--color-background)] text-[var(--color-text-primary)]`}
       >
         {children}
       </body>
