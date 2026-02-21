@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, AnimatePresence } from "framer-motion";
 import Image from "next/image"; // Added Image import
 import { Container } from "@/components/ui";
 import {
@@ -123,130 +123,131 @@ function WordRotator({ words }: { words: string[] }) {
 
 /* ─── Bento Tech Cards ────────────────────────────────── */
 
-function VoiceTranslationCard() {
-    const langs = ["Kannada", "Hindi", "Telugu", "Tamil", "Marathi", "English"];
-    const [idx, setIdx] = useState(0);
+/* ─── Feature Showcase Drawer ───────────────────────────── */
+
+const showcaseItems = [
+    {
+        id: "source",
+        title: "Direct from Source",
+        description: "Zero middlemen markup. Connect directly with India's farmers.",
+        image: "/images/hero/farmer.png",
+        icon: <Sprout className="w-5 h-5 text-[#FF8C00]" />,
+        bgClass: "bg-[#FF8C00]/20 border-[#FF8C00]/30",
+        progressClass: "bg-[#FF8C00]"
+    },
+    {
+        id: "quality",
+        title: "AI Quality Verified",
+        description: "Digital Twin scanning ensures premium A-Grade freshness.",
+        image: "/images/hero/tomato.png",
+        icon: <Scan className="w-5 h-5 text-emerald-400" />,
+        bgClass: "bg-emerald-500/20 border-emerald-500/30",
+        progressClass: "bg-emerald-500"
+    },
+    {
+        id: "logistics",
+        title: "Instant Settlement",
+        description: "T+0 UPI payments with reliable, fast logistics tracking.",
+        image: "/images/hero/truck.png",
+        icon: <CheckCircle2 className="w-5 h-5 text-blue-400" />,
+        bgClass: "bg-blue-500/20 border-blue-500/30",
+        progressClass: "bg-blue-500"
+    }
+];
+
+function FeatureShowcaseDrawer() {
+    const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
-        const interval = setInterval(() => setIdx(i => (i + 1) % langs.length), 2000);
+        const interval = setInterval(() => {
+            setActiveIndex((current) => (current + 1) % showcaseItems.length);
+        }, 4500); // 4.5 seconds per slide
         return () => clearInterval(interval);
-    }, [langs.length]);
+    }, []);
 
     return (
-        <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-4 right-4 bg-white/10 backdrop-blur-2xl border border-white/20 p-4 rounded-2xl shadow-2xl w-56 z-20 hidden md:block"
-        >
-            <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-blue-500/20 rounded-full">
-                    <Mic className="text-blue-400" size={16} />
-                </div>
-                <span className="text-sm font-semibold text-white">Voice AI</span>
-            </div>
-            <p className="text-xs text-white/70 mb-2 font-medium">Translating to {langs[idx]}...</p>
-            <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                <motion.div
-                    key={idx}
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "0%" }}
-                    transition={{ duration: 1.8, ease: "linear" }}
-                    className="h-full bg-blue-400"
-                />
-            </div>
-        </motion.div>
-    );
-}
-
-function AIDigitalTwinCard() {
-    return (
-        <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute top-32 -left-6 w-72 sm:w-80 rounded-2xl p-5 border shadow-2xl z-30 overflow-hidden hidden sm:block"
-            style={{
-                background: "rgba(20, 20, 20, 0.4)",
-                backdropFilter: "blur(24px)",
-                borderColor: "rgba(255,255,255,0.08)",
-            }}
-        >
-            {/* Realistic Tomato Background Image with Overlay */}
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src="/images/hero/tomato.png"
-                    alt="Digital Twin Quality Analysis"
-                    fill
-                    className="object-cover opacity-[0.65] mix-blend-screen scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/80 to-transparent"></div>
+        <div className="relative w-full h-[400px] sm:h-[450px] lg:h-[480px] rounded-3xl overflow-hidden shadow-2xl group flex flex-col bg-[#0A0D14]/60 backdrop-blur-xl border border-white/10">
+            {/* Full Width Image Slider Area */}
+            <div className="absolute inset-0 z-0 overflow-hidden bg-black/80">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeIndex}
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        className="absolute inset-0"
+                    >
+                        <Image
+                            src={showcaseItems[activeIndex].image}
+                            alt={showcaseItems[activeIndex].title}
+                            fill
+                            className="object-cover opacity-80"
+                            priority
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/10 to-transparent"></div>
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
-            {/* Card Content Overlay */}
-            <div className="relative z-10">
-                <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-[var(--color-primary-500)]/20 rounded-xl border border-[var(--color-primary-400)]/30 shadow-[0_0_15px_rgba(34,197,94,0.2)]">
-                            <Scan className="text-[var(--color-primary-400)]" size={16} />
+            {/* Consolidated Floating Card (Badge + Text) - Ultra-Slim Horizontal Layout */}
+            <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-auto md:max-w-[480px] z-20">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeIndex}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -20, opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="relative flex flex-row items-center gap-3 md:gap-4 py-2.5 px-4 md:py-3 md:px-5 rounded-2xl overflow-hidden box-border backdrop-blur-xl bg-[#0A0D14]/70 border border-white/10 shadow-2xl"
+                    >
+                        {/* Background subtle highlight */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent z-0"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }}
+                        />
+
+                        {/* Icon - Left Side */}
+                        <div className={`relative z-10 p-1.5 md:p-2 rounded-xl backdrop-blur-md border ${showcaseItems[activeIndex].bgClass} shadow-sm shrink-0`}>
+                            {showcaseItems[activeIndex].icon}
                         </div>
-                        <span className="text-base font-semibold text-white tracking-wide">Digital Twin</span>
-                    </div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-[var(--color-primary-400)] bg-[var(--color-primary-400)]/10 border border-[var(--color-primary-500)]/20 px-2.5 py-1 rounded-full">Verified</span>
-                </div>
-                <div className="space-y-3">
-                    <div className="flex justify-between text-xs border-b border-white/10 pb-2">
-                        <span className="text-white/60">Quality Grade</span>
-                        <span className="text-white font-mono font-medium">A-Premium</span>
-                    </div>
-                    <div className="flex justify-between text-xs">
-                        <span className="text-white/60">Shelf Life</span>
-                        <span className="text-white font-mono font-medium">14 Days</span>
-                    </div>
-                </div>
-            </div>
-        </motion.div>
-    );
-}
 
-function UPISettlementCard() {
-    return (
-        <motion.div
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute bottom-6 -right-2 w-64 rounded-2xl p-5 border shadow-2xl z-20 overflow-hidden hidden md:block"
-            style={{
-                background: "rgba(20, 20, 20, 0.4)",
-                backdropFilter: "blur(24px)",
-                borderColor: "rgba(255,255,255,0.08)",
-            }}
-        >
-            {/* Realistic Truck Background Image with Overlay */}
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src="/images/hero/truck.png"
-                    alt="Logistics Network"
-                    fill
-                    className="object-cover opacity-[0.55] mix-blend-screen scale-110 object-right"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/80 to-transparent"></div>
+                        {/* Text - Right Side (Stacked, Single Line) */}
+                        <div className="relative z-10 flex flex-col justify-center overflow-hidden w-full">
+                            <h3 className="font-bold text-sm sm:text-base text-white tracking-tight drop-shadow-md mb-0.5">
+                                {showcaseItems[activeIndex].title}
+                            </h3>
+                            <p className="text-white/95 text-xs sm:text-sm font-medium drop-shadow-sm truncate">
+                                {showcaseItems[activeIndex].description}
+                            </p>
+                        </div>
+
+                        {/* Progress Bar indicating slider flow */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-0 overflow-hidden">
+                            <motion.div
+                                key={`progress-${activeIndex}`}
+                                initial={{ width: "0%" }}
+                                animate={{ width: "100%" }}
+                                transition={{ duration: 4.5, ease: "linear" }}
+                                className={`h-full ${showcaseItems[activeIndex].progressClass} shadow-[0_0_15px_currentColor]`}
+                            />
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
-            {/* Card Content Overlay */}
-            <div className="relative z-10">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-emerald-500/20 rounded-xl border border-emerald-400/30 shadow-[0_0_15px_rgba(52,211,153,0.2)]">
-                        <CheckCircle2 className="text-emerald-400" size={16} />
-                    </div>
-                    <div>
-                        <h4 className="text-base font-semibold text-white tracking-wide">Fund Settled</h4>
-                        <p className="text-[11px] text-white/60 font-medium">Instant T+0 UPI Transfer</p>
-                    </div>
-                </div>
-                <div className="mt-4 pt-3 border-t border-white/10 flex justify-between items-center text-sm">
-                    <span className="text-white/60">Farmer AC</span>
-                    <span className="text-emerald-400 font-bold tracking-tight text-base">₹12,450</span>
-                </div>
+            {/* Pagination Dots (Optional, purely aesthetic for indicating multiple items) */}
+            <div className="absolute top-4 right-4 z-20 flex gap-1.5 p-2 rounded-full bg-black/30 backdrop-blur-md border border-white/10">
+                {showcaseItems.map((_, idx) => (
+                    <div
+                        key={idx}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${activeIndex === idx ? 'w-5 bg-white' : 'w-1.5 bg-white/30'}`}
+                    />
+                ))}
             </div>
-        </motion.div>
+        </div>
     );
 }
 
@@ -367,37 +368,14 @@ export function HeroSection() {
                             </motion.div>
                         </motion.div>
 
-                        {/* Right Column: Floating Bento Box Cards */}
+                        {/* Right Column: Feature Image Drawer */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, delay: 0.3 }}
-                            className="lg:col-span-6 relative w-full h-[320px] sm:h-[360px] lg:h-[400px] mt-8 lg:mt-0"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, delay: 0.3 }}
+                            className="lg:col-span-6 relative w-full mt-8 lg:mt-0"
                         >
-                            {/* Central Abstract Platform Map */}
-                            <div className="absolute inset-4 sm:inset-10 bg-gradient-to-br from-white/5 to-white/[0.01] backdrop-blur-sm border border-white/5 rounded-[2rem] overflow-hidden shadow-xl flex items-center justify-center transform scale-95 lg:scale-100 origin-center">
-                                {/* Dot Matrix Map Background */}
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:24px_24px]" />
-
-                                {/* Central App Mockup Concept */}
-                                <div className="relative w-48 h-64 sm:w-56 sm:h-80 bg-black/40 rounded-3xl border border-white/10 flex flex-col p-4 backdrop-blur-md shadow-2xl overflow-hidden">
-                                    <div className="w-full flex justify-between items-center mb-6">
-                                        <div className="w-1/2 h-4 bg-white/10 rounded-full" />
-                                        <div className="w-8 h-8 rounded-full bg-white/5" />
-                                    </div>
-                                    <div className="space-y-4 flex-1">
-                                        <div className="w-full h-32 bg-gradient-to-tr from-[#FF8C00]/20 to-[#2E7D32]/20 rounded-2xl" />
-                                        <div className="w-3/4 h-3 bg-white/10 rounded-full" />
-                                        <div className="w-1/2 h-3 bg-white/10 rounded-full" />
-                                    </div>
-                                    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
-                                </div>
-                            </div>
-
-                            {/* Floating Tech Cards */}
-                            <VoiceTranslationCard />
-                            <AIDigitalTwinCard />
-                            <UPISettlementCard />
+                            <FeatureShowcaseDrawer />
                         </motion.div>
                     </div>
                 </Container>
