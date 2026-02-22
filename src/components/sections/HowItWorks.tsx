@@ -93,12 +93,12 @@ function StepVisual({ visual, accentHex }: { visual: Step["visual"]; accentHex: 
     const MainIcon = visual.mainIcon;
     return (
         <div
-            className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center"
-            style={{ background: `${accentHex}08` }}
+            className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden flex items-center justify-center glass-card group transition-all duration-500 hover:-translate-y-2"
+            style={{ background: `linear-gradient(135deg, rgba(255,255,255,0.05) 0%, ${accentHex}10 100%)`, borderColor: "rgba(255,255,255,0.1)" }}
         >
             {/* Decorative circle */}
             <div
-                className="absolute w-48 h-48 rounded-full opacity-[0.06]"
+                className="absolute w-48 h-48 rounded-full opacity-[0.1]"
                 style={{ background: accentHex, top: "-15%", right: "-10%" }}
             />
             <div
@@ -117,16 +117,16 @@ function StepVisual({ visual, accentHex }: { visual: Step["visual"]; accentHex: 
                 return (
                     <motion.div
                         key={i}
-                        className="absolute w-9 h-9 rounded-lg flex items-center justify-center"
+                        className="absolute w-10 h-10 rounded-xl flex items-center justify-center border border-white/10 backdrop-blur-md"
                         style={{
-                            background: "white",
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                            background: "rgba(255,255,255,0.05)",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
                             ...pos,
                         }}
-                        animate={{ y: [0, -5, 0] }}
+                        animate={{ y: [0, -6, 0] }}
                         transition={{ duration: 3, repeat: Infinity, delay: i * 0.7, ease: "easeInOut" }}
                     >
-                        <SIcon className="w-4 h-4" style={{ color: accentHex }} />
+                        <SIcon className="w-5 h-5 drop-shadow-sm" style={{ color: accentHex }} />
                     </motion.div>
                 );
             })}
@@ -134,26 +134,26 @@ function StepVisual({ visual, accentHex }: { visual: Step["visual"]; accentHex: 
             {/* Center */}
             <div className="relative z-10 flex flex-col items-center gap-3">
                 <div
-                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center border border-white/20 backdrop-blur-xl group-hover:scale-110 transition-transform duration-500"
                     style={{
-                        background: "white",
-                        boxShadow: `0 6px 24px ${accentHex}18`,
+                        background: "rgba(255,255,255,0.1)",
+                        boxShadow: `0 10px 30px ${accentHex}40`,
                     }}
                 >
                     <MainIcon
-                        className="w-8 h-8 sm:w-10 sm:h-10"
+                        className="w-10 h-10 sm:w-12 sm:h-12"
                         style={{ color: accentHex }}
                         strokeWidth={1.5}
                     />
                 </div>
                 <div
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full"
-                    style={{ background: "white", boxShadow: `0 2px 10px ${accentHex}12` }}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 backdrop-blur-md"
+                    style={{ background: "rgba(255,255,255,0.1)", boxShadow: `0 4px 15px ${accentHex}30` }}
                 >
                     <span className="text-lg sm:text-xl font-display font-black leading-none" style={{ color: accentHex }}>
                         {visual.stat}
                     </span>
-                    <span className="text-neutral-500 text-xs font-medium">{visual.statLabel}</span>
+                    <span className="text-white/70 text-xs font-medium">{visual.statLabel}</span>
                 </div>
             </div>
         </div>
@@ -195,15 +195,15 @@ function StepRow({ step, index, isActive }: { step: Step; index: number; isActiv
                     <motion.div
                         className="w-12 h-12 rounded-full flex items-center justify-center border-2 z-10 transition-all duration-500"
                         style={{
-                            background: isActive ? step.accentHex : "white",
-                            borderColor: isActive ? step.accentHex : "#e5e5e5",
-                            boxShadow: isActive ? `0 0 20px ${step.accentHex}30` : "none",
+                            background: isActive ? step.accentHex : "rgba(255,255,255,0.05)",
+                            borderColor: isActive ? step.accentHex : "rgba(255,255,255,0.1)",
+                            boxShadow: isActive ? `0 0 20px ${step.accentHex}60` : "none",
                         }}
                     >
                         {isActive ? (
                             <Icon className="w-5 h-5 text-white" strokeWidth={2} />
                         ) : (
-                            <span className="text-sm font-bold text-neutral-400">{step.number}</span>
+                            <span className="text-sm font-bold text-white/50">{step.number}</span>
                         )}
                     </motion.div>
                 </div>
@@ -248,15 +248,15 @@ function StepTextContent({ step }: { step: Step }) {
                 <Icon className="w-5 h-5" style={{ color: step.accentHex }} />
             </div>
 
-            <h3 className="font-display font-bold text-neutral-900 text-xl sm:text-2xl leading-snug mb-3">
+            <h3 className="font-display font-bold text-white text-xl sm:text-2xl leading-snug mb-3">
                 {step.title}
             </h3>
 
-            <p className="text-neutral-500 text-sm font-medium mb-3">
+            <p className="text-white/70 text-sm font-medium mb-3">
                 {step.shortDesc}
             </p>
 
-            <p className="text-neutral-400 text-sm leading-relaxed">
+            <p className="text-white/50 text-sm leading-relaxed">
                 {step.fullDesc}
             </p>
         </div>
@@ -299,10 +299,10 @@ export function HowItWorks() {
         <section
             ref={sectionRef}
             id="how-it-works"
-            className="relative py-24 md:py-32 bg-[#fafaf8]"
+            className="relative py-24 md:py-32 overflow-hidden"
         >
             {/* Top divider */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
             <Container className="relative z-10">
                 <motion.div
@@ -313,7 +313,7 @@ export function HowItWorks() {
                 >
                     {/* ── Header ── */}
                     <motion.div variants={fadeInUp} className="text-center mb-5">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-50 border border-cyan-200 text-cyan-700 text-xs font-semibold uppercase tracking-wider mb-6">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
                             <ArrowDown className="w-3.5 h-3.5" />
                             Simple Process
                         </span>
@@ -321,24 +321,23 @@ export function HowItWorks() {
 
                     <motion.h2
                         variants={fadeInUp}
-                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 leading-tight mb-4"
+                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
                         Farm to Table in{" "}
-                        <span className="text-cyan-600">4 Steps</span>
+                        <span className="text-gradient-accent">4 Steps</span>
                     </motion.h2>
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-center text-neutral-500 text-base sm:text-lg max-w-xl mx-auto mb-16 lg:mb-20"
+                        className="text-center text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-16 lg:mb-20"
                     >
                         From listing to delivery, everything happens on one platform.
                     </motion.p>
                 </motion.div>
 
-                {/* ── Timeline ── */}
-                <div ref={timelineRef} className="relative">
+                <div ref={timelineRef} className="relative mt-8">
                     {/* Vertical connector line (desktop only) */}
-                    <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-neutral-200 rounded-full">
+                    <div className="hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[3px] bg-white/10 rounded-full">
                         {/* Animated fill */}
                         <motion.div
                             className="absolute top-0 left-0 right-0 rounded-full"
@@ -363,20 +362,19 @@ export function HowItWorks() {
                     </div>
                 </div>
 
-                {/* ── Completion Badge ── */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="flex justify-center mt-16"
+                    className="flex justify-center mt-20"
                 >
-                    <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-neutral-200 shadow-sm">
-                        <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
-                            <Zap className="w-4 h-4 text-emerald-600" />
+                    <div className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:border-white/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] transition-all duration-300">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-inner">
+                            <Zap className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-neutral-600 text-sm font-medium">
-                            All done in <span className="font-bold text-emerald-600">under 24 hours</span> — from farm to buyer
+                        <span className="text-white text-base font-medium">
+                            All done in <span className="font-bold text-emerald-400">under 24 hours</span> — from farm to buyer
                         </span>
                     </div>
                 </motion.div>

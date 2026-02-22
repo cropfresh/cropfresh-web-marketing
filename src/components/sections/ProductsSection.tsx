@@ -283,14 +283,14 @@ function ScreenTabs({
                     <button
                         key={i}
                         onClick={() => setActiveScreen(i)}
-                        className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 outline-none
+                        className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 outline-none border
                             ${active
-                                ? "text-white shadow-md"
-                                : "bg-neutral-100 text-neutral-500 hover:bg-neutral-200 hover:text-neutral-700"
+                                ? "text-white border-transparent"
+                                : "bg-white/5 text-white/50 border-white/10 hover:bg-white/10 hover:text-white"
                             }`}
                         style={{
                             background: active ? accentHex : undefined,
-                            boxShadow: active ? `0 4px 12px ${accentHex}30` : undefined,
+                            boxShadow: active ? `0 4px 15px ${accentHex}40` : undefined,
                         }}
                     >
                         <Icon className="w-3.5 h-3.5" />
@@ -327,9 +327,20 @@ export function ProductsSection() {
     };
 
     return (
-        <section id="products" className="relative py-24 md:py-32 bg-white">
+        <section id="products" className="relative py-24 md:py-32 bg-[#0A0D14] overflow-hidden">
+            {/* ─── Layer 1: Animated Mesh Background ─── */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+                    className="absolute top-[20%] left-[-10%] w-[50%] h-[50%] rounded-full mix-blend-screen opacity-10 filter blur-[100px]"
+                    style={{ background: `radial-gradient(circle, ${app.accentHex} 0%, transparent 70%)` }}
+                />
+            </div>
+            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] z-0" />
+
             {/* Top divider */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
             <Container className="relative z-10">
                 <motion.div
@@ -340,7 +351,7 @@ export function ProductsSection() {
                 >
                     {/* ── Header ── */}
                     <motion.div variants={fadeInUp} className="text-center mb-5">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-xs font-semibold uppercase tracking-wider mb-6">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-violet-400 text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md">
                             <Smartphone className="w-3.5 h-3.5" />
                             Our Apps
                         </span>
@@ -348,15 +359,20 @@ export function ProductsSection() {
 
                     <motion.h2
                         variants={fadeInUp}
-                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 leading-tight mb-4"
+                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
                         Three Apps,{" "}
-                        <span className="text-violet-600">One Ecosystem</span>
+                        <span
+                            className="text-transparent bg-clip-text"
+                            style={{ backgroundImage: `linear-gradient(135deg, ${app.accentHex} 0%, ${app.accentLight} 100%)` }}
+                        >
+                            One Ecosystem
+                        </span>
                     </motion.h2>
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-center text-neutral-500 text-base sm:text-lg max-w-xl mx-auto mb-14"
+                        className="text-center text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-14"
                     >
                         Purpose-built mobile apps for every stakeholder in the
                         farm-to-table journey.
@@ -377,15 +393,16 @@ export function ProductsSection() {
                                     onClick={() => handleAppChange(key)}
                                     className={`
                                         relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold
-                                        transition-all duration-250 outline-none
+                                        transition-all duration-300 outline-none border
                                         ${active
-                                            ? "text-white shadow-md"
-                                            : "bg-neutral-50 text-neutral-600 border border-neutral-200 hover:border-neutral-400 hover:text-neutral-900"
+                                            ? "text-white shadow-lg"
+                                            : "bg-white/5 backdrop-blur-sm text-white/60 border-white/10 hover:border-white/30 hover:text-white"
                                         }
                                     `}
                                     style={{
                                         background: active ? a.accentHex : undefined,
-                                        boxShadow: active ? `0 4px 14px ${a.accentHex}40` : undefined,
+                                        borderColor: active ? a.accentHex : undefined,
+                                        boxShadow: active ? `0 8px 20px -4px ${a.accentHex}60` : undefined,
                                     }}
                                 >
                                     <span className="flex items-center gap-2">
@@ -424,7 +441,7 @@ export function ProductsSection() {
                                             <app.icon className="w-5 h-5" style={{ color: app.accentHex }} />
                                         </div>
                                         <div>
-                                            <h3 className="font-display font-bold text-neutral-900 text-xl sm:text-2xl">
+                                            <h3 className="font-display font-bold text-white text-xl sm:text-2xl">
                                                 {app.name}
                                             </h3>
                                             <span
@@ -436,7 +453,7 @@ export function ProductsSection() {
                                         </div>
                                     </div>
 
-                                    <p className="text-neutral-500 text-sm sm:text-base mb-6">
+                                    <p className="text-white/70 text-sm sm:text-base mb-6">
                                         {app.tagline}
                                     </p>
 
@@ -445,15 +462,15 @@ export function ProductsSection() {
                                         {app.stats.map((stat, i) => (
                                             <div
                                                 key={i}
-                                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-50 border border-neutral-100"
+                                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md"
                                             >
                                                 <span
-                                                    className="text-lg font-display font-black leading-none"
+                                                    className="text-lg font-display font-black leading-none drop-shadow-md"
                                                     style={{ color: app.accentHex }}
                                                 >
                                                     {stat.value}
                                                 </span>
-                                                <span className="text-neutral-400 text-xs">
+                                                <span className="text-white/60 text-xs font-medium">
                                                     {stat.label}
                                                 </span>
                                             </div>
@@ -462,7 +479,7 @@ export function ProductsSection() {
 
                                     {/* Screen selector */}
                                     <div className="mb-6">
-                                        <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-3">
+                                        <p className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-3">
                                             Explore Screens
                                         </p>
                                         <ScreenTabs
@@ -480,11 +497,11 @@ export function ProductsSection() {
                                             return (
                                                 <div
                                                     key={i}
-                                                    className="flex items-center gap-2 text-sm text-neutral-600"
+                                                    className="flex items-center gap-2 text-sm text-white/80"
                                                 >
                                                     <span
                                                         className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
-                                                        style={{ background: `${app.accentHex}12` }}
+                                                        style={{ background: `${app.accentHex}30` }}
                                                     >
                                                         <Check className="w-3 h-3" style={{ color: app.accentHex }} />
                                                     </span>
@@ -497,10 +514,10 @@ export function ProductsSection() {
                                     {/* Download CTA */}
                                     <a
                                         href="#"
-                                        className="group inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                                        className="group inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300 hover:-translate-y-1 hover:brightness-110"
                                         style={{
-                                            background: app.accentHex,
-                                            boxShadow: `0 4px 14px ${app.accentHex}30`,
+                                            background: `linear-gradient(135deg, ${app.accentHex} 0%, ${app.accentLight} 200%)`,
+                                            boxShadow: `0 8px 25px ${app.accentHex}40`,
                                         }}
                                     >
                                         Download on Google Play

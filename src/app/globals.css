@@ -39,13 +39,11 @@
   --color-neutral-800: #1E293B;
   --color-neutral-900: #0F172A;
 
-  /* Base Background Tokens */
-  --color-background: #FFFFFF;
-  --color-background-alt: #FFE0B2;
-  /* Warm Sections */
-  --color-surface: #FFFFFF;
-  --color-surface-elevated: #FFF7ED;
-  /* Very light orange tint */
+  /* Base Background Tokens (Ethereal Dark Mode) */
+  --color-background: #0A0D14;
+  --color-background-alt: #131823;
+  --color-surface: #1E293B;
+  --color-surface-elevated: rgba(255, 255, 255, 0.05);
 
   /* ----------------------------------------
      30% - PRIMARY GREEN (Major Elements)
@@ -86,13 +84,13 @@
   /* ----------------------------------------
      TEXT COLORS
      ---------------------------------------- */
-  --color-text-primary: #0F172A;
-  /* Dark Slate */
-  --color-text-secondary: #475569;
-  /* Slate 600 */
-  --color-text-muted: #94A3B8;
+  --color-text-primary: #FFFFFF;
+  /* Deep White */
+  --color-text-secondary: #94A3B8;
   /* Slate 400 */
-  --color-text-inverse: #FFFFFF;
+  --color-text-muted: #64748B;
+  /* Slate 500 */
+  --color-text-inverse: #0F172A;
 
   /* ----------------------------------------
      TYPOGRAPHY
@@ -101,18 +99,18 @@
   --font-body: "Inter", system-ui, sans-serif;
 
   /* ----------------------------------------
-     GLASSMORPHISM TOKENS (Light Mode)
+     GLASSMORPHISM TOKENS (Dark Mode)
      ---------------------------------------- */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(15, 23, 42, 0.08);
-  /* Darkened for Light Mode visibility */
-  --glass-blur: 12px;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  /* Light borders for depth */
+  --glass-blur: 16px;
 
-  --glass-strong-bg: rgba(255, 255, 255, 0.9);
-  --glass-strong-border: rgba(255, 255, 255, 0.8);
+  --glass-strong-bg: rgba(0, 0, 0, 0.4);
+  --glass-strong-border: rgba(255, 255, 255, 0.15);
 
-  --glass-accent-bg: rgba(0, 230, 118, 0.1);
-  --glass-accent-border: rgba(0, 230, 118, 0.3);
+  --glass-accent-bg: rgba(0, 230, 118, 0.05);
+  --glass-accent-border: rgba(0, 230, 118, 0.2);
 
   /* ----------------------------------------
      ELEVATION SYSTEM
@@ -350,15 +348,15 @@ body {
 .glass-premium {
   position: relative;
   background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.4) 100%);
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.03) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-2xl);
   padding: 1px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  /* Subtle dark border for light mode */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Light border for dark mode */
 }
 
 .glass-premium::before {

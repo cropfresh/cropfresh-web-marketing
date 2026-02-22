@@ -197,10 +197,10 @@ export function ProblemsSolved() {
         <section
             ref={sectionRef}
             id="problems"
-            className="relative py-24 md:py-32 bg-[#fafaf8]"
+            className="relative py-24 md:py-32"
         >
             {/* Soft top divider */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-neutral-300 to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
             <Container className="relative z-10">
                 <motion.div
@@ -219,7 +219,7 @@ export function ProblemsSolved() {
 
                     <motion.h2
                         variants={fadeInUp}
-                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 leading-tight mb-4"
+                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
                         India&apos;s{" "}
                         <span className="relative inline-block">
@@ -230,13 +230,13 @@ export function ProblemsSolved() {
                         </span>{" "}
                         Agri Supply Chain
                         <br className="hidden md:block" />
-                        <span className="text-neutral-400"> is </span>
-                        <span className="text-red-600">Broken</span>
+                        <span className="text-white/60"> is </span>
+                        <span className="text-red-500">Broken</span>
                     </motion.h2>
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-center text-neutral-500 text-base sm:text-lg max-w-xl mx-auto mb-14"
+                        className="text-center text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-14"
                     >
                         Every stakeholder suffers. Here&apos;s what each faces daily.
                     </motion.p>
@@ -255,15 +255,15 @@ export function ProblemsSolved() {
                                     onClick={() => handleTabChange(type)}
                                     className={`
                                         relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold
-                                        transition-all duration-250 outline-none
+                                        transition-all duration-300 outline-none
                                         ${active
-                                            ? "text-white shadow-md"
-                                            : "bg-white text-neutral-600 border border-neutral-200 hover:border-neutral-400 hover:text-neutral-900"
+                                            ? "text-white shadow-lg shadow-black/20"
+                                            : "glass-accent text-white/70 border border-white/10 hover:border-white/30 hover:text-white"
                                         }
                                     `}
                                     style={{
                                         background: active ? d.accentHex : undefined,
-                                        boxShadow: active ? `0 4px 14px ${d.accentHex}40` : undefined,
+                                        boxShadow: active ? `0 8px 20px -4px ${d.accentHex}60` : undefined,
                                     }}
                                 >
                                     <span className="flex items-center gap-2">
@@ -299,7 +299,7 @@ export function ProblemsSolved() {
                                 >
                                     {activeData.impactStat}
                                 </span>
-                                <span className="text-neutral-500 text-sm sm:text-base font-medium">
+                                <span className="text-white/70 text-sm sm:text-base font-medium">
                                     {activeData.impactLabel}
                                 </span>
                             </div>
@@ -328,14 +328,23 @@ export function ProblemsSolved() {
                                         <motion.div
                                             key={problem.title}
                                             variants={cardAnim}
-                                            className="group"
+                                            className="group relative cursor-default"
                                         >
                                             <div
-                                                className="relative h-full bg-white rounded-2xl border border-neutral-200 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-neutral-300"
+                                                className="relative h-full glass-card z-10"
+                                                style={{
+                                                    borderColor: "rgba(255,255,255,0.1)"
+                                                }}
                                             >
+                                                {/* Hover Highlight Border */}
+                                                <div
+                                                    className="absolute inset-0 border-2 rounded-2xl opacity-0 scale-95 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 pointer-events-none z-20"
+                                                    style={{ borderColor: activeData.accentHex }}
+                                                />
+
                                                 {/* Left accent */}
                                                 <div
-                                                    className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full"
+                                                    className="absolute left-0 top-0 bottom-0 w-1.5 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                                                     style={{ background: activeData.accentHex }}
                                                 />
 
@@ -347,7 +356,7 @@ export function ProblemsSolved() {
                                                     >
                                                         {problem.stat}
                                                     </span>
-                                                    <span className="block text-[11px] text-neutral-400 font-semibold mt-1 uppercase tracking-widest">
+                                                    <span className="block text-[11px] text-white/50 font-semibold mt-1 uppercase tracking-widest">
                                                         {problem.statLabel}
                                                     </span>
                                                 </div>
@@ -355,23 +364,24 @@ export function ProblemsSolved() {
                                                 {/* Icon + Title */}
                                                 <div className="flex items-center gap-3 mb-3 pl-2">
                                                     <div
-                                                        className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
+                                                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm"
                                                         style={{
-                                                            background: `${activeData.accentHex}12`,
+                                                            background: `${activeData.accentHex}15`,
+                                                            border: `1px solid ${activeData.accentHex}30`
                                                         }}
                                                     >
                                                         <Icon
-                                                            className="w-[18px] h-[18px]"
+                                                            className="w-5 h-5 drop-shadow-sm"
                                                             style={{ color: activeData.accentHex }}
                                                         />
                                                     </div>
-                                                    <h4 className="font-semibold text-neutral-800 text-[15px] leading-snug">
+                                                    <h4 className="font-semibold text-white text-[15px] leading-snug">
                                                         {problem.title}
                                                     </h4>
                                                 </div>
 
                                                 {/* Description */}
-                                                <p className="text-neutral-500 text-sm leading-relaxed pl-2">
+                                                <p className="text-white/70 text-sm leading-relaxed pl-2">
                                                     {problem.description}
                                                 </p>
                                             </div>
@@ -389,15 +399,18 @@ export function ProblemsSolved() {
                     >
                         <a
                             href="#solutions"
-                            className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full font-semibold text-sm border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-[15px] border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl relative overflow-hidden"
                             style={{
-                                color: activeData.accentHex,
-                                borderColor: `${activeData.accentHex}35`,
-                                background: `${activeData.accentHex}06`,
+                                color: "white",
+                                background: activeData.accentHex,
+                                borderColor: "transparent",
+                                boxShadow: `0 10px 25px -5px ${activeData.accentHex}60`
                             }}
                         >
-                            See How CropFresh Fixes This
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <span className="relative z-10 flex items-center gap-2">
+                                See How CropFresh Fixes This
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </span>
                         </a>
                     </motion.div>
                 </motion.div>

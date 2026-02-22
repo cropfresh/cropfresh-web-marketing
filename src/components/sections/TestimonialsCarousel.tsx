@@ -33,9 +33,9 @@ interface TypeConfig {
 
 /* ─── Config ─── */
 const typeConfig: Record<string, TypeConfig> = {
-    farmer: { label: "Farmer", icon: Leaf, accentHex: "#16a34a", accentLight: "#f0fdf4" },
-    buyer: { label: "Buyer", icon: ShoppingCart, accentHex: "#ea580c", accentLight: "#fff7ed" },
-    hauler: { label: "Hauler", icon: Truck, accentHex: "#7c3aed", accentLight: "#f5f3ff" },
+    farmer: { label: "Farmer", icon: Leaf, accentHex: "#16a34a", accentLight: "rgba(22, 163, 74, 0.1)" },
+    buyer: { label: "Buyer", icon: ShoppingCart, accentHex: "#ea580c", accentLight: "rgba(234, 88, 12, 0.1)" },
+    hauler: { label: "Hauler", icon: Truck, accentHex: "#7c3aed", accentLight: "rgba(124, 58, 237, 0.1)" },
 };
 
 /* ─── Data ─── */
@@ -111,12 +111,12 @@ export function TestimonialsCarousel() {
     return (
         <section
             id="testimonials"
-            className="relative py-24 md:py-32 bg-white overflow-hidden"
+            className="relative py-24 md:py-32 overflow-hidden"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
         >
             {/* Top divider */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
             <Container className="relative z-10">
                 <motion.div
@@ -127,31 +127,34 @@ export function TestimonialsCarousel() {
                 >
                     {/* ── Header ── */}
                     <motion.div variants={fadeInUp} className="text-center mb-5">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold uppercase tracking-wider mb-6">
-                            <Star className="w-3.5 h-3.5 fill-amber-500" />
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
+                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                             Real Stories
                         </span>
                     </motion.div>
 
                     <motion.h2
                         variants={fadeInUp}
-                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 leading-tight mb-4"
+                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
                         What Our{" "}
-                        <span className="text-amber-600">Users Say</span>
+                        <span className="text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">Users Say</span>
                     </motion.h2>
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-center text-neutral-500 text-base sm:text-lg max-w-xl mx-auto mb-14"
+                        className="text-center text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-14"
                     >
                         Hear from the farmers, buyers, and haulers already benefiting from CropFresh.
                     </motion.p>
 
                     {/* ── Carousel Card ── */}
                     <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-                        <div className="relative rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
-                            <div className="relative py-10 px-6 md:px-12">
+                        <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.2)] overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgb(0,0,0,0.3)] hover:border-white/20 group">
+                            {/* Decorative blur */}
+                            <div className="absolute -top-32 -left-32 w-64 h-64 bg-amber-500/20 blur-[100px] rounded-full pointer-events-none group-hover:bg-amber-500/30 transition-all duration-700" />
+
+                            <div className="relative py-10 px-6 md:px-12 z-10">
                                 <AnimatePresence mode="wait" custom={direction}>
                                     <motion.div
                                         key={t.id}
@@ -192,10 +195,10 @@ export function TestimonialsCarousel() {
                                             {/* Quote */}
                                             <blockquote className="relative mb-6">
                                                 <Quote
-                                                    className="absolute -top-3 -left-2 w-8 h-8 opacity-10"
+                                                    className="absolute -top-3 -left-2 w-8 h-8 opacity-20"
                                                     style={{ color: config.accentHex }}
                                                 />
-                                                <p className="text-xl md:text-2xl text-neutral-800 font-display leading-relaxed">
+                                                <p className="text-xl md:text-2xl text-white font-display leading-relaxed">
                                                     &ldquo;{t.quote}&rdquo;
                                                 </p>
                                             </blockquote>
@@ -210,10 +213,10 @@ export function TestimonialsCarousel() {
                                             {/* Author + Stat */}
                                             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                                                 <div>
-                                                    <p className="font-display font-bold text-lg text-neutral-900">
+                                                    <p className="font-display font-bold text-lg text-white">
                                                         {t.name}
                                                     </p>
-                                                    <p className="flex items-center gap-1 text-neutral-400 text-sm justify-center md:justify-start">
+                                                    <p className="flex items-center gap-1 text-white/50 text-sm justify-center md:justify-start">
                                                         <MapPin className="w-3 h-3" />
                                                         {t.role} · {t.location}
                                                     </p>
@@ -230,7 +233,7 @@ export function TestimonialsCarousel() {
                                                     >
                                                         {t.stat}
                                                     </span>
-                                                    <span className="text-neutral-500 text-sm">{t.statLabel}</span>
+                                                    <span className="text-white/70 text-sm">{t.statLabel}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -240,14 +243,14 @@ export function TestimonialsCarousel() {
                                 {/* Nav Arrows */}
                                 <button
                                     onClick={() => { prev(); setIsAuto(false); }}
-                                    className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 hover:text-neutral-800 transition-colors"
+                                    className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md border border-white/10 shadow-sm flex items-center justify-center text-white/70 hover:bg-white/10 hover:text-white transition-colors z-20"
                                     aria-label="Previous testimonial"
                                 >
                                     <ChevronLeft className="w-5 h-5" />
                                 </button>
                                 <button
                                     onClick={() => { next(); setIsAuto(false); }}
-                                    className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-neutral-50 border border-neutral-200 flex items-center justify-center text-neutral-500 hover:bg-neutral-100 hover:text-neutral-800 transition-colors"
+                                    className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/20 backdrop-blur-md border border-white/10 shadow-sm flex items-center justify-center text-white/70 hover:bg-white/10 hover:text-white transition-colors z-20"
                                     aria-label="Next testimonial"
                                 >
                                     <ChevronRight className="w-5 h-5" />
@@ -255,7 +258,7 @@ export function TestimonialsCarousel() {
                             </div>
 
                             {/* Bottom progress bar */}
-                            <div className="border-t border-neutral-100 px-6 py-3 flex items-center justify-center gap-3">
+                            <div className="border-t border-white/10 bg-black/20 backdrop-blur-md px-6 py-4 flex items-center justify-center gap-3 relative z-10">
                                 {testimonials.map((item, i) => {
                                     const c = typeConfig[item.userType];
                                     const active = i === current;
@@ -266,7 +269,7 @@ export function TestimonialsCarousel() {
                                             className="relative h-1.5 rounded-full overflow-hidden transition-all duration-400"
                                             style={{
                                                 width: active ? 56 : 16,
-                                                background: active ? c.accentHex : "#e5e5e5",
+                                                background: active ? c.accentHex : "rgba(0,0,0,0.1)",
                                             }}
                                             aria-label={`Go to ${item.name}'s testimonial`}
                                         >

@@ -23,8 +23,8 @@ const stats: Stat[] = [
     label: "Farmers Onboarded",
     description: "Across Karnataka & surrounding states",
     icon: "👨‍🌾",
-    color: "var(--color-primary-500)",
-    glowColor: "rgba(0, 230, 118, 0.3)",
+    color: "#ffffff",
+    glowColor: "rgba(255, 255, 255, 0.3)",
   },
   {
     value: 100,
@@ -32,8 +32,8 @@ const stats: Stat[] = [
     label: "Active Buyers",
     description: "Hotels, restaurants & retailers",
     icon: "🏪",
-    color: "var(--color-accent-500)",
-    glowColor: "rgba(247, 147, 30, 0.3)",
+    color: "#ffffff",
+    glowColor: "rgba(255, 255, 255, 0.3)",
   },
   {
     value: 2000,
@@ -41,8 +41,8 @@ const stats: Stat[] = [
     label: "Deliveries Completed",
     description: "With 99.2% on-time rate",
     icon: "🚚",
-    color: "var(--color-teal)",
-    glowColor: "rgba(0, 217, 255, 0.3)",
+    color: "#ffffff",
+    glowColor: "rgba(255, 255, 255, 0.3)",
   },
   {
     value: 25,
@@ -51,8 +51,8 @@ const stats: Stat[] = [
     label: "Farmer Earnings",
     description: "Paid instantly via UPI",
     icon: "💰",
-    color: "var(--color-success)",
-    glowColor: "rgba(16, 185, 129, 0.3)",
+    color: "#ffffff",
+    glowColor: "rgba(255, 255, 255, 0.3)",
   },
 ];
 
@@ -125,15 +125,12 @@ export function ImpactStats() {
     <section
       id="impact"
       ref={ref}
-      className="section section-gradient relative overflow-hidden"
+      className="relative py-24 md:py-32 m-4 md:m-8 rounded-[3rem] overflow-hidden shadow-2xl bg-[var(--color-background-alt)] border border-[var(--glass-border)]"
     >
-      {/* Decorative Orbs */}
-      <div className="glow-orb glow-orb-primary w-[500px] h-[500px] top-0 left-1/4 opacity-10" />
-      <div className="glow-orb glow-orb-accent w-[400px] h-[400px] bottom-0 right-1/4 opacity-10" />
-      <div className="glow-orb glow-orb-teal w-[300px] h-[300px] top-1/2 -right-32 opacity-10" />
-
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 grid-pattern opacity-20" />
+      {/* Decorative Overlays - Dark Glassmorphism Glows */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--color-primary-500)]/10 rounded-full blur-[120px] pointer-events-none transform translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[var(--color-accent-500)]/10 rounded-full blur-[120px] pointer-events-none transform -translate-x-1/3 translate-y-1/3" />
+      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
 
       <Container className="relative z-10">
         <motion.div
@@ -143,23 +140,23 @@ export function ImpactStats() {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Section Header */}
-          <motion.div variants={fadeInUp} className="section-header">
-            <span className="section-eyebrow">
-              <span className="w-2 h-2 bg-[var(--color-success)] rounded-full animate-pulse" />
+          <motion.div variants={fadeInUp} className="text-center mb-16">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-[var(--color-primary-500)]/30 text-[var(--color-primary-500)] text-xs font-bold uppercase tracking-wider mb-6 shadow-[var(--glow-primary)]">
+              <span className="w-2 h-2 bg-[var(--color-primary-500)] rounded-full animate-pulse" />
               Our Impact
             </span>
-            <h2 className="heading-section mb-4">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[var(--color-text-primary)] leading-tight mb-4 drop-shadow-md">
               Real Numbers,{" "}
-              <span className="text-gradient-accent text-glow-accent">Real Impact</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-400)] to-[var(--color-accent-400)]">Real Impact</span>
             </h2>
-            <p className="text-[var(--color-text-secondary)] text-large">
+            <p className="text-[var(--color-text-secondary)] text-lg md:text-xl max-w-2xl mx-auto drop-shadow-sm">
               Every number represents a farmer earning more, a buyer getting quality produce,
               or a hauler finding work.
             </p>
           </motion.div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mt-12">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -170,8 +167,8 @@ export function ImpactStats() {
                 viewport={{ once: true, margin: "-50px" }}
                 className="group"
               >
-                <div className="glass-premium h-full">
-                  <div className="glass-premium-inner text-center h-full flex flex-col py-8 px-6">
+                <div className="glass-card rounded-3xl h-full shadow-[var(--glow-primary)] group-hover:bg-[var(--color-primary-500)]/5 group-hover:border-[var(--color-primary-500)]/30 group-hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+                  <div className="text-center h-full flex flex-col py-8 px-6 relative z-10">
                     {/* Animated Glow Background */}
                     <div
                       className="absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -182,18 +179,13 @@ export function ImpactStats() {
 
                     {/* Icon with Pulse Effect */}
                     <motion.div
-                      className="w-18 h-18 mx-auto rounded-2xl flex items-center justify-center text-4xl mb-5 relative"
-                      style={{
-                        background: `linear-gradient(135deg, ${stat.glowColor}, transparent)`,
-                        border: `1px solid ${stat.color}30`,
-                      }}
+                      className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-4xl mb-5 relative glass border-[var(--color-accent-500)]/30 backdrop-blur-md shadow-inner"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       {/* Pulse Ring */}
                       <motion.div
-                        className="absolute inset-0 rounded-2xl"
-                        style={{ border: `2px solid ${stat.color}` }}
+                        className="absolute inset-0 rounded-2xl border-2 border-[var(--color-primary-500)]/30"
                         animate={{
                           scale: [1, 1.2, 1],
                           opacity: [0.5, 0, 0.5],
@@ -209,22 +201,18 @@ export function ImpactStats() {
 
                     {/* Animated Number */}
                     <motion.p
-                      className="text-4xl md:text-5xl font-display font-bold mb-2 relative z-10"
-                      style={{
-                        color: stat.color,
-                        textShadow: `0 0 40px ${stat.glowColor}`,
-                      }}
+                      className="text-4xl md:text-5xl font-display font-bold mb-2 relative z-10 text-[var(--color-text-primary)] drop-shadow-md"
                     >
                       <AnimatedCounter stat={stat} isInView={isInView} />
                     </motion.p>
 
                     {/* Label */}
-                    <h4 className="font-display font-semibold text-[var(--color-text-primary)] text-lg mb-2">
+                    <h4 className="font-display font-bold text-[var(--color-primary-400)] text-lg mb-2">
                       {stat.label}
                     </h4>
 
                     {/* Description */}
-                    <p className="text-[var(--color-text-muted)] text-sm mt-auto">
+                    <p className="text-[var(--color-text-secondary)] text-sm mt-auto font-medium leading-relaxed">
                       {stat.description}
                     </p>
                   </div>
@@ -238,23 +226,23 @@ export function ImpactStats() {
             variants={fadeInUp}
             className="text-center mt-16"
           >
-            <p className="text-[var(--color-text-secondary)] mb-4 text-lg">
+            <p className="text-[var(--color-text-secondary)] font-medium mb-6 text-lg drop-shadow-sm">
               Join the movement that&apos;s transforming Indian agriculture
             </p>
             <motion.div
-              className="inline-flex items-center gap-3 px-6 py-3 glass-accent rounded-full"
+              className="inline-flex items-center gap-3 px-8 py-4 glass hover:bg-[var(--color-primary-500)]/10 border-[var(--color-primary-500)]/30 shadow-[var(--glow-primary)] rounded-full transition-colors cursor-default"
               animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <motion.span
-                className="w-3 h-3 bg-[var(--color-success)] rounded-full"
+                className="w-3 h-3 bg-[var(--color-primary-500)] rounded-full shadow-[0_0_10px_var(--color-primary-500)]"
                 animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [1, 0.6, 1],
+                  scale: [1, 1.4, 1],
+                  opacity: [1, 0.5, 1],
                 }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
-              <span className="text-[var(--color-primary-400)] font-display font-semibold">
+              <span className="text-[var(--color-text-primary)] font-display font-bold tracking-wide">
                 Growing every day
               </span>
             </motion.div>

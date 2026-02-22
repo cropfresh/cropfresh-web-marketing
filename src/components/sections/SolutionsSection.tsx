@@ -147,24 +147,26 @@ function SolutionVisual({
     const MainIcon = visual.mainIcon;
     return (
         <div
-            className={`relative w-full aspect-[4/3] sm:aspect-square rounded-3xl overflow-hidden flex items-center justify-center ${reversed ? "lg:order-2" : ""}`}
-            style={{ background: accentLight }}
+            className={`relative w-full aspect-[4/3] sm:aspect-square rounded-3xl overflow-hidden flex items-center justify-center border border-white/10 ${reversed ? "lg:order-2" : ""}`}
+            style={{ background: "rgba(255, 255, 255, 0.02)", backdropFilter: "blur(20px)" }}
         >
             {/* Decorative circles */}
             <div
-                className="absolute w-64 h-64 rounded-full opacity-[0.07]"
+                className="absolute w-64 h-64 rounded-full opacity-[0.15]"
                 style={{
                     background: accentHex,
                     top: "-10%",
                     right: "-10%",
+                    filter: "blur(60px)"
                 }}
             />
             <div
-                className="absolute w-40 h-40 rounded-full opacity-[0.05]"
+                className="absolute w-40 h-40 rounded-full opacity-[0.1]"
                 style={{
                     background: accentHex,
                     bottom: "5%",
                     left: "5%",
+                    filter: "blur(40px)"
                 }}
             />
 
@@ -179,10 +181,10 @@ function SolutionVisual({
                 return (
                     <motion.div
                         key={i}
-                        className="absolute w-10 h-10 rounded-xl flex items-center justify-center"
+                        className="absolute w-10 h-10 rounded-xl flex items-center justify-center border border-white/10 backdrop-blur-md"
                         style={{
-                            background: "white",
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                            background: "rgba(255,255,255,0.05)",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
                             ...pos,
                         }}
                         animate={{ y: [0, -6, 0] }}
@@ -201,10 +203,10 @@ function SolutionVisual({
             {/* Center main icon */}
             <div className="relative z-10 flex flex-col items-center gap-4">
                 <div
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center shadow-lg"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center shadow-lg border border-white/20 backdrop-blur-xl"
                     style={{
-                        background: "white",
-                        boxShadow: `0 8px 32px ${accentHex}20`,
+                        background: "rgba(255,255,255,0.1)",
+                        boxShadow: `0 8px 32px ${accentHex}30`,
                     }}
                 >
                     <MainIcon
@@ -216,10 +218,10 @@ function SolutionVisual({
 
                 {/* Stat badge */}
                 <div
-                    className="flex items-center gap-2 px-4 py-2 rounded-full shadow-sm"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md"
                     style={{
-                        background: "white",
-                        boxShadow: `0 2px 12px ${accentHex}15`,
+                        background: "rgba(255,255,255,0.05)",
+                        boxShadow: `0 4px 16px ${accentHex}20`,
                     }}
                 >
                     <span
@@ -228,7 +230,7 @@ function SolutionVisual({
                     >
                         {visual.stat}
                     </span>
-                    <span className="text-neutral-500 text-xs sm:text-sm font-medium">
+                    <span className="text-white/80 text-xs sm:text-sm font-medium">
                         {visual.statLabel}
                     </span>
                 </div>
@@ -283,10 +285,21 @@ export function SolutionsSection() {
         <section
             ref={sectionRef}
             id="solutions"
-            className="relative py-24 md:py-32 bg-white"
+            className="relative py-24 md:py-32 bg-[#0A0D14] overflow-hidden"
         >
+            {/* ─── Layer 1: Animated Mesh Background ─── */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
+                    className="absolute top-[10%] right-[-10%] w-[50%] h-[50%] rounded-full mix-blend-screen opacity-10 filter blur-[100px]"
+                    style={{ background: `radial-gradient(circle, ${activeData.accentHex} 0%, transparent 70%)` }}
+                />
+            </div>
+            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] z-0" />
+
             {/* Top divider */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
             <Container className="relative z-10">
                 <motion.div
@@ -297,7 +310,7 @@ export function SolutionsSection() {
                 >
                     {/* ── Header ── */}
                     <motion.div variants={fadeInUp} className="text-center mb-5">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider mb-6">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md">
                             <Sparkles className="w-3.5 h-3.5" />
                             The Solution
                         </span>
@@ -305,15 +318,20 @@ export function SolutionsSection() {
 
                     <motion.h2
                         variants={fadeInUp}
-                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-neutral-900 leading-tight mb-4"
+                        className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
                         How CropFresh{" "}
-                        <span className="text-emerald-600">Solves It</span>
+                        <span
+                            className="text-transparent bg-clip-text"
+                            style={{ backgroundImage: `linear-gradient(135deg, ${activeData.accentHex} 0%, ${activeData.accentLight} 100%)` }}
+                        >
+                            Solves It
+                        </span>
                     </motion.h2>
 
                     <motion.p
                         variants={fadeInUp}
-                        className="text-center text-neutral-500 text-base sm:text-lg max-w-2xl mx-auto mb-14"
+                        className="text-center text-white/70 text-base sm:text-lg max-w-2xl mx-auto mb-14"
                     >
                         One platform connecting farmers, buyers, and haulers with
                         transparency, instant payments, and verified quality.
@@ -333,15 +351,16 @@ export function SolutionsSection() {
                                     onClick={() => handleTabChange(type)}
                                     className={`
                                         relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold
-                                        transition-all duration-250 outline-none
+                                        transition-all duration-300 outline-none border
                                         ${active
-                                            ? "text-white shadow-md"
-                                            : "bg-neutral-50 text-neutral-600 border border-neutral-200 hover:border-neutral-400 hover:text-neutral-900"
+                                            ? "text-white shadow-lg"
+                                            : "bg-white/5 backdrop-blur-sm text-white/60 border-white/10 hover:border-white/30 hover:text-white"
                                         }
                                     `}
                                     style={{
                                         background: active ? d.accentHex : undefined,
-                                        boxShadow: active ? `0 4px 14px ${d.accentHex}40` : undefined,
+                                        borderColor: active ? d.accentHex : undefined,
+                                        boxShadow: active ? `0 8px 20px -4px ${d.accentHex}60` : undefined,
                                     }}
                                 >
                                     <span className="flex items-center gap-2">
@@ -391,21 +410,21 @@ export function SolutionsSection() {
                                                 {/* Icon + Title */}
                                                 <div className="flex items-center gap-3 mb-4">
                                                     <div
-                                                        className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                                                        style={{ background: `${activeData.accentHex}12` }}
+                                                        className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border border-white/10"
+                                                        style={{ background: `${activeData.accentHex}20` }}
                                                     >
                                                         <Icon
-                                                            className="w-5 h-5"
+                                                            className="w-5 h-5 drop-shadow-sm"
                                                             style={{ color: activeData.accentHex }}
                                                         />
                                                     </div>
-                                                    <h3 className="font-display font-bold text-neutral-900 text-xl sm:text-2xl leading-snug">
+                                                    <h3 className="font-display font-bold text-white text-xl sm:text-2xl leading-snug">
                                                         {solution.title}
                                                     </h3>
                                                 </div>
 
                                                 {/* Description */}
-                                                <p className="text-neutral-500 text-base leading-relaxed mb-6">
+                                                <p className="text-white/70 text-base leading-relaxed mb-6">
                                                     {solution.description}
                                                 </p>
 
@@ -414,11 +433,11 @@ export function SolutionsSection() {
                                                     {solution.features.map((feature) => (
                                                         <li
                                                             key={feature}
-                                                            className="flex items-center gap-3 text-sm text-neutral-700"
+                                                            className="flex items-center gap-3 text-sm text-white/80"
                                                         >
                                                             <span
                                                                 className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
-                                                                style={{ background: `${activeData.accentHex}15` }}
+                                                                style={{ background: `${activeData.accentHex}30` }}
                                                             >
                                                                 <Check
                                                                     className="w-3 h-3"
@@ -433,7 +452,7 @@ export function SolutionsSection() {
                                                 {/* Learn more link */}
                                                 <a
                                                     href="#how-it-works"
-                                                    className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:underline"
+                                                    className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
                                                     style={{ color: activeData.accentHex }}
                                                 >
                                                     Learn more
