@@ -21,12 +21,15 @@ export function FarmerDownload() {
     };
 
     return (
-        <section id="download" className="py-20 md:py-28 bg-slate-800/30 relative overflow-hidden">
+        <section id="download" className="py-20 md:py-28 relative overflow-hidden bg-[#070A0F] border-t border-white/5">
             {/* Background decoration */}
-            <div className="absolute inset-0 grid-pattern opacity-10" />
-            <div className="glow-orb glow-orb-primary w-[400px] h-[400px] -bottom-48 -right-48 animate-float-slow" />
+            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.04] pointer-events-none" />
 
-            <Container>
+            {/* Green Glow Orbs */}
+            <div className="absolute -bottom-48 -right-48 w-[500px] h-[500px] bg-gradient-radial from-[var(--color-teal)]/10 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute top-20 -left-32 w-[400px] h-[400px] bg-gradient-radial from-[var(--color-primary-500)]/8 to-transparent blur-3xl pointer-events-none" />
+
+            <Container className="relative z-10">
                 <motion.div
                     variants={staggerContainer}
                     initial="hidden"
@@ -41,7 +44,7 @@ export function FarmerDownload() {
                         </span>
                         <h2 className="heading-section text-[var(--color-text-primary)] mb-4">
                             Download{" "}
-                            <span className="text-gradient">CropFresh Farmer</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary-400)] to-[var(--color-teal)]">CropFresh Farmer</span>
                         </h2>
                         <p className="text-[var(--color-text-secondary)] text-lg mb-2">
                             Start selling your produce today
@@ -122,53 +125,53 @@ export function FarmerDownload() {
                         className="relative flex justify-center lg:justify-end"
                     >
                         <div className="relative w-64 md:w-72">
-                            {/* Phone frame */}
-                            <div className="relative bg-gradient-to-br from-slate-700 to-slate-900 rounded-[3rem] p-2 shadow-2xl shadow-primary/10">
-                                {/* Screen */}
-                                <div className="bg-slate-800 rounded-[2.5rem] overflow-hidden aspect-[9/19.5]">
-                                    {/* Phone content placeholder */}
-                                    <div className="h-full bg-gradient-to-br from-slate-800 to-slate-900 flex flex-col items-center justify-center p-6">
+                            {/* Outer Phone frame - Deep dark glossy */}
+                            <div className="relative bg-gradient-to-br from-[#1E293B] via-[#0F172A] to-[#020617] rounded-[3rem] p-2 shadow-[0_20px_60px_rgba(20,184,166,0.15)] outline outline-1 outline-white/10">
+                                {/* Screen - Ethereal Dark */}
+                                <div className="bg-[#020617] rounded-[2.5rem] overflow-hidden aspect-[9/19.5] relative">
+                                    {/* App content mockup */}
+                                    <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] to-[var(--color-background)] flex flex-col items-center justify-center p-6">
                                         {/* Status bar */}
                                         <div className="absolute top-0 left-0 right-0 h-8 flex items-center justify-center">
                                             <div className="w-24 h-5 bg-black rounded-full" />
                                         </div>
 
-                                        {/* App content mockup */}
-                                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-primary-700)] flex items-center justify-center mb-4 shadow-lg">
+                                        {/* App Logo */}
+                                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[var(--color-teal)] to-[#0f766e] flex items-center justify-center mb-4 shadow-lg shadow-[var(--color-teal)]/20 border border-[var(--color-teal)]/30">
                                             <span className="text-3xl">🌾</span>
                                         </div>
-                                        <p className="text-white font-display font-bold text-lg mb-1">
+                                        <p className="text-white font-display font-bold text-xl mb-1 tracking-tight">
                                             CropFresh
                                         </p>
-                                        <p className="text-white/60 text-sm mb-6">Farmer App</p>
+                                        <p className="text-[var(--color-teal)] text-sm mb-8 font-medium">Farmer App</p>
 
                                         {/* Feature icons */}
-                                        <div className="grid grid-cols-3 gap-4">
-                                            <div className="flex flex-col items-center">
-                                                <div className="w-10 h-10 rounded-full bg-glass flex items-center justify-center mb-1">
-                                                    <span className="text-lg">🎤</span>
+                                        <div className="grid grid-cols-3 gap-6">
+                                            <div className="flex flex-col items-center group">
+                                                <div className="w-12 h-12 rounded-full glass-premium flex items-center justify-center mb-2 border border-white/5 shadow-inner">
+                                                    <span className="text-xl">🎤</span>
                                                 </div>
-                                                <span className="text-[10px] text-white/50">Voice</span>
+                                                <span className="text-[11px] text-white/50 font-medium tracking-wide">Voice</span>
                                             </div>
-                                            <div className="flex flex-col items-center">
-                                                <div className="w-10 h-10 rounded-full bg-glass flex items-center justify-center mb-1">
-                                                    <span className="text-lg">💰</span>
+                                            <div className="flex flex-col items-center group">
+                                                <div className="w-12 h-12 rounded-full glass-premium flex items-center justify-center mb-2 border border-white/5 shadow-inner">
+                                                    <span className="text-xl">💰</span>
                                                 </div>
-                                                <span className="text-[10px] text-white/50">Pay</span>
+                                                <span className="text-[11px] text-white/50 font-medium tracking-wide">Pay</span>
                                             </div>
-                                            <div className="flex flex-col items-center">
-                                                <div className="w-10 h-10 rounded-full bg-glass flex items-center justify-center mb-1">
-                                                    <span className="text-lg">📊</span>
+                                            <div className="flex flex-col items-center group">
+                                                <div className="w-12 h-12 rounded-full glass-premium flex items-center justify-center mb-2 border border-white/5 shadow-inner">
+                                                    <span className="text-xl">📊</span>
                                                 </div>
-                                                <span className="text-[10px] text-white/50">Track</span>
+                                                <span className="text-[11px] text-white/50 font-medium tracking-wide">Track</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Decorative glow */}
-                            <div className="absolute -inset-4 bg-gradient-to-br from-[var(--color-primary-500)]/20 to-transparent blur-2xl -z-10" />
+                            {/* Decorative aura glow behind phone */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-radial from-[var(--color-teal)]/20 via-[var(--color-accent-500)]/10 to-transparent blur-3xl -z-10 rounded-full mix-blend-screen" />
                         </div>
                     </motion.div>
                 </motion.div>

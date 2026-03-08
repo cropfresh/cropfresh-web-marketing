@@ -8,7 +8,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button, Container } from "@/components/ui";
 import { trackCTAClick, trackLanguageChange } from "@/lib/analytics";
 import { locales, localeNames, type Locale } from "@/i18n";
-import { Globe, ChevronDown, Check, Languages } from "lucide-react";
+import { Check, ChevronDown, Languages, LogOut, User } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navLinks = [
     { name: "Home", href: "/" },
@@ -17,6 +18,7 @@ const navLinks = [
     { name: "Haulers", href: "/haulers" },
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -26,6 +28,7 @@ export function Navbar() {
     const [currentLocale, setCurrentLocale] = useState<Locale>("en");
     const languageRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
+    const { role, isAuthenticated, logout } = useAuth();
 
     // Dynamic text colors based on scroll state
     const linkColor = isScrolled
@@ -68,7 +71,7 @@ export function Navbar() {
     const handleLanguageChange = (locale: Locale) => {
         setCurrentLocale(locale);
         localStorage.setItem("cropfresh-locale", locale);
-        document.documentElement.lang = locale;
+        document.documentElement.setAttribute("lang", locale);
         setIsLanguageOpen(false);
 
         // Track analytics
@@ -90,10 +93,10 @@ export function Navbar() {
                     }`}
             >
                 <Container>
-                    <nav className="flex items-center justify-between h-24">
-                        {/* Logo */}
-                        <Link href="/" className="flex items-center group">
-                            <div className="relative h-11 w-[180px] sm:w-[210px] transition-transform group-hover:scale-[1.03]">
+                    <nav className="flex items-center h-24 gap-4">
+                        {/* ── LEFT: Logo (hard-left, no flex grow) ── */}
+                        <Link href="/" className="flex items-center group shrink-0">
+                            <div className="relative h-11 w-[190px] transition-transform group-hover:scale-[1.03]">
                                 <Image
                                     src="/logo/logo_horizontal_web.png"
                                     alt="CropFresh"
@@ -104,48 +107,49 @@ export function Navbar() {
                             </div>
                         </Link>
 
-                        {/* Desktop Navigation */}
-                        <div className="hidden lg:flex items-center gap-8">
+                        {/* ── CENTER: Nav Links (flex-1, truly centered) ── */}
+                        <div className="hidden lg:flex flex-1 items-center justify-center gap-5">
                             {navLinks.map((link) => {
                                 const isActive = pathname === link.href;
                                 return (
                                     <Link
                                         key={link.name}
                                         href={link.href}
-                                        className={`${linkColor} transition-colors font-medium text-sm relative group ${isActive ? "!text-[var(--color-accent-500)]" : ""
-                                            }`}
+                                        className={`${linkColor} transition-colors font-medium text-sm relative group ${isActive ? "!text-[var(--color-accent-500)]" : ""}`}
                                     >
                                         {link.name}
-                                        <span
-                                            className={`absolute -bottom-1 left-0 h-0.5 bg-[var(--color-accent-500)] transition-all ${isActive ? "w-full" : "w-0 group-hover:w-full"
-                                                }`}
-                                        />
+                                        <span className={`absolute -bottom-1 left-0 h-0.5 bg-[var(--color-accent-500)] transition-all ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
                                     </Link>
                                 );
                             })}
+
+                            {/* CropFresh AI — glowing pill at end of center nav */}
+                            <Link
+                                href="/ai"
+                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all text-xs font-bold tracking-wide ${
+                                    pathname === "/ai"
+                                        ? "bg-emerald-500/25 border-emerald-400/50 text-emerald-300 shadow-[0_0_14px_rgba(16,185,129,0.4)]"
+                                        : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-400/40 hover:shadow-[0_0_14px_rgba(16,185,129,0.25)]"
+                                }`}
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                CropFresh AI
+                            </Link>
                         </div>
 
-                        {/* Right: Language → Login → Get Started (primary CTA rightmost) */}
-                        <div className="hidden lg:flex items-center gap-3">
-                            {/* 1. Language Selector (utility, least prominent) */}
+                        {/* ── RIGHT: Language + Login + Get Started (compact, shrink-0) ── */}
+                        <div className="hidden lg:flex items-center gap-2 shrink-0">
+                            {/* Language Selector */}
                             <div ref={languageRef} className="relative">
                                 <button
                                     onClick={() => setIsLanguageOpen(!isLanguageOpen)}
-                                    className={`flex items-center gap-1.5 px-2.5 py-2 rounded-lg transition-all text-sm ${isScrolled
-                                        ? "hover:bg-[var(--color-primary-500)]/5"
-                                        : "hover:bg-white/10"
-                                        }`}
+                                    className={`flex items-center gap-1 px-2 py-1.5 rounded-lg transition-all ${isScrolled ? "hover:bg-[var(--color-primary-500)]/5" : "hover:bg-white/10"}`}
                                     aria-label="Select language"
                                     aria-expanded={isLanguageOpen}
                                 >
-                                    <Languages className={`w-5 h-5 ${isScrolled ? "text-[#FF8C00]" : "text-white/90"}`} />
-                                    <span className={`text-lg font-medium ${isScrolled ? "text-white/90" : "text-white/90"}`}>
-                                        {localeNames[currentLocale]}
-                                    </span>
-                                    <ChevronDown
-                                        className={`w-4 h-4 transition-transform ${isLanguageOpen ? "rotate-180" : ""} ${isScrolled ? "text-white/70" : "text-white/70"
-                                            }`}
-                                    />
+                                    <Languages className={`w-4 h-4 ${isScrolled ? "text-[#FF8C00]" : "text-white/80"}`} />
+                                    <span className="text-sm font-medium text-white/75">{localeNames[currentLocale]}</span>
+                                    <ChevronDown className={`w-3.5 h-3.5 text-white/50 transition-transform ${isLanguageOpen ? "rotate-180" : ""}`} />
                                 </button>
 
                                 {/* Dropdown */}
@@ -162,20 +166,12 @@ export function Navbar() {
                                                 <button
                                                     key={locale}
                                                     onClick={() => handleLanguageChange(locale)}
-                                                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-white/10 transition-colors ${currentLocale === locale
-                                                        ? "bg-white/5"
-                                                        : ""
-                                                        }`}
+                                                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left hover:bg-white/10 transition-colors ${currentLocale === locale ? "bg-white/5" : ""}`}
                                                 >
                                                     <div className={`p-2 rounded-lg ${currentLocale === locale ? "bg-[#FF8C00]/10 text-[#FF8C00]" : "bg-white/5 text-white/70"}`}>
                                                         <Languages className="w-5 h-5" />
                                                     </div>
-                                                    <span
-                                                        className={`flex-1 text-base ${currentLocale === locale
-                                                            ? "text-[#FF8C00] font-semibold"
-                                                            : "text-white/80 font-medium"
-                                                            }`}
-                                                    >
+                                                    <span className={`flex-1 text-base ${currentLocale === locale ? "text-[#FF8C00] font-semibold" : "text-white/80 font-medium"}`}>
                                                         {localeNames[locale]}
                                                     </span>
                                                     {currentLocale === locale && (
@@ -189,27 +185,50 @@ export function Navbar() {
                             </div>
 
                             {/* Divider */}
-                            <div className={`w-px h-5 ${isScrolled ? "bg-[var(--glass-border)]" : "bg-white/20"}`} />
+                            <div className={`w-px h-4 ${isScrolled ? "bg-[var(--glass-border)]" : "bg-white/20"}`} />
 
-                            {/* 2. Login (secondary — ghost button) */}
-                            <Link
-                                href="/login"
-                                className={`px-4 py-2 rounded-lg font-medium text-base transition-all ${isScrolled
-                                    ? "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-primary-500)]/5"
-                                    : "text-white/85 hover:text-white hover:bg-white/10"
-                                    }`}
-                            >
-                                Login
-                            </Link>
+                            {/* Auth Status / Login */}
+                            {isAuthenticated ? (
+                                <div className="flex items-center gap-3 ml-2">
+                                    <div className="flex items-center gap-2 group">
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                            role === "farmer" ? "bg-[var(--color-primary-green)]/20 text-[var(--color-primary-green)]" : "bg-[var(--color-primary-blue)]/20 text-[var(--color-primary-blue)]"
+                                        } border border-white/10`}>
+                                            <User className="w-4 h-4" />
+                                        </div>
+                                        <span className={`text-sm font-medium hidden xl:block capitalize ${isScrolled ? "text-[var(--color-text-primary)]" : "text-white/90"}`}>
+                                            {role}
+                                        </span>
+                                    </div>
+                                    <button
+                                        onClick={logout}
+                                        className={`p-1.5 rounded-md transition-colors ${
+                                            isScrolled ? "text-[var(--color-text-secondary)] hover:text-red-500 hover:bg-red-50" : "text-white/60 hover:text-white hover:bg-white/10"
+                                        }`}
+                                        title="Log out"
+                                    >
+                                        <LogOut className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            ) : (
+                                <Link
+                                    href="/login"
+                                    className={`px-3 py-1.5 rounded-lg font-medium text-sm transition-all ${isScrolled
+                                        ? "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-primary-500)]/5"
+                                        : "text-white/80 hover:text-white hover:bg-white/10"}`}
+                                >
+                                    Login
+                                </Link>
+                            )}
 
-                            {/* 3. Get Started (primary CTA — rightmost, most prominent) */}
+                            {/* Get Started */}
                             <button
                                 onClick={handleGetStarted}
-                                className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-base text-white bg-gradient-to-r from-[var(--color-accent-500)] to-[#FF8C00] hover:from-[#FF7A00] hover:to-[#FF6D00] shadow-[0_2px_12px_rgba(255,140,0,0.35)] hover:shadow-[0_4px_20px_rgba(255,140,0,0.5)] hover:-translate-y-0.5 transition-all duration-300"
+                                className="group inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full font-semibold text-sm text-white bg-gradient-to-r from-[var(--color-accent-500)] to-[#FF8C00] hover:from-[#FF7A00] hover:to-[#FF6D00] shadow-[0_2px_12px_rgba(255,140,0,0.35)] hover:shadow-[0_4px_20px_rgba(255,140,0,0.5)] hover:-translate-y-0.5 transition-all duration-300"
                             >
                                 Get Started
-                                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
-                                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="group-hover:translate-x-0.5 transition-transform">
+                                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+                                    <svg width="8" height="8" viewBox="0 0 10 10" fill="none" className="group-hover:translate-x-0.5 transition-transform">
                                         <path d="M1 5H9M9 5L5.5 1.5M9 5L5.5 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </span>
@@ -335,14 +354,27 @@ export function Navbar() {
                                     ))}
 
                                     <div className="flex flex-col gap-3 pt-4">
-                                        <Link
-                                            href="/login"
-                                            className="text-center py-3 text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors font-medium"
-                                        >
-                                            Login
-                                        </Link>
+                                        {isAuthenticated ? (
+                                            <button
+                                                onClick={() => {
+                                                    logout();
+                                                    setIsMobileMenuOpen(false);
+                                                }}
+                                                className="text-center py-3 text-lg text-red-500 hover:text-red-600 transition-colors font-medium flex items-center justify-center gap-2"
+                                            >
+                                                <LogOut className="w-5 h-5" />
+                                                Log Out ({role})
+                                            </button>
+                                        ) : (
+                                            <Link
+                                                href="/login"
+                                                className="text-center py-3 text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors font-medium"
+                                            >
+                                                Login
+                                            </Link>
+                                        )}
                                         <Button
-                                            variant="primary"
+                                            variant="default"
                                             size="lg"
                                             onClick={() => {
                                                 handleGetStarted();

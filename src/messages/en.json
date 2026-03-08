@@ -134,5 +134,244 @@
       "playStore": "Get it on Google Play",
       "apk": "Download APK"
     }
+  },
+  "buyers": {
+    "hero": {
+      "headline": "Quality Produce, Guaranteed",
+      "subheadline": "Source AI-graded, farm-fresh produce with full traceability and transparent pricing",
+      "cta": "Request Demo"
+    },
+    "benefits": {
+      "title": "Why Businesses Choose CropFresh",
+      "qualityGraded": {
+        "title": "Quality-Graded Produce",
+        "description": "Every batch is AI-graded (A/B/C) and verified by field agents."
+      },
+      "digitalTwin": {
+        "title": "Digital Twin Traceability",
+        "description": "Full farm-to-fork journey recorded with tamper-proof Digital Twins."
+      },
+      "fastDelivery": {
+        "title": "Same-Day Delivery",
+        "description": "Optimized logistics with real-time tracking."
+      },
+      "transparentPricing": {
+        "title": "Transparent AISP Pricing",
+        "description": "All-Inclusive Single Price with full cost breakdown."
+      },
+      "analytics": {
+        "title": "Procurement Analytics",
+        "description": "Track spending, quality trends, and supplier performance."
+      }
+    },
+    "businessTypes": {
+      "title": "Built for Every Food Business",
+      "restaurant": {
+        "title": "Restaurants & Hotels",
+        "description": "Consistent quality for your kitchen, every day."
+      },
+      "retail": {
+        "title": "Retail Grocery Chains",
+        "description": "Bulk procurement with reliable supply."
+      },
+      "processing": {
+        "title": "Food Processing Units",
+        "description": "Raw materials graded to your specification."
+      },
+      "catering": {
+        "title": "Catering Services",
+        "description": "On-demand produce for events and contracts."
+      }
+    },
+    "howItWorks": {
+      "title": "How CropFresh Works for Buyers",
+      "step1": {
+        "title": "Browse Inventory",
+        "description": "Explore quality-graded produce from verified farmers"
+      },
+      "step2": {
+        "title": "Place Order",
+        "description": "Set delivery preferences and quantity"
+      },
+      "step3": {
+        "title": "Track Delivery",
+        "description": "Real-time hauler tracking to your door"
+      },
+      "step4": {
+        "title": "Receive & Pay",
+        "description": "Verify quality, pay transparently via AISP"
+      }
+    },
+    "pricing": {
+      "title": "Transparent Pricing You Can Trust",
+      "subtitle": "No hidden costs. Every rupee accounted for.",
+      "aisp": "All-Inclusive Single Price (AISP)",
+      "basePrice": "Base Price",
+      "qualityPremium": "Quality Premium",
+      "logistics": "Logistics",
+      "total": "Your AISP",
+      "comparison": {
+        "title": "Traditional Supply Chain vs CropFresh",
+        "traditional": "Traditional",
+        "cropfresh": "CropFresh"
+      }
+    },
+    "form": {
+      "title": "Request a Demo",
+      "subtitle": "See CropFresh in action. Our team will schedule a personalized demo.",
+      "businessName": "Business Name",
+      "contactPerson": "Contact Person",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "businessType": "Business Type",
+      "monthlyVolume": "Monthly Procurement Volume",
+      "submit": "Request Demo",
+      "createAccount": "Create Business Account",
+      "success": "Thank you! Our team will schedule a demo within 48 hours.",
+      "errors": {
+        "businessNameRequired": "Business name is required",
+        "businessNameMin": "Business name must be at least 2 characters",
+        "contactRequired": "Contact person is required",
+        "contactMin": "Contact person must be at least 2 characters",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email address",
+        "phoneRequired": "Phone number is required",
+        "phoneInvalid": "Enter a valid 10-digit mobile number",
+        "businessTypeRequired": "Select your business type",
+        "volumeRequired": "Select your monthly procurement volume"
+      },
+      "volumeOptions": {
+        "under_50k": "Under ₹50,000",
+        "50k_2l": "₹50,000 - ₹2,00,000",
+        "2l_5l": "₹2,00,000 - ₹5,00,000",
+        "5l_10l": "₹5,00,000 - ₹10,00,000",
+        "over_10l": "Over ₹10,00,000"
+      },
+      "businessTypeOptions": {
+        "restaurant": "Restaurant / Hotel",
+        "retail": "Retail Grocery Chain",
+        "food_processing": "Food Processing Unit",
+        "catering": "Catering Service",
+        "other": "Other"
+      }
+    },
+    "download": {
+      "title": "Get Started with CropFresh Buyer App",
+      "playStore": "Get it on Google Play",
+      "webDashboard": "Access Web Dashboard"
+    }
+  },
+  "haulers": {
+    "hero": {
+      "headline": "Earn More, Drive Smart",
+      "subheadline": "Join CropFresh as a delivery partner — optimized routes, instant pay, no empty returns",
+      "cta": "Get Started"
+    },
+    "benefits": {
+      "title": "Why Haulers Choose CropFresh",
+      "optimizedRoutes": {
+        "title": "Optimized Routes",
+        "description": "Multi-stop delivery planned by AI for maximum earnings per trip."
+      },
+      "instantPayment": {
+        "title": "Instant Payment",
+        "description": "Get paid via UPI immediately when you complete a route."
+      },
+      "qrUpdates": {
+        "title": "QR-Based Updates",
+        "description": "Scan QR codes at pickup and delivery. No manual paperwork."
+      },
+      "noEmptyReturns": {
+        "title": "No Empty Returns",
+        "description": "AI plans round-trips so you're never driving empty."
+      }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Sign Up & Get Verified",
+        "description": "Register with your license and vehicle details"
+      },
+      "step2": {
+        "title": "Accept Assignments",
+        "description": "Get delivery requests matched to your location"
+      },
+      "step3": {
+        "title": "Pick Up & Scan",
+        "description": "Collect produce from farmers, scan QR for tracking"
+      },
+      "step4": {
+        "title": "Deliver & Earn",
+        "description": "Complete delivery, get paid instantly via UPI"
+      }
+    },
+    "earnings": {
+      "title": "Your Earning Potential",
+      "subtitle": "CropFresh haulers earn 25–40% more than traditional delivery jobs",
+      "dailyRange": "₹1,500 – ₹3,000/day",
+      "baseRate": "Base Rate",
+      "distanceBonus": "Distance Bonus",
+      "multiStopBonus": "Multi-Stop Bonus",
+      "totalEarnings": "Total Hauler Earnings",
+      "comparison": {
+        "title": "Traditional Delivery vs CropFresh",
+        "traditional": "Traditional",
+        "cropfresh": "CropFresh"
+      }
+    },
+    "requirements": {
+      "title": "What You Need",
+      "subtitle": "Start earning with these simple requirements",
+      "vehicles": {
+        "title": "Accepted Vehicles",
+        "pickupTruck": "Pickup Truck",
+        "miniTruck": "Mini Truck (Tata Ace, etc.)",
+        "tempo": "Tempo / LCV",
+        "auto": "Auto (with produce rack)"
+      },
+      "documents": {
+        "title": "Documents Needed",
+        "license": "Valid Driving License",
+        "rc": "Vehicle Registration Certificate (RC)",
+        "aadhaar": "Aadhaar Card"
+      },
+      "flexibility": "No minimum hours — drive when you want"
+    },
+    "testimonial": {
+      "name": "Raju",
+      "role": "Delivery Partner",
+      "location": "Bangalore",
+      "quote": "I complete 3 routes a day and get paid instantly. No waiting!",
+      "earnings": "₹45,000/month average"
+    },
+    "form": {
+      "title": "Get a Call Back",
+      "subtitle": "Prefer to talk? Our team will contact you to get started.",
+      "name": "Your Name",
+      "phone": "Mobile Number",
+      "city": "City / Area",
+      "vehicleType": "Vehicle Type",
+      "submit": "Request Call Back",
+      "success": "Thank you! Our team will contact you within 24 hours to get you started.",
+      "errors": {
+        "nameRequired": "Name is required",
+        "nameMin": "Name must be at least 2 characters",
+        "phoneRequired": "Mobile number is required",
+        "phoneInvalid": "Enter a valid 10-digit mobile number",
+        "cityRequired": "Select your city/area",
+        "vehicleRequired": "Select your vehicle type"
+      },
+      "vehicleOptions": {
+        "pickup_truck": "Pickup Truck",
+        "mini_truck": "Mini Truck (Tata Ace, etc.)",
+        "tempo": "Tempo / LCV",
+        "auto": "Auto (with produce rack)"
+      }
+    },
+    "download": {
+      "title": "Download CropFresh Hauler App",
+      "playStore": "Get it on Google Play",
+      "apk": "Download APK"
+    }
   }
 }

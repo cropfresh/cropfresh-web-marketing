@@ -76,4 +76,11 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+const finalConfig = withNextIntl(nextConfig);
+
+// Next 16.1.1 strict validation workaround for next-intl injecting invalid 'turbo'
+if (finalConfig.experimental && 'turbo' in finalConfig.experimental) {
+  delete finalConfig.experimental.turbo;
+}
+
+export default finalConfig;

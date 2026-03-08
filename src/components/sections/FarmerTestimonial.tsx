@@ -29,9 +29,10 @@ export function FarmerTestimonial() {
     };
 
     return (
-        <section id="testimonial" className="py-20 md:py-28 bg-slate-900/50 relative overflow-hidden">
-            {/* Background glow */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-radial from-accent/10 to-transparent blur-3xl" />
+        <section id="testimonial" className="py-20 md:py-28 relative overflow-hidden bg-[#070A0F] border-t border-white/5">
+            {/* Dark green background glow */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-radial from-[var(--color-primary-500)]/8 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[400px] bg-gradient-radial from-[var(--color-teal)]/5 to-transparent blur-3xl pointer-events-none" />
 
             <Container>
                 <motion.div
@@ -42,7 +43,7 @@ export function FarmerTestimonial() {
                 >
                     {/* Section Header */}
                     <motion.div variants={fadeInUp} className="text-center mb-12">
-                        <span className="text-[var(--color-accent-400)] text-sm font-semibold uppercase tracking-wider mb-4 block">
+                        <span className="text-[var(--color-primary-400)] text-sm font-semibold uppercase tracking-wider mb-4 block">
                             Success Stories
                         </span>
                         <h2 className="heading-section text-[var(--color-text-primary)] mb-4">
@@ -52,25 +53,26 @@ export function FarmerTestimonial() {
                         <p className="text-[var(--color-text-secondary)] text-lg max-w-xl mx-auto">
                             Real stories from farmers who transformed their income
                         </p>
-                        <p className="text-[var(--color-accent-400)] text-base mt-2">
+                        <p className="text-[var(--color-primary-400)] text-base mt-2">
                             ತಮ್ಮ ಆದಾಯವನ್ನು ಬದಲಾಯಿಸಿದ ರೈತರ ನೈಜ ಕಥೆಗಳು
                         </p>
                     </motion.div>
 
-                    {/* Video Testimonial Card */}
-                    <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-                        <Card variant="glass" className="p-0 overflow-hidden">
+                    {/* Video Testimonial Container */}
+                    <motion.div variants={fadeInUp} className="max-w-5xl mx-auto">
+                        <div className="glass-premium overflow-hidden rounded-3xl p-0 shadow-2xl hover:shadow-[var(--color-primary-500)]/10 transition-shadow duration-500">
                             <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
                                 {/* Video Section */}
-                                <div className="lg:col-span-3 relative aspect-video lg:aspect-auto bg-slate-800">
+                                <div className="lg:col-span-3 relative aspect-video lg:aspect-auto bg-[#0a0f1c] overflow-hidden group">
                                     {!showVideo ? (
                                         <div
-                                            className="absolute inset-0 flex items-center justify-center cursor-pointer group"
+                                            className="absolute inset-0 flex items-center justify-center cursor-pointer"
                                             onClick={handlePlayClick}
                                         >
-                                            {/* Placeholder thumbnail */}
-                                            <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
-                                                <div className="text-6xl opacity-30">🌾</div>
+                                            {/* Beautiful dark thumbnail */}
+                                            <div className="absolute inset-0 bg-gradient-to-br from-[#1e293b]/80 to-[#0f172a]/90 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
+                                                <div className="absolute inset-0 bg-[var(--color-primary-500)]/5 mix-blend-overlay" />
+                                                <div className="text-8xl opacity-10 blur-[2px]">🌾</div>
                                             </div>
 
                                             {/* Play button */}
@@ -100,46 +102,48 @@ export function FarmerTestimonial() {
                                 </div>
 
                                 {/* Quote Section */}
-                                <div className="lg:col-span-2 p-6 lg:p-8 flex flex-col justify-center bg-gradient-to-br from-slate-800/50 to-slate-900/50">
+                                <div className="lg:col-span-2 p-8 lg:p-10 flex flex-col justify-center bg-gradient-to-br from-[#131823] to-[#0f172a] relative border-l border-white/5">
                                     {/* Quote Icon */}
-                                    <Quote className="w-10 h-10 text-[var(--color-accent-400)]/30 mb-4" />
+                                    <Quote className="w-12 h-12 text-[var(--color-primary-500)]/20 mb-6 absolute top-8 right-8" />
 
-                                    {/* Quote */}
-                                    <blockquote className="text-[var(--color-text-primary)] text-lg font-medium leading-relaxed mb-4">
-                                        &ldquo;{testimonial.quote}&rdquo;
-                                    </blockquote>
-                                    <p className="text-[var(--color-text-muted)] text-sm italic mb-6">
-                                        &ldquo;{testimonial.quoteKn}&rdquo;
-                                    </p>
+                                    <div className="relative z-10">
+                                        {/* Quote */}
+                                        <blockquote className="text-white text-xl font-medium leading-relaxed mb-4">
+                                            &ldquo;{testimonial.quote}&rdquo;
+                                        </blockquote>
+                                        <p className="text-[var(--color-primary-400)]/90 text-sm italic mb-8 font-light">
+                                            &ldquo;{testimonial.quoteKn}&rdquo;
+                                        </p>
 
-                                    {/* Farmer Info */}
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[var(--color-primary-500)] to-[var(--color-accent-500)] flex items-center justify-center text-2xl">
-                                            👨‍🌾
-                                        </div>
-                                        <div>
-                                            <p className="font-display font-semibold text-[var(--color-text-primary)]">
-                                                {testimonial.farmerName}
-                                            </p>
-                                            <p className="text-sm text-[var(--color-primary-400)]">
-                                                {testimonial.farmerNameKn}
-                                            </p>
-                                            <div className="flex items-center gap-1 text-sm text-[var(--color-text-muted)] mt-1">
-                                                <MapPin className="w-3 h-3" />
-                                                <span>{testimonial.location}</span>
+                                        {/* Farmer Info */}
+                                        <div className="flex items-center gap-5 mt-auto">
+                                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--color-primary-500)] to-[#0f766e] flex items-center justify-center text-3xl shadow-lg border border-white/10">
+                                                👨‍🌾
+                                            </div>
+                                            <div>
+                                                <p className="font-display font-semibold text-white text-lg tracking-tight">
+                                                    {testimonial.farmerName}
+                                                </p>
+                                                <p className="text-sm font-medium text-[var(--color-primary-400)] mb-1">
+                                                    {testimonial.farmerNameKn}
+                                                </p>
+                                                <div className="flex items-center gap-1.5 text-xs text-white/50">
+                                                    <MapPin className="w-3.5 h-3.5" />
+                                                    <span className="uppercase tracking-wider">{testimonial.location}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Crop badge */}
-                                    <div className="mt-4">
-                                        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-glass text-sm text-[var(--color-text-secondary)]">
-                                            🍅 {testimonial.cropType} • {testimonial.cropTypeKn}
-                                        </span>
+                                        {/* Crop badge */}
+                                        <div className="mt-6">
+                                            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-[var(--color-text-secondary)] backdrop-blur-md">
+                                                🍅 {testimonial.cropType} <span className="text-white/20 mx-1">|</span> {testimonial.cropTypeKn}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </Card>
+                        </div>
                     </motion.div>
                 </motion.div>
             </Container>
