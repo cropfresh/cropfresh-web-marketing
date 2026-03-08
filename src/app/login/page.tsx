@@ -117,7 +117,7 @@ export default function LoginPage() {
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                        className="flex-1 border-0 shadow-none p-0 bg-transparent text-sm focus-visible:ring-0 outline-none placeholder:text-neutral-400"
+                        className="flex-1 border-0 shadow-none p-0 bg-transparent text-sm text-neutral-900 dark:text-white focus-visible:ring-0 outline-none placeholder:text-neutral-400"
                       />
                     </div>
                   </div>
@@ -139,7 +139,7 @@ export default function LoginPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="••••••••••"
-                        className="flex-1 border-0 shadow-none p-0 bg-transparent text-sm focus-visible:ring-0 outline-none placeholder:text-neutral-400 tracking-widest"
+                        className="flex-1 border-0 shadow-none p-0 bg-transparent text-sm text-neutral-900 dark:text-white focus-visible:ring-0 outline-none placeholder:text-neutral-400 tracking-widest"
                       />
                       <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors">
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}

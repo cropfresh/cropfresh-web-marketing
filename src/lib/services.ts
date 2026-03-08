@@ -16,6 +16,7 @@ export interface Listing {
   status: string;
   adcl_tagged: boolean;
   batch_qr_code?: string | null;
+  image_url?: string | null;
   expires_at?: string | null;
   created_at?: string | null;
 }

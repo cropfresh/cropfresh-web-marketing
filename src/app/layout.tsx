@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit, Inter } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ShowcaseProvider } from "@/contexts/ShowcaseContext";
 import "./globals.css";
 
 // Display font - Outfit for headlines
@@ -123,7 +124,9 @@ export default function RootLayout({
         className={`${outfit.variable} ${inter.variable} antialiased bg-[var(--color-background)] text-[var(--color-text-primary)]`}
       >
         <AuthProvider>
-          {children}
+          <ShowcaseProvider>
+            {children}
+          </ShowcaseProvider>
         </AuthProvider>
       </body>
     </html>

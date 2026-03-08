@@ -3,15 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import {
   Sprout, DollarSign, TrendingUp, Clock, Plus, Mic,
-  ArrowUpRight, ArrowDownRight, Search, Filter, Leaf, Loader2
+  ArrowUpRight, ArrowDownRight, Search, Filter, Leaf, Loader2, CheckCircle2
 } from 'lucide-react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
-import { listingsApi, voiceApi, type Listing } from '@/lib/services';
+import { voiceApi } from '@/lib/services';
+import { useShowcase } from '@/contexts/ShowcaseContext';
 
-// Static market insights — can be replaced later with /api/v1/data/prices
 const marketInsights = [
   { crop: "Kolar Tomatoes", currentWeekPrice: "₹24/kg", percentageChange: "+8.5%", trend: "up" },
   { crop: "Red Onions", currentWeekPrice: "₹32/kg", percentageChange: "-2.1%", trend: "down" },
@@ -31,20 +31,18 @@ const itemVariants = {
 
 export default function FarmersDashboard() {
   const { user } = useAuth();
-  const [listings, setListings] = useState<Listing[]>([]);
-  const [loadingListings, setLoadingListings] = useState(true);
+  const { state: showcaseState, updateOrderStatus } = useShowcase();
+  
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
   const [voiceStatus, setVoiceStatus] = useState<string>("");
 
-  useEffect(() => {
-    if (!user?.user_id) return;
-    setLoadingListings(true);
-    listingsApi.getByFarmer(user.user_id, "active")
-      .then((res) => setListings(res.data))
-      .catch(() => setListings([]))
-      .finally(() => setLoadingListings(false));
-  }, [user?.user_id]);
+  const activeListings = showcaseState.listings.filter(l => l.farmer_id === user?.user_id);
+  const activeOrders = showcaseState.orders.filter(o => o.farmer_id === user?.user_id && o.order_status === "pending_acceptance");
+
+  const handleAcceptOffer = (orderId: string) => {
+    updateOrderStatus(orderId, "accepted");
+  };
 
   const startRecording = async () => {
     try {
@@ -91,9 +89,9 @@ export default function FarmersDashboard() {
   };
 
   const kpiData = [
-    { title: "Active Listings", value: loadingListings ? "…" : String(listings.length), trend: "live data", isPositive: true, icon: Sprout, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { title: "Active Listings", value: String(activeListings.length), trend: "live data", isPositive: true, icon: Sprout, color: "text-blue-500", bg: "bg-blue-500/10" },
     { title: "Total Earnings", value: "₹45,200", trend: "+12.5%", isPositive: true, icon: DollarSign, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { title: "Pending Orders", value: "2", trend: "Action required", isPositive: false, icon: Clock, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { title: "Pending Orders", value: String(activeOrders.length || "2"), trend: "Action required", isPositive: false, icon: Clock, color: "text-amber-500", bg: "bg-amber-500/10" },
     { title: "Quality Score", value: "92/100", trend: "Grade A Premium", isPositive: true, icon: TrendingUp, color: "text-indigo-500", bg: "bg-indigo-500/10" },
   ];
 
@@ -105,11 +103,10 @@ export default function FarmersDashboard() {
         initial="hidden"
         animate="show"
       >
-        {/* HEADER */}
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 pb-2 border-b border-neutral-200 dark:border-neutral-800/60">
           <div>
             <h1 className="text-3xl font-display font-bold text-neutral-900 dark:text-white tracking-tight">
-              Welcome back, {user?.phone || "Farmer"}
+              Welcome back, {user?.name || "Farmer"}
             </h1>
             <p className="text-neutral-500 mt-1">Here's a detailed overview of your farm's performance today.</p>
           </div>
@@ -128,13 +125,43 @@ export default function FarmersDashboard() {
           </div>
         </motion.div>
 
+        {activeOrders.length > 0 && (
+          <motion.div variants={itemVariants} className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+               <Clock className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+               <h3 className="text-xl font-display font-bold text-amber-900 dark:text-amber-500">New Offers Received!</h3>
+            </div>
+            <div className="space-y-4">
+              {activeOrders.map(order => (
+                <div key={order.id} className="bg-white dark:bg-[#111111] p-4 lg:p-5 rounded-xl border border-amber-100 dark:border-amber-800/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <div>
+                    <h4 className="font-bold text-lg dark:text-white">{order.buyer_name || "Verified Buyer"} wants {order.quantity_kg}kg of {order.commodity}</h4>
+                    <p className="text-sm text-neutral-500 mt-1">Offered Price: <span className="text-emerald-600 dark:text-[#00E676] font-bold">₹{order.aisp.aisp_per_kg}/kg</span> (Total: ₹{order.aisp.aisp_total})</p>
+                  </div>
+                  <div className="flex gap-3 w-full sm:w-auto">
+                    <button className="flex-1 sm:flex-none px-4 py-2 border border-neutral-200 dark:border-neutral-800 rounded-lg text-sm font-semibold hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors">
+                      Negotiate
+                    </button>
+                    <button 
+                      onClick={() => handleAcceptOffer(order.id)}
+                      className="flex-1 sm:flex-none px-6 py-2 bg-[#00E676] text-black rounded-lg text-sm font-bold shadow-sm hover:bg-[#00c853] transition-colors flex items-center justify-center gap-2"
+                    >
+                       <CheckCircle2 className="w-4 h-4" />
+                       Accept Offer
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* HERO WIDGET: AI VOICE LISTING */}
         <motion.div variants={itemVariants}>
           <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900 to-black dark:from-neutral-900 dark:to-[#050505] rounded-[24px] p-8 sm:p-10 shadow-xl border border-neutral-800/50">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00E676]/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
             <div className="relative z-10 flex flex-col sm:flex-row items-center gap-8 lg:gap-12">
-              {/* Mic Button */}
               <div className="relative group shrink-0">
                 <AnimatePresence>
                   {isRecording && (
@@ -162,7 +189,6 @@ export default function FarmersDashboard() {
                 </button>
               </div>
 
-              {/* Voice AI Status */}
               <div className="text-center sm:text-left flex-1">
                 <AnimatePresence mode="wait">
                   {isRecording ? (
@@ -227,10 +253,7 @@ export default function FarmersDashboard() {
           ))}
         </motion.div>
 
-        {/* MAIN CONTENT: Listings + Market Insights */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-          {/* Active Listings Table */}
           <motion.div variants={itemVariants} className="lg:col-span-2 space-y-4">
             <div className="flex items-center justify-between px-1">
               <h3 className="text-xl font-display font-bold text-neutral-900 dark:text-white">Active Inventory</h3>
@@ -244,33 +267,35 @@ export default function FarmersDashboard() {
                 <Filter className="w-4 h-4 text-neutral-400" />
                 <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Latest Active Listings</span>
               </div>
-              {loadingListings ? (
-                <div className="p-12 flex justify-center">
-                  <Loader2 className="w-6 h-6 animate-spin text-neutral-400" />
-                </div>
-              ) : listings.length === 0 ? (
+              {activeListings.length === 0 ? (
                 <div className="p-12 text-center text-neutral-500 text-sm">
                   <Leaf className="w-8 h-8 mx-auto mb-3 opacity-30" />
                   No active listings yet. <Link href="/farmers/new-listing" className="text-[#00E676] font-semibold">Create your first listing.</Link>
                 </div>
               ) : (
                 <div className="divide-y divide-neutral-100 dark:divide-neutral-800/60">
-                  {listings.slice(0, 5).map((item) => (
+                  {activeListings.slice(0, 5).map((item) => (
                     <div key={item.id} className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-neutral-50 dark:hover:bg-neutral-900/30 transition-colors">
                       <div className="flex items-start sm:items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900 flex items-center justify-center shrink-0 border border-neutral-200/50 dark:border-neutral-700/50">
-                          <Leaf className="w-5 h-5 text-neutral-400" />
+                        <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center shrink-0 border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden relative">
+                          {item.image_url ? (
+                            <img src={item.image_url} alt={item.commodity} className="absolute inset-0 w-full h-full object-cover" />
+                          ) : (
+                            <Leaf className="w-5 h-5 text-neutral-400" />
+                          )}
                         </div>
                         <div>
                           <h4 className="text-base font-bold text-neutral-900 dark:text-white">
                             {item.commodity}{item.variety ? ` (${item.variety})` : ""}
                           </h4>
                           <div className="flex items-center gap-3 mt-1 text-sm text-neutral-500">
-                            <span className="font-medium text-neutral-700 dark:text-neutral-300">{item.quantity_kg} kg</span>
+                             <span className="font-medium text-neutral-700 dark:text-neutral-300">{item.quantity_kg} kg</span>
                             <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-neutral-700" />
                             <span className="font-medium text-emerald-600 dark:text-emerald-400">₹{item.asking_price_per_kg}/kg</span>
                             <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-neutral-700" />
-                            <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">Grade {item.grade}</span>
+                            <span className="text-xs font-semibold uppercase tracking-wide text-indigo-500">
+                                {item.grade === 'grade_a' ? "Grade A" : item.grade === 'grade_b' ? "Grade B" : "Grade C"}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -278,7 +303,7 @@ export default function FarmersDashboard() {
                       <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto mt-2 sm:mt-0">
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider
                           ${item.status === 'active' ? 'bg-emerald-100/50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50'
-                            : item.status === 'matched' ? 'bg-amber-100/50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-200 dark:border-amber-800/50'
+                            : item.status === 'matched' ? 'bg-blue-100/50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800/50'
                             : 'bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700'}`}
                         >
                           {item.status}
@@ -294,7 +319,6 @@ export default function FarmersDashboard() {
             </div>
           </motion.div>
 
-          {/* Market Insights */}
           <motion.div variants={itemVariants} className="space-y-4">
             <h3 className="text-xl font-display font-bold text-neutral-900 dark:text-white px-1">Market Insights</h3>
             <div className="bg-white dark:bg-[#111111] rounded-2xl border border-neutral-200/60 dark:border-neutral-800/60 shadow-sm p-6">
