@@ -1,59 +1,31 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui";
-import {
-    Instagram, Linkedin, Twitter, Youtube,
-    Mail, Phone, MapPin, ArrowRight, Check,
-    Heart
-} from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 
 /* ─── Data ─── */
 const navigation = {
     product: [
-        { name: "For Farmers", href: "/farmers" },
-        { name: "For Buyers", href: "/buyers" },
-        { name: "For Haulers", href: "/haulers" },
-        { name: "Pricing", href: "/pricing" },
-        { name: "Download App", href: "#download" },
+        { name: "Farmer demo", href: "/farmers" },
+        { name: "Buyer demo", href: "/buyers" },
+        { name: "Delivery partners", href: "/haulers" },
+        { name: "App concepts", href: "/#products" },
     ],
     company: [
         { name: "About Us", href: "/about" },
         { name: "Blog", href: "/blog" },
-        { name: "Careers", href: "/careers" },
         { name: "Contact", href: "/contact" },
-        { name: "Press Kit", href: "/press" },
     ],
-    legal: [
-        { name: "Privacy Policy", href: "/privacy" },
-        { name: "Terms of Service", href: "/terms" },
-        { name: "Refund Policy", href: "/refund" },
-        { name: "Cookie Policy", href: "/cookies" },
-    ],
-    social: [
-        { name: "Instagram", href: "https://instagram.com/cropfresh", icon: Instagram },
-        { name: "LinkedIn", href: "https://linkedin.com/company/cropfresh", icon: Linkedin },
-        { name: "Twitter", href: "https://twitter.com/cropfresh", icon: Twitter },
-        { name: "YouTube", href: "https://youtube.com/@cropfresh", icon: Youtube },
+    explore: [
+        { name: "Choose your role", href: "/#choose-role" },
+        { name: "Intended workflow", href: "/#how-it-works" },
+        { name: "Technology direction", href: "/#technology" },
+        { name: "Before participating", href: "/#participation" },
     ],
 };
 
 /* ─── Footer Component ─── */
 export function Footer() {
-    const [email, setEmail] = useState("");
-    const [isSubscribed, setIsSubscribed] = useState(false);
-
-    const handleSubscribe = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (email) {
-            setIsSubscribed(true);
-            setEmail("");
-        }
-    };
-
     return (
         <footer className="relative overflow-hidden bg-[var(--color-background-alt)] border-t border-[var(--glass-border)] pt-4">
             {/* Background Glows */}
@@ -65,7 +37,7 @@ export function Footer() {
                 className="h-1 bg-gradient-to-r from-[var(--color-primary-500)] via-[var(--color-accent-500)] to-[var(--color-primary-500)]"
             />
 
-            {/* ── Newsletter Banner ── */}
+            {/* ── Product preview Banner ── */}
             <div className="relative z-10 pt-10 pb-6 border-b border-[var(--glass-border)]/50">
                 <Container>
                     <div className="p-8 md:p-10 rounded-3xl glass-card relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
@@ -74,43 +46,18 @@ export function Footer() {
 
                         <div className="relative z-10">
                             <h3 className="font-display font-bold text-xl mb-1 text-[var(--color-text-inverse)]">
-                                Stay updated with CropFresh
+                                Explore what CropFresh is building
                             </h3>
                             <p className="text-sm text-[var(--color-text-muted)]">
-                                Get the latest news on features, farmer stories, and market insights.
+                                Choose a role to understand the product direction and sample workflows.
                             </p>
                         </div>
 
                         <div className="w-full md:w-auto relative z-10">
-                            {isSubscribed ? (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    className="flex items-center gap-2 text-sm font-medium text-[var(--color-success)]"
-                                >
-                                    <Check className="w-4 h-4" />
-                                    Thanks for subscribing!
-                                </motion.div>
-                            ) : (
-                                <form onSubmit={handleSubscribe} className="flex gap-2">
-                                    <input
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="Enter your email"
-                                        className="flex-1 md:w-64 px-4 py-2.5 rounded-lg text-sm glass text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary-500)] focus:ring-1 focus:ring-[var(--color-primary-500)] transition-colors"
-                                        required
-                                    />
-                                    {/* 10% ACCENT — CTA button uses accent orange */}
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary btn-sm flex items-center gap-1.5"
-                                    >
-                                        Subscribe
-                                        <ArrowRight className="w-3.5 h-3.5" />
-                                    </button>
-                                </form>
-                            )}
+                            <Link href="/#choose-role" className="inline-flex items-center justify-center gap-2 min-h-11 rounded-full bg-orange-400 px-6 py-3 text-sm font-semibold text-black hover:bg-orange-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-300">
+                                Choose your role
+                                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                            </Link>
                         </div>
                     </div>
                 </Container>
@@ -132,60 +79,15 @@ export function Footer() {
                         </Link>
 
                         <p className="text-sm leading-relaxed mb-10 max-w-sm text-[var(--color-text-secondary)]">
-                            Rewriting the code of agriculture. Farm-fresh produce,
-                            direct from farmers to buyers, powered by AI and transparency.
+                            Building clearer connections between farms, food businesses,
+                            and delivery partners. Explore the product direction through
+                            clearly labeled previews.
                         </p>
 
-                        {/* Contact */}
-                        <div className="space-y-5 mb-10 flex flex-col items-center lg:items-start w-full">
-                            <a
-                                href="mailto:hello@cropfresh.ai"
-                                className="flex items-center gap-4 text-sm transition-all duration-300 group text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
-                            >
-                                <div className="w-10 h-10 rounded-full glass border border-[var(--color-accent-500)]/30 flex items-center justify-center group-hover:bg-[var(--color-primary-500)]/20 group-hover:border-[var(--color-primary-500)]/40 transition-all shadow-sm">
-                                    <Mail className="w-4 h-4 text-[var(--color-accent-400)] group-hover:text-[var(--color-primary-500)] group-hover:scale-110 transition-transform" />
-                                </div>
-                                <span className="tracking-wide">hello@cropfresh.ai</span>
-                            </a>
-                            <a
-                                href="tel:+918001234567"
-                                className="flex items-center gap-4 text-sm transition-all duration-300 group text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
-                            >
-                                <div className="w-10 h-10 rounded-full glass border border-[var(--color-accent-500)]/30 flex items-center justify-center group-hover:bg-[var(--color-primary-500)]/20 group-hover:border-[var(--color-primary-500)]/40 transition-all shadow-sm">
-                                    <Phone className="w-4 h-4 text-[var(--color-accent-400)] group-hover:text-[var(--color-primary-500)] group-hover:scale-110 transition-transform" />
-                                </div>
-                                <span className="tracking-wide">+91 800 123 4567</span>
-                            </a>
-                            <div className="flex items-start lg:items-center gap-4 text-sm text-[var(--color-text-muted)] group">
-                                <div className="w-10 h-10 rounded-full glass border border-[var(--color-accent-500)]/30 flex shrink-0 items-center justify-center group-hover:bg-[var(--color-primary-500)]/20 group-hover:border-[var(--color-primary-500)]/40 transition-all shadow-sm">
-                                    <MapPin className="w-4 h-4 text-[var(--color-accent-400)] group-hover:text-[var(--color-primary-500)]" />
-                                </div>
-                                <span className="tracking-wide text-center lg:text-left max-w-[200px]">Bangalore, Karnataka, India</span>
-                            </div>
-                        </div>
-
-                        {/* Social */}
-                        <div className="flex justify-center lg:justify-start gap-4">
-                            {navigation.social.map((item, idx) => {
-                                const Icon = item.icon;
-                                const hoverClass = idx % 2 === 0
-                                    ? "hover:bg-[var(--color-primary-500)]/20 hover:border-[var(--color-primary-500)]/50 hover:shadow-[var(--glow-primary)]"
-                                    : "hover:bg-[var(--color-accent-500)]/20 hover:border-[var(--color-accent-500)]/50 hover:shadow-[var(--glow-accent)]";
-
-                                return (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-1 glass group border border-[var(--color-accent-500)]/30 ${hoverClass}`}
-                                        aria-label={item.name}
-                                    >
-                                        <Icon className={`w-5 h-5 text-[var(--color-accent-400)] transition-colors duration-300 ${idx % 2 === 0 ? "group-hover:text-[var(--color-primary-500)]" : "group-hover:text-[var(--color-accent-500)]"}`} />
-                                    </a>
-                                );
-                            })}
-                        </div>
+                        <p className="text-xs leading-relaxed text-white/70 max-w-sm">
+                            Previews use sample information. Service availability and
+                            commercial terms require separate confirmation.
+                        </p>
                     </div>
 
                     {/* Links Columns Container */}
@@ -230,13 +132,13 @@ export function Footer() {
                             </ul>
                         </div>
 
-                        {/* Legal */}
+                        {/* Explore */}
                         <div className="flex flex-col items-center lg:items-start w-full">
                             <h4 className="font-semibold text-sm uppercase tracking-wider mb-8 text-[var(--color-primary-400)]">
-                                Legal
+                                Explore
                             </h4>
                             <ul className="space-y-4">
-                                {navigation.legal.map((item) => (
+                                {navigation.explore.map((item) => (
                                     <li key={item.name}>
                                         <Link
                                             href={item.href}
@@ -258,7 +160,7 @@ export function Footer() {
                 <Container>
                     <div className="py-6 flex flex-col md:flex-row justify-between items-center gap-4">
                         <p className="text-xs text-[var(--color-text-muted)] tracking-wide">
-                            © {new Date().getFullYear()} CropFresh Technologies Pvt. Ltd. All rights reserved.
+                            © {new Date().getFullYear()} CropFresh. All rights reserved.
                         </p>
 
                         <p className="text-xs flex items-center gap-2 text-[var(--color-text-muted)] font-medium">

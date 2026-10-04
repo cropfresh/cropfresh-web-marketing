@@ -10,6 +10,7 @@ export interface ShowcaseState {
 
 interface ShowcaseContextType {
   state: ShowcaseState;
+  isLoaded: boolean;
   addListing: (listing: Omit<Listing, "id" | "status" | "created_at">) => Listing;
   updateListingStatus: (listingId: string, status: string) => void;
   createOrder: (listingId: string, buyerId: string, quantityKg: number, pricePerKg: number, buyerName: string) => void;
@@ -58,21 +59,30 @@ export function ShowcaseProvider({ children }: { children: ReactNode }) {
 
   // Load from local storage
   useEffect(() => {
-    const saved = localStorage.getItem("cropfresh_showcase_state");
-    if (saved) {
+    const hydrate = () => {
       try {
-        setState(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse showcase state", e);
+        const saved = localStorage.getItem("cropfresh_showcase_state");
+        if (saved) {
+          setState(JSON.parse(saved) as ShowcaseState);
+        }
+      } catch {
+        // Fall back to sample state when storage is unavailable or invalid.
+      } finally {
+        setIsLoaded(true);
       }
-    }
-    setIsLoaded(true);
+    };
+
+    queueMicrotask(hydrate);
   }, []);
 
   // Save to local storage on changes
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem("cropfresh_showcase_state", JSON.stringify(state));
+      try {
+        localStorage.setItem("cropfresh_showcase_state", JSON.stringify(state));
+      } catch {
+        // Browser demo state can still be used in memory when storage is blocked.
+      }
     }
   }, [state, isLoaded]);
 
@@ -151,10 +161,8 @@ export function ShowcaseProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  if (!isLoaded) return null;
-
   return (
-    <ShowcaseContext.Provider value={{ state, addListing, updateListingStatus, createOrder, updateOrderStatus }}>
+    <ShowcaseContext.Provider value={{ state, isLoaded, addListing, updateListingStatus, createOrder, updateOrderStatus }}>
       {children}
     </ShowcaseContext.Provider>
   );

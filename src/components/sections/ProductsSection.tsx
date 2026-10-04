@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
@@ -9,7 +10,7 @@ import {
     Camera, IndianRupee, BarChart3, Star,
     QrCode, Shield, CalendarCheck, Leaf,
     Route, Wallet, Map, Check,
-    ArrowRight, ChevronRight
+    ArrowRight
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -29,91 +30,79 @@ interface AppProduct {
     icon: LucideIcon;
     screens: AppScreen[];
     features: { icon: LucideIcon; text: string }[];
-    stats: { value: string; label: string }[];
+    status: string;
 }
 
 /* ─── Data ─── */
 const apps: Record<string, AppProduct> = {
     farmer: {
         name: "CropFresh Farmer",
-        tagline: "List, sell, get paid — all from your field",
+        tagline: "Explore the proposed farmer app experience",
         target: "For Farmers",
         accentHex: "#16a34a",
         accentLight: "#f0fdf4",
         icon: Leaf,
         screens: [
-            { label: "Voice Listing", icon: Mic, description: "Speak in Kannada to list your produce — AI handles the rest" },
-            { label: "Market Prices", icon: BarChart3, description: "Real-time price data from 100+ markets at your fingertips" },
-            { label: "Instant Payment", icon: IndianRupee, description: "T+0 UPI payment directly to your bank — no delays" },
-            { label: "Order Tracking", icon: ShoppingCart, description: "Track every order from pickup to delivery in real-time" },
+            { label: "Assisted Listing", icon: Mic, description: "Concept for reviewing crop information captured through assisted entry" },
+            { label: "Price Information", icon: BarChart3, description: "Illustrative pricing view, not a live market feed" },
+            { label: "Payout Details", icon: IndianRupee, description: "Concept for showing settlement conditions and payout information" },
+            { label: "Order Overview", icon: ShoppingCart, description: "Sample order stages for the proposed farmer workflow" },
         ],
         features: [
-            { icon: Mic, text: "Voice listing in Kannada & Hindi" },
-            { icon: Camera, text: "Photo-based quality estimation" },
-            { icon: IndianRupee, text: "Same-day UPI payment" },
-            { icon: BarChart3, text: "Live market price updates" },
-            { icon: Star, text: "Buyer ratings & reviews" },
-            { icon: Shield, text: "Fair price guarantee" },
+            { icon: Mic, text: "Assisted-entry concept" },
+            { icon: Camera, text: "Produce photos" },
+            { icon: IndianRupee, text: "Payout-information concept" },
+            { icon: BarChart3, text: "Illustrative price views" },
+            { icon: Star, text: "Buyer-information concept" },
+            { icon: Shield, text: "Terms reviewed before selling" },
         ],
-        stats: [
-            { value: "30s", label: "to list" },
-            { value: "40%", label: "higher price" },
-            { value: "T+0", label: "payment" },
-        ],
+        status: "UI concept — not a released app",
     },
     buyer: {
         name: "CropFresh Buyer",
-        tagline: "Premium produce, verified quality, zero hassle",
+        tagline: "Explore the proposed produce-sourcing experience",
         target: "For Restaurants & Hotels",
         accentHex: "#ea580c",
         accentLight: "#fff7ed",
         icon: ShoppingCart,
         screens: [
-            { label: "Browse & Order", icon: ShoppingCart, description: "Explore graded produce with transparent pricing & photos" },
-            { label: "QR Traceability", icon: QrCode, description: "Scan QR to see the complete farm-to-fork journey" },
-            { label: "Quality Grades", icon: Shield, description: "Every batch graded A/B/C with photo verification" },
-            { label: "Subscriptions", icon: CalendarCheck, description: "Set up recurring orders for consistent supply" },
+            { label: "Sample Listings", icon: ShoppingCart, description: "Illustrative produce information, not available stock" },
+            { label: "Batch Record", icon: QrCode, description: "Concept for reviewing origin and journey information" },
+            { label: "Quality Details", icon: Shield, description: "Sample grade presentation; actual inspection criteria need confirmation" },
+            { label: "Order Planning", icon: CalendarCheck, description: "Planned sourcing view, not an active recurring-order service" },
         ],
         features: [
-            { icon: Shield, text: "5-point quality grading" },
-            { icon: QrCode, text: "Farm-to-fork traceability" },
-            { icon: CalendarCheck, text: "Recurring order scheduling" },
-            { icon: Star, text: "Verified supplier network" },
-            { icon: Leaf, text: "Organic certification support" },
-            { icon: IndianRupee, text: "Transparent All-Inclusive pricing" },
+            { icon: Shield, text: "Sample grade information" },
+            { icon: QrCode, text: "Batch-record concept" },
+            { icon: CalendarCheck, text: "Order-planning concept" },
+            { icon: Star, text: "Supplier-information concept" },
+            { icon: Leaf, text: "Crop and origin details" },
+            { icon: IndianRupee, text: "Illustrative price breakdown" },
         ],
-        stats: [
-            { value: "5-pt", label: "quality grade" },
-            { value: "100%", label: "traceable" },
-            { value: "99%", label: "delivery" },
-        ],
+        status: "UI concept — not a released app",
     },
     hauler: {
         name: "CropFresh Hauler",
-        tagline: "More loads, better routes, instant pay",
+        tagline: "Explore the proposed delivery-partner experience",
         target: "For Delivery Partners",
         accentHex: "#7c3aed",
         accentLight: "#f5f3ff",
         icon: Truck,
         screens: [
-            { label: "Load Matching", icon: Smartphone, description: "Get matched to loads heading your direction automatically" },
-            { label: "Smart Routes", icon: Route, description: "AI-optimized multi-stop routes that save fuel & time" },
-            { label: "QR Delivery", icon: QrCode, description: "Scan QR on delivery — payment triggers instantly" },
-            { label: "Earnings", icon: Wallet, description: "Track daily earnings, trip history, and payouts" },
+            { label: "Load Overview", icon: Smartphone, description: "Concept for reviewing load information and vehicle requirements" },
+            { label: "Route Details", icon: Route, description: "Illustrative pickup and delivery view, not live routing" },
+            { label: "Delivery Receipt", icon: QrCode, description: "Proposed delivery-confirmation step; payment terms are separate" },
+            { label: "Payout Overview", icon: Wallet, description: "Concept for reviewing trip costs, deductions, and payout details" },
         ],
         features: [
-            { icon: Route, text: "AI-optimized multi-stop routes" },
-            { icon: Map, text: "Real-time GPS navigation" },
-            { icon: IndianRupee, text: "Instant pay on QR confirmation" },
-            { icon: Wallet, text: "Transparent earnings dashboard" },
-            { icon: Star, text: "Rating-based load priority" },
-            { icon: Smartphone, text: "Auto load notifications" },
+            { icon: Route, text: "Route-coordination concept" },
+            { icon: Map, text: "Pickup and destination details" },
+            { icon: IndianRupee, text: "Payment terms subject to confirmation" },
+            { icon: Wallet, text: "Payout-overview concept" },
+            { icon: Star, text: "Vehicle and load fit" },
+            { icon: Smartphone, text: "Load-information concept" },
         ],
-        stats: [
-            { value: "30%", label: "fuel saved" },
-            { value: "3x", label: "more loads" },
-            { value: "T+0", label: "instant pay" },
-        ],
+        status: "UI concept — not a released app",
     },
 };
 
@@ -283,7 +272,8 @@ function ScreenTabs({
                     <button
                         key={i}
                         onClick={() => setActiveScreen(i)}
-                        className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 outline-none border
+                        aria-pressed={active}
+                        className={`flex items-center gap-2 min-h-11 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white border
                             ${active
                                 ? "text-white border-transparent"
                                 : "bg-white/5 text-white/50 border-white/10 hover:bg-white/10 hover:text-white"
@@ -353,7 +343,7 @@ export function ProductsSection() {
                     <motion.div variants={fadeInUp} className="text-center mb-5">
                         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-violet-400 text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md">
                             <Smartphone className="w-3.5 h-3.5" />
-                            Our Apps
+                            App concepts
                         </span>
                     </motion.div>
 
@@ -361,12 +351,12 @@ export function ProductsSection() {
                         variants={fadeInUp}
                         className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
-                        Three Apps,{" "}
+                        Three roles,{" "}
                         <span
                             className="text-transparent bg-clip-text"
                             style={{ backgroundImage: `linear-gradient(135deg, ${app.accentHex} 0%, ${app.accentLight} 100%)` }}
                         >
-                            One Ecosystem
+                            One product vision
                         </span>
                     </motion.h2>
 
@@ -374,8 +364,8 @@ export function ProductsSection() {
                         variants={fadeInUp}
                         className="text-center text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-14"
                     >
-                        Purpose-built mobile apps for every stakeholder in the
-                        farm-to-table journey.
+                        These illustrative screens show proposed app experiences.
+                        App availability will be announced after release confirmation.
                     </motion.p>
 
                     {/* ── App Selector ── */}
@@ -390,10 +380,11 @@ export function ProductsSection() {
                             return (
                                 <button
                                     key={key}
+                                    aria-pressed={active}
                                     onClick={() => handleAppChange(key)}
                                     className={`
                                         relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold
-                                        transition-all duration-300 outline-none border
+                                        transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white border
                                         ${active
                                             ? "text-white shadow-lg"
                                             : "bg-white/5 backdrop-blur-sm text-white/60 border-white/10 hover:border-white/30 hover:text-white"
@@ -457,25 +448,9 @@ export function ProductsSection() {
                                         {app.tagline}
                                     </p>
 
-                                    {/* Stats row */}
-                                    <div className="flex gap-4 mb-8">
-                                        {app.stats.map((stat, i) => (
-                                            <div
-                                                key={i}
-                                                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md"
-                                            >
-                                                <span
-                                                    className="text-lg font-display font-black leading-none drop-shadow-md"
-                                                    style={{ color: app.accentHex }}
-                                                >
-                                                    {stat.value}
-                                                </span>
-                                                <span className="text-white/60 text-xs font-medium">
-                                                    {stat.label}
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <p className="mb-8 rounded-xl bg-white/5 border border-white/10 p-4 text-sm font-semibold text-orange-300">
+                                        {app.status}
+                                    </p>
 
                                     {/* Screen selector */}
                                     <div className="mb-6">
@@ -492,8 +467,7 @@ export function ProductsSection() {
 
                                     {/* Feature grid */}
                                     <div className="grid grid-cols-2 gap-2.5 mb-8">
-                                        {app.features.map((f, i) => {
-                                            const FIcon = f.icon;
+                                         {app.features.map((f, i) => {
                                             return (
                                                 <div
                                                     key={i}
@@ -511,18 +485,18 @@ export function ProductsSection() {
                                         })}
                                     </div>
 
-                                    {/* Download CTA */}
-                                    <a
-                                        href="#"
+                                    <p className="text-sm text-white/70 mb-4">Store links are pending release confirmation.</p>
+                                    <Link
+                                        href="/#choose-role"
                                         className="group inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300 hover:-translate-y-1 hover:brightness-110"
                                         style={{
                                             background: `linear-gradient(135deg, ${app.accentHex} 0%, ${app.accentLight} 200%)`,
                                             boxShadow: `0 8px 25px ${app.accentHex}40`,
                                         }}
                                     >
-                                        Download on Google Play
+                                        Explore the available previews
                                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>

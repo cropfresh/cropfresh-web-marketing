@@ -1,4 +1,4 @@
-export { Navbar } from "./Navbar";
+export { AgricultureNavbar as Navbar } from "./AgricultureNavbar";
 export { HeroSection } from "./HeroSection";
 export { ProblemsSolved } from "./ProblemsSolved";
 export { SolutionsSection } from "./SolutionsSection";
@@ -7,7 +7,7 @@ export { ProductsSection } from "./ProductsSection";
 export { AITechnology } from "./AITechnology";
 export { TestimonialsCarousel } from "./TestimonialsCarousel";
 export { ImpactStats } from "./ImpactStats";
-export { Footer } from "./Footer";
+export { AgricultureFooter as Footer } from "./AgricultureFooter";
 
 // Farmer page sections
 export { FarmerHero } from "./FarmerHero";

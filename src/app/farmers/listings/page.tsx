@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Plus, Filter, ArrowUpRight, ArrowDownRight, MoreVertical, Leaf } from 'lucide-react';
+import { Search, Plus, Filter, MoreVertical, Leaf } from 'lucide-react';
 import Link from 'next/link';
 
 // Mock Data for the Listings Grid

@@ -5,15 +5,6 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { Container } from "@/components/ui";
 import { Users, Mail, Briefcase } from "lucide-react";
 
-const teamMembers = [
-    {
-        name: "CropFresh Team",
-        role: "Engineering & Operations",
-        description: "A passionate team of engineers, agricultural experts, and operations specialists building the future of Indian agriculture.",
-        emoji: "🌾",
-    },
-];
-
 export function AboutTeam() {
     return (
         <section className="py-24 relative overflow-hidden bg-slate-900/50 border-t border-white/5">

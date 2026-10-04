@@ -1,8 +1,8 @@
 @import "tailwindcss";
+@import "./agriculture.css";
 
 /* =========================================================
-   CropFresh Design System v2.0
-   Enhanced for Clean, Modern, Aesthetic Website
+   CropFresh Design System — agriculture-first marketing
    
    60% - Neutrals (backgrounds, body text)
    30% - Primary Green (major elements, sections)
@@ -39,25 +39,25 @@
   --color-neutral-800: #1E293B;
   --color-neutral-900: #0F172A;
 
-  /* Base Background Tokens (Ethereal Dark Mode) */
-  --color-background: #0A0D14;
-  --color-background-alt: #131823;
-  --color-surface: #1E293B;
+  /* Forest surfaces support the existing secondary-page components. */
+  --color-background: #11281D;
+  --color-background-alt: #183627;
+  --color-surface: #214332;
   --color-surface-elevated: rgba(255, 255, 255, 0.05);
 
   /* ----------------------------------------
      30% - PRIMARY GREEN (Major Elements)
-     Goal: Fresh, Vibrant, Tech-Forward
+      Goal: Natural leaf greens
      ---------------------------------------- */
   --color-primary-50: #ECFDF5;
   --color-primary-100: #D1FAE5;
   --color-primary-200: #A7F3D0;
   --color-primary-300: #6EE7B7;
-  --color-primary-400: #34D399;
-  --color-primary-500: #00E676;
+  --color-primary-400: #A6CB87;
+  --color-primary-500: #7FAC63;
   /* CropFresh Green - Main Brand Color */
-  --color-primary-600: #00C853;
-  --color-primary-700: #00A846;
+  --color-primary-600: #5E8F47;
+  --color-primary-700: #3B6C3F;
 
   /* ----------------------------------------
      10% - ACCENT ORANGE (CTAs, Highlights)
@@ -67,8 +67,8 @@
   --color-accent-100: #FFEDD5;
   --color-accent-200: #FED7AA;
   --color-accent-300: #FDBA74;
-  --color-accent-400: #FB923C;
-  --color-accent-500: #F7931E;
+  --color-accent-400: #E7B06B;
+  --color-accent-500: #D99546;
   /* CropFresh Orange - CTA Color */
   --color-accent-600: #EA580C;
   --color-accent-700: #C2410C;
@@ -76,21 +76,21 @@
   /* ----------------------------------------
      SEMANTIC COLORS
      ---------------------------------------- */
-  --color-success: #00E676;
+  --color-success: #A6CB87;
   --color-error: #EF4444;
   --color-warning: #F7931E;
-  --color-info: #00D9FF;
+  --color-info: #A5C3AA;
 
   /* ----------------------------------------
      TEXT COLORS
      ---------------------------------------- */
-  --color-text-primary: #FFFFFF;
+  --color-text-primary: #F5F4E8;
   /* Deep White */
-  --color-text-secondary: #94A3B8;
+  --color-text-secondary: #C3D1BD;
   /* Slate 400 */
-  --color-text-muted: #64748B;
+  --color-text-muted: #9CAE94;
   /* Slate 500 */
-  --color-text-inverse: #0F172A;
+  --color-text-inverse: #193D2B;
 
   /* ----------------------------------------
      TYPOGRAPHY
@@ -102,7 +102,7 @@
      GLASSMORPHISM TOKENS (Dark Mode)
      ---------------------------------------- */
   --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(195, 209, 189, 0.18);
   /* Light borders for depth */
   --glass-blur: 16px;
 
@@ -121,8 +121,8 @@
   --elevation-4: 0 20px 25px -5px rgba(15, 23, 42, 0.1);
 
   /* Glows */
-  --glow-primary: 0 0 20px rgba(0, 230, 118, 0.3);
-  --glow-accent: 0 0 20px rgba(247, 147, 30, 0.3);
+  --glow-primary: 0 6px 20px rgba(33, 67, 50, 0.18);
+  --glow-accent: 0 6px 20px rgba(141, 93, 42, 0.18);
 
   /* ----------------------------------------
      ANIMATION

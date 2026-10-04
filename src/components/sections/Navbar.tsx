@@ -13,8 +13,8 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Farmers", href: "/farmers" },
-    { name: "Buyers", href: "/buyers" },
+    { name: "Farmer demo", href: "/farmers" },
+    { name: "Buyer demo", href: "/buyers" },
     { name: "Haulers", href: "/haulers" },
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
@@ -38,11 +38,15 @@ export function Navbar() {
 
     // Load saved language preference
     useEffect(() => {
-        const savedLocale = localStorage.getItem("cropfresh-locale") as Locale;
-        if (savedLocale && locales.includes(savedLocale)) {
-            setCurrentLocale(savedLocale);
-            document.documentElement.lang = savedLocale;
-        }
+        const hydrateLocale = () => {
+            const savedLocale = localStorage.getItem("cropfresh-locale") as Locale;
+            if (savedLocale && locales.includes(savedLocale)) {
+                setCurrentLocale(savedLocale);
+                document.documentElement.lang = savedLocale;
+            }
+        };
+
+        queueMicrotask(hydrateLocale);
     }, []);
 
     useEffect(() => {
@@ -65,7 +69,7 @@ export function Navbar() {
     }, []);
 
     const handleGetStarted = () => {
-        trackCTAClick("navbar_get_started", "navbar", "/signup");
+        trackCTAClick("navbar_get_started", "navbar", "/#choose-role");
     };
 
     const handleLanguageChange = (locale: Locale) => {
@@ -96,7 +100,7 @@ export function Navbar() {
                     <nav className="flex items-center h-24 gap-4">
                         {/* ── LEFT: Logo (hard-left, no flex grow) ── */}
                         <Link href="/" className="flex items-center group shrink-0">
-                            <div className="relative h-11 w-[190px] transition-transform group-hover:scale-[1.03]">
+                            <div className="relative h-11 w-[150px] sm:w-[190px] transition-transform group-hover:scale-[1.03]">
                                 <Image
                                     src="/logo/logo_horizontal_web.png"
                                     alt="CropFresh"
@@ -108,13 +112,14 @@ export function Navbar() {
                         </Link>
 
                         {/* ── CENTER: Nav Links (flex-1, truly centered) ── */}
-                        <div className="hidden lg:flex flex-1 items-center justify-center gap-5">
+                        <div className="hidden xl:flex flex-1 items-center justify-center gap-4">
                             {navLinks.map((link) => {
                                 const isActive = pathname === link.href;
                                 return (
                                     <Link
                                         key={link.name}
                                         href={link.href}
+                                        aria-current={isActive ? "page" : undefined}
                                         className={`${linkColor} transition-colors font-medium text-sm relative group ${isActive ? "!text-[var(--color-accent-500)]" : ""}`}
                                     >
                                         {link.name}
@@ -126,6 +131,7 @@ export function Navbar() {
                             {/* CropFresh AI — glowing pill at end of center nav */}
                             <Link
                                 href="/ai"
+                                aria-current={pathname === "/ai" ? "page" : undefined}
                                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all text-xs font-bold tracking-wide ${
                                     pathname === "/ai"
                                         ? "bg-emerald-500/25 border-emerald-400/50 text-emerald-300 shadow-[0_0_14px_rgba(16,185,129,0.4)]"
@@ -138,7 +144,7 @@ export function Navbar() {
                         </div>
 
                         {/* ── RIGHT: Language + Login + Get Started (compact, shrink-0) ── */}
-                        <div className="hidden lg:flex items-center gap-2 shrink-0">
+                        <div className="hidden xl:flex items-center gap-2 shrink-0">
                             {/* Language Selector */}
                             <div ref={languageRef} className="relative">
                                 <button
@@ -217,12 +223,13 @@ export function Navbar() {
                                         ? "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-primary-500)]/5"
                                         : "text-white/80 hover:text-white hover:bg-white/10"}`}
                                 >
-                                    Login
+                                    Demo login
                                 </Link>
                             )}
 
                             {/* Get Started */}
-                            <button
+                            <Link
+                                href="/#choose-role"
                                 onClick={handleGetStarted}
                                 className="group inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full font-semibold text-sm text-white bg-gradient-to-r from-[var(--color-accent-500)] to-[#FF8C00] hover:from-[#FF7A00] hover:to-[#FF6D00] shadow-[0_2px_12px_rgba(255,140,0,0.35)] hover:shadow-[0_4px_20px_rgba(255,140,0,0.5)] hover:-translate-y-0.5 transition-all duration-300"
                             >
@@ -232,11 +239,11 @@ export function Navbar() {
                                         <path d="M1 5H9M9 5L5.5 1.5M9 5L5.5 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </span>
-                            </button>
+                            </Link>
                         </div>
 
                         {/* Mobile: Language + Menu Button */}
-                        <div className="lg:hidden flex items-center gap-2">
+                        <div className="xl:hidden flex items-center gap-2 ml-auto">
                             {/* Mobile Language Button */}
                             <div ref={languageRef} className="relative">
                                 <button
@@ -295,6 +302,8 @@ export function Navbar() {
                                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                                 className="w-10 h-10 flex flex-col items-center justify-center gap-1.5"
                                 aria-label="Toggle menu"
+                                aria-expanded={isMobileMenuOpen}
+                                aria-controls="mobile-navigation"
                             >
                                 <motion.span
                                     animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
@@ -322,13 +331,14 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-40 lg:hidden pt-20"
+                        className="fixed inset-0 z-40 xl:hidden pt-24 overflow-y-auto"
                     >
                         <div
                             className="absolute inset-0 bg-[var(--color-background)]/95 backdrop-blur-xl"
                             onClick={() => setIsMobileMenuOpen(false)}
                         />
                         <motion.nav
+                            id="mobile-navigation"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.1 }}
@@ -345,6 +355,7 @@ export function Navbar() {
                                         >
                                             <Link
                                                 href={link.href}
+                                                aria-current={pathname === link.href ? "page" : undefined}
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                                 className="block py-3 text-xl font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-accent-500)] transition-colors border-b border-[var(--glass-border)]"
                                             >
@@ -352,6 +363,14 @@ export function Navbar() {
                                             </Link>
                                         </motion.div>
                                     ))}
+                                    <Link
+                                        href="/ai"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        aria-current={pathname === "/ai" ? "page" : undefined}
+                                        className="block py-3 text-xl font-medium text-emerald-300 border-b border-white/10"
+                                    >
+                                        CropFresh AI
+                                    </Link>
 
                                     <div className="flex flex-col gap-3 pt-4">
                                         {isAuthenticated ? (
@@ -368,21 +387,24 @@ export function Navbar() {
                                         ) : (
                                             <Link
                                                 href="/login"
+                                                onClick={() => setIsMobileMenuOpen(false)}
                                                 className="text-center py-3 text-lg text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors font-medium"
                                             >
-                                                Login
+                                                Demo login
                                             </Link>
                                         )}
                                         <Button
+                                            asChild
                                             variant="default"
                                             size="lg"
-                                            onClick={() => {
+                                            className="w-full min-h-11"
+                                        >
+                                            <Link href="/#choose-role" onClick={() => {
                                                 handleGetStarted();
                                                 setIsMobileMenuOpen(false);
-                                            }}
-                                            className="w-full"
-                                        >
-                                            Get Started
+                                            }}>
+                                                Get Started
+                                            </Link>
                                         </Button>
                                     </div>
                                 </div>

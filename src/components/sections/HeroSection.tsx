@@ -1,135 +1,33 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
-import { motion, useScroll, AnimatePresence } from "framer-motion";
-import Image from "next/image"; // Added Image import
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/ui";
 import {
     heroStagger,
     heroChildFade,
-    counterReveal,
-    staggerContainer,
 } from "@/lib/animations";
 import { trackCTAClick } from "@/lib/analytics";
+import { homepageMessage } from "@/data/marketing";
 import {
     Sprout,
-    Truck,
-    IndianRupee,
     ChevronDown,
-    Leaf,
-    Mic,
     Scan,
     CheckCircle2,
-    Languages,
-    TrendingUp,
-    ShieldCheck,
-    HandCoins,
-    PackageCheck
+    Pause,
+    Play,
 } from "lucide-react";
-
-/* ─── Data ────────────────────────────────────────────── */
-
-const rotatingWords = ["Farmers", "Buyers", "Haulers", "India", "Farmers"];
-
-const stats = [
-    { value: 35, suffix: "%+", label: "Farmer Income Boost", Icon: TrendingUp },
-    { value: 25, suffix: "%", label: "Less Wastage", Icon: ShieldCheck },
-    { value: 0, suffix: "Same Day", label: "UPI Payments", Icon: HandCoins },
-    { value: 40, suffix: "%", label: "Logistics Savings", Icon: PackageCheck },
-];
-
-/* ─── Animated Counter ────────────────────────────────── */
-
-function AnimatedNumber({
-    value,
-    suffix,
-    prefix = "",
-    isVisible,
-}: {
-    value: number;
-    suffix: string;
-    prefix?: string;
-    isVisible: boolean;
-}) {
-    const [count, setCount] = useState(0);
-    const hasAnimated = useRef(false);
-
-    useEffect(() => {
-        if (!isVisible || hasAnimated.current || value === 0) return;
-        hasAnimated.current = true;
-
-        const duration = 2500;
-        const steps = 60;
-        const increment = value / steps;
-        let current = 0;
-
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= value) {
-                setCount(value);
-                clearInterval(timer);
-            } else {
-                setCount(Math.floor(current));
-            }
-        }, duration / steps);
-
-        return () => clearInterval(timer);
-    }, [value, isVisible]);
-
-    if (value === 0) {
-        return <span>{suffix}</span>;
-    }
-
-    return (
-        <span className="tabular-nums">
-            {prefix}
-            {count.toLocaleString("en-IN")}
-            {suffix}
-        </span>
-    );
-}
-
-/* ─── Word Rotator ────────────────────────────────────── */
-
-function WordRotator({ words }: { words: string[] }) {
-    const [index, setIndex] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setIndex((prev) => (prev + 1) % (words.length - 1));
-        }, 2800);
-        return () => clearInterval(interval);
-    }, [words.length]);
-
-    return (
-        <span className="word-rotator inline-block" style={{ height: "1.15em", overflow: "hidden" }}>
-            <motion.span
-                key={index}
-                initial={{ y: 30, opacity: 0, filter: "blur(4px)" }}
-                animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                exit={{ y: -30, opacity: 0, filter: "blur(4px)" }}
-                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                className="inline-block"
-                style={{
-                    color: "#FFA726",
-                    textShadow: "0 2px 10px rgba(255,167,38,0.4)",
-                }}
-            >
-                {words[index]}
-            </motion.span>
-        </span>
-    );
-}
-
-/* ─── Bento Tech Cards ────────────────────────────────── */
 
 /* ─── Feature Showcase Drawer ───────────────────────────── */
 
 const showcaseItems = [
     {
         id: "source",
-        title: "Direct from Source",
-        description: "Zero middlemen markup. Connect directly with India's farmers.",
+        title: "Produce listing concept",
+        description: "Explore how farmers could share crop and harvest information.",
+        alt: "Illustrative farmer image for the produce listing concept",
         image: "/images/hero/farmer.png",
         icon: <Sprout className="w-5 h-5 text-[#FF8C00]" />,
         bgClass: "bg-[#FF8C00]/20 border-[#FF8C00]/30",
@@ -137,8 +35,9 @@ const showcaseItems = [
     },
     {
         id: "quality",
-        title: "AI Quality Verified",
-        description: "Digital Twin scanning ensures premium A-Grade freshness.",
+        title: "Quality information concept",
+        description: "See how photos and batch details could support sourcing decisions.",
+        alt: "Illustrative tomatoes for the quality information concept",
         image: "/images/hero/tomato.png",
         icon: <Scan className="w-5 h-5 text-emerald-400" />,
         bgClass: "bg-emerald-500/20 border-emerald-500/30",
@@ -146,8 +45,9 @@ const showcaseItems = [
     },
     {
         id: "logistics",
-        title: "Instant Settlement",
-        description: "T+0 UPI payments with reliable, fast logistics tracking.",
+        title: "Delivery coordination concept",
+        description: "Learn about the intended pickup and delivery workflow.",
+        alt: "Illustrative delivery vehicle for the logistics concept",
         image: "/images/hero/truck.png",
         icon: <CheckCircle2 className="w-5 h-5 text-blue-400" />,
         bgClass: "bg-blue-500/20 border-blue-500/30",
@@ -155,15 +55,37 @@ const showcaseItems = [
     }
 ];
 
+function subscribeToMotionPreference(onChange: () => void) {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    preference.addEventListener("change", onChange);
+    return () => preference.removeEventListener("change", onChange);
+}
+
+function getMotionPreference() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getServerMotionPreference() {
+    // Keep the initial HTML and hydration identical; enable autoplay afterward.
+    return true;
+}
+
 function FeatureShowcaseDrawer() {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
+    const reduceMotion = useSyncExternalStore(
+        subscribeToMotionPreference,
+        getMotionPreference,
+        getServerMotionPreference,
+    );
 
     useEffect(() => {
+        if (isPaused || reduceMotion) return;
         const interval = setInterval(() => {
             setActiveIndex((current) => (current + 1) % showcaseItems.length);
         }, 4500); // 4.5 seconds per slide
         return () => clearInterval(interval);
-    }, []);
+    }, [isPaused, reduceMotion]);
 
     return (
         <div className="relative w-full h-[400px] sm:h-[450px] lg:h-[480px] rounded-3xl overflow-hidden shadow-2xl group flex flex-col bg-[#0A0D14]/60 backdrop-blur-xl border border-white/10">
@@ -180,17 +102,18 @@ function FeatureShowcaseDrawer() {
                     >
                         <Image
                             src={showcaseItems[activeIndex].image}
-                            alt={showcaseItems[activeIndex].title}
+                            alt={showcaseItems[activeIndex].alt}
                             fill
                             className="object-cover opacity-80"
-                            priority
+                            priority={activeIndex === 0}
+                            sizes="(min-width: 1024px) 45vw, 90vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-[#0A0D14]/10 to-transparent"></div>
                     </motion.div>
                 </AnimatePresence>
             </div>
 
-            {/* Consolidated Floating Card (Badge + Text) - Ultra-Slim Horizontal Layout */}
+            {/* Consolidated Floating Card (Badge + Text) */}
             <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-auto md:max-w-[480px] z-20">
                 <AnimatePresence mode="wait">
                     <motion.div
@@ -214,18 +137,18 @@ function FeatureShowcaseDrawer() {
                             {showcaseItems[activeIndex].icon}
                         </div>
 
-                        {/* Text - Right Side (Stacked, Single Line) */}
+                        {/* Text - Right Side */}
                         <div className="relative z-10 flex flex-col justify-center overflow-hidden w-full">
                             <h3 className="font-bold text-sm sm:text-base text-white tracking-tight drop-shadow-md mb-0.5">
                                 {showcaseItems[activeIndex].title}
                             </h3>
-                            <p className="text-white/95 text-xs sm:text-sm font-medium drop-shadow-sm truncate">
+                            <p className="text-white/95 text-xs sm:text-sm font-medium drop-shadow-sm leading-relaxed">
                                 {showcaseItems[activeIndex].description}
                             </p>
                         </div>
 
                         {/* Progress Bar indicating slider flow */}
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-0 overflow-hidden">
+                        {!isPaused && !reduceMotion && <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-0 overflow-hidden">
                             <motion.div
                                 key={`progress-${activeIndex}`}
                                 initial={{ width: "0%" }}
@@ -233,19 +156,35 @@ function FeatureShowcaseDrawer() {
                                 transition={{ duration: 4.5, ease: "linear" }}
                                 className={`h-full ${showcaseItems[activeIndex].progressClass} shadow-[0_0_15px_currentColor]`}
                             />
-                        </div>
+                        </div>}
                     </motion.div>
                 </AnimatePresence>
             </div>
 
-            {/* Pagination Dots (Optional, purely aesthetic for indicating multiple items) */}
-            <div className="absolute top-4 right-4 z-20 flex gap-1.5 p-2 rounded-full bg-black/30 backdrop-blur-md border border-white/10">
-                {showcaseItems.map((_, idx) => (
-                    <div
-                        key={idx}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${activeIndex === idx ? 'w-5 bg-white' : 'w-1.5 bg-white/30'}`}
-                    />
+            <span className="absolute top-4 left-4 z-20 rounded-full bg-black/70 px-3 py-2 text-xs font-semibold text-white border border-white/20">
+                Illustrative product concepts
+            </span>
+            <div className="absolute top-16 right-4 z-20 flex gap-1 p-1 rounded-full bg-black/70 border border-white/20">
+                {showcaseItems.map((item, idx) => (
+                    <button
+                        key={item.id}
+                        type="button"
+                        aria-label={`Show ${item.title}`}
+                        aria-pressed={activeIndex === idx}
+                        onClick={() => { setActiveIndex(idx); setIsPaused(true); }}
+                        className="w-11 h-11 flex items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-white"
+                    >
+                        <span className={`h-2 rounded-full ${activeIndex === idx ? 'w-5 bg-white' : 'w-2 bg-white/50'}`} />
+                    </button>
                 ))}
+                {!reduceMotion && <button
+                    type="button"
+                    aria-label={isPaused ? "Play product showcase" : "Pause product showcase"}
+                    onClick={() => setIsPaused(!isPaused)}
+                    className="w-11 h-11 flex items-center justify-center text-white rounded-full focus-visible:outline-2 focus-visible:outline-white"
+                >
+                    {isPaused ? <Play size={16} aria-hidden="true" /> : <Pause size={16} aria-hidden="true" />}
+                </button>}
             </div>
         </div>
     );
@@ -254,41 +193,10 @@ function FeatureShowcaseDrawer() {
 /* ─── Hero Section ────────────────────────────────────── */
 
 export function HeroSection() {
-    const [statsVisible, setStatsVisible] = useState(false);
-    const sectionRef = useRef<HTMLElement>(null);
-    const statsRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) setStatsVisible(true);
-                });
-            },
-            { threshold: 0.3 }
-        );
-
-        if (statsRef.current) observer.observe(statsRef.current);
-        return () => observer.disconnect();
-    }, []);
-
-    const handleCTAClick = useCallback(
-        (userType: string, path: string) => {
-            trackCTAClick(`hero_${userType}_cta`, "hero_section", path);
-        },
-        []
-    );
-
-    const scrollToNext = useCallback(() => {
-        document.querySelector("#problems")?.scrollIntoView({ behavior: "smooth" });
-    }, []);
-
     return (
         <section
-            ref={sectionRef}
             id="hero"
-            role="banner"
-            aria-label="CropFresh — Farm-Fresh Produce, Direct to You"
+            aria-labelledby="hero-heading"
             className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center overflow-hidden bg-black"
         >
             {/* ─── Layer 1: Animated Mesh Background ─── */}
@@ -329,13 +237,15 @@ export function HeroSection() {
                             className="lg:col-span-6 flex flex-col items-start text-left"
                         >
 
-                            {/* Headline */}
+                            <motion.p variants={heroChildFade} className="text-sm font-semibold text-emerald-300 mb-4">
+                                {homepageMessage.eyebrow}
+                            </motion.p>
                             <motion.h1
+                                id="hero-heading"
                                 variants={heroChildFade}
                                 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4 leading-tight"
                             >
-                                Empowering <WordRotator words={rotatingWords} />.<br />
-                                <span className="text-[#FF8C00]">Zero Middlemen.</span> Pure Intelligence.
+                                {homepageMessage.headline}
                             </motion.h1>
 
                             {/* Subheadline */}
@@ -343,9 +253,7 @@ export function HeroSection() {
                                 variants={heroChildFade}
                                 className="text-base md:text-lg lg:text-lg text-white/70 max-w-lg mb-6 leading-relaxed font-light"
                             >
-                                India's first AI-powered Agri-Intelligence Marketplace.
-                                Farmers get 0% commission and T+0 payments.
-                                Buyers get 25% lower costs with AI-verified 'Digital Twin' quality.
+                                {homepageMessage.description}
                             </motion.p>
 
                             {/* CTA Buttons */}
@@ -353,18 +261,20 @@ export function HeroSection() {
                                 variants={heroChildFade}
                                 className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-0"
                             >
-                                <button
-                                    className="px-8 py-4 rounded-xl bg-[#FF8C00] text-white font-semibold flex items-center justify-center gap-2 hover:bg-[#E67E22] transition-colors shadow-lg shadow-[#FF8C00]/20 group"
-                                    onClick={() => handleCTAClick("market", "/join")}
+                                <Link
+                                    href="/#choose-role"
+                                    className="px-8 py-4 rounded-xl bg-[#FF8C00] text-black font-semibold flex items-center justify-center gap-2 hover:bg-[#FFA726] transition-colors shadow-lg shadow-[#FF8C00]/20 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-300"
+                                    onClick={() => trackCTAClick("hero_choose_role", "hero_section", "/#choose-role")}
                                 >
-                                    Join the Marketplace
-                                </button>
-                                <button
-                                    className="px-8 py-4 rounded-xl bg-white/5 text-white font-semibold flex items-center justify-center gap-2 border border-white/10 hover:bg-white/10 transition-colors group"
-                                    onClick={() => document.querySelector("#ai-tech")?.scrollIntoView({ behavior: "smooth" })}
+                                    Choose your role
+                                </Link>
+                                <a
+                                    href="#technology"
+                                    className="px-8 py-4 rounded-xl bg-white/5 text-white font-semibold flex items-center justify-center gap-2 border border-white/10 hover:bg-white/10 transition-colors group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                                    onClick={() => trackCTAClick("hero_technology", "hero_section", "#technology")}
                                 >
-                                    See How AI Works
-                                </button>
+                                    Explore the technology
+                                </a>
                             </motion.div>
                         </motion.div>
 
@@ -381,51 +291,20 @@ export function HeroSection() {
                 </Container>
             </div>
 
-            {/* ─── Layer 3: Single Bento Trust Box ─── */}
-            <div className="relative z-20 w-full mt-auto pb-12 px-4 md:px-8">
-                <motion.div
-                    ref={statsRef}
-                    variants={staggerContainer}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-10px" }}
-                    className="max-w-7xl mx-auto flex justify-center"
-                >
-                    {/* Unified Bento Box */}
-                    <motion.div
-                        variants={heroChildFade}
-                        className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-wrap items-center justify-around gap-6 shadow-2xl transition-all hover:bg-white/10 w-full"
-                    >
-                        {stats.map((stat) => (
-                            <div key={stat.label} className="flex flex-col items-center min-w-[160px]">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="p-2 sm:p-3 rounded-xl bg-white/5 border border-white/10 shadow-inner">
-                                        <stat.Icon size={20} className="text-[#FF8C00]" aria-hidden="true" />
-                                    </div>
-                                    <p className="stat-value text-3xl font-light text-white leading-none">
-                                        <AnimatedNumber
-                                            value={stat.value}
-                                            suffix={stat.suffix}
-                                            isVisible={statsVisible}
-                                        />
-                                    </p>
-                                </div>
-                                <p className="text-sm text-white/60 font-medium tracking-wide text-center">
-                                    {stat.label}
-                                </p>
-                            </div>
-                        ))}
-                    </motion.div>
-                </motion.div>
+            <div className="relative z-20 w-full pb-20 px-6">
+                <p className="max-w-4xl mx-auto rounded-2xl border border-emerald-400/20 bg-emerald-400/5 p-5 text-center text-sm text-white/80 leading-relaxed">
+                    {homepageMessage.availability}
+                </p>
             </div>
 
             {/* ─── Scroll Indicator ─── */}
-            <motion.div
+            <motion.a
+                href="#choose-role"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2.5, duration: 0.8 }}
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[15] hidden md:flex flex-col items-center gap-1 cursor-pointer group" // Hidden on mobile to save space
-                onClick={scrollToNext}
+                aria-label="Explore audience paths"
             >
                 <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-medium group-hover:text-white/80 transition-colors">
                     Explore
@@ -436,8 +315,7 @@ export function HeroSection() {
                 >
                     <ChevronDown size={18} className="text-white/40 group-hover:text-[#FF8C00] transition-colors" />
                 </motion.div>
-            </motion.div>
+            </motion.a>
         </section>
     );
 }
-

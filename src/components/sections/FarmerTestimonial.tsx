@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Container, Card } from "@/components/ui";
+import { Container } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { Play, Quote, MapPin } from "lucide-react";
 
@@ -20,12 +20,10 @@ const testimonial = {
 };
 
 export function FarmerTestimonial() {
-    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
     const [showVideo, setShowVideo] = useState(false);
 
     const handlePlayClick = () => {
         setShowVideo(true);
-        setIsVideoLoaded(true);
     };
 
     return (
