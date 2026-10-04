@@ -35,38 +35,38 @@ const problemsByUser: Record<string, UserTypeProblems> = {
     farmer: {
         title: "Farmers",
         emoji: "👨‍🌾",
-        subtitle: "The backbone of India faces daily struggles",
+        subtitle: "Questions to consider before selling produce",
         accentHex: "#16a34a",          // green-600
-        impactStat: "60%",
-        impactLabel: "revenue lost to middlemen",
+        impactStat: "Clarity",
+        impactLabel: "on listing, pricing, and payment terms",
         problems: [
             {
                 icon: TrendingDown,
-                title: "Low Price Realization",
-                description: "Middlemen take 40-60% of the final selling price, leaving farmers with minimal profit margins.",
-                stat: "60%",
-                statLabel: "lost to middlemen",
+                title: "Understanding the price",
+                description: "Intermediaries and unclear deductions can make it harder to understand the amount received for a harvest.",
+                stat: "Price",
+                statLabel: "Know the breakdown",
             },
             {
                 icon: Clock,
-                title: "Delayed Payments",
-                description: "Waiting weeks or months for payment creates cash flow problems and financial stress.",
-                stat: "30-90",
-                statLabel: "days wait",
+                title: "Planning for payment",
+                description: "Clear settlement conditions and payment timing help farmers plan their next growing cycle.",
+                stat: "Timing",
+                statLabel: "Confirm payment terms",
             },
             {
                 icon: Eye,
-                title: "No Market Visibility",
-                description: "Farmers don't know real market prices or buyer demands, leading to poor selling decisions.",
-                stat: "0%",
-                statLabel: "price transparency",
+                title: "Understanding buyer needs",
+                description: "Knowing the requested crop, quantity, and delivery location can support a more informed selling decision.",
+                stat: "Demand",
+                statLabel: "Discuss buyer needs",
             },
             {
                 icon: ShieldOff,
-                title: "Quality Not Rewarded",
-                description: "No differentiation between quality grades means no incentive to produce better crops.",
-                stat: "0",
-                statLabel: "quality incentive",
+                title: "Describing produce quality",
+                description: "Photos and agreed inspection criteria can help farmers explain the condition of their produce.",
+                stat: "Quality",
+                statLabel: "Agree on criteria",
             },
         ],
     },
@@ -75,74 +75,74 @@ const problemsByUser: Record<string, UserTypeProblems> = {
         emoji: "🏪",
         subtitle: "Hotels, restaurants & retailers struggle with supply",
         accentHex: "#ea580c",          // orange-600
-        impactStat: "30%",
-        impactLabel: "quality variance in every order",
+        impactStat: "Context",
+        impactLabel: "for quality, origin, and sourcing decisions",
         problems: [
             {
                 icon: HelpCircle,
-                title: "Inconsistent Quality",
-                description: "No way to verify produce quality before purchase leads to unpredictable product standards.",
-                stat: "30%",
-                statLabel: "quality variance",
+                title: "Comparing quality",
+                description: "Buyers need clear grade definitions and inspection information to compare produce for their business.",
+                stat: "Grade",
+                statLabel: "Understand the criteria",
             },
             {
                 icon: RefreshCw,
-                title: "Supply Uncertainty",
-                description: "Unreliable supply chains cause menu changes and disappointed customers.",
-                stat: "Weekly",
-                statLabel: "stockouts",
+                title: "Planning supply",
+                description: "Crop availability, quantities, and delivery windows need confirmation before a sourcing commitment.",
+                stat: "Supply",
+                statLabel: "Confirm availability",
             },
             {
                 icon: MapPin,
-                title: "No Traceability",
-                description: "Can't trace origin for food safety compliance or customer transparency.",
-                stat: "0%",
-                statLabel: "farm visibility",
+                title: "Understanding origin",
+                description: "Batch and harvest information can provide useful context; traceability is separate from certification.",
+                stat: "Origin",
+                statLabel: "Review batch details",
             },
             {
                 icon: IndianRupee,
-                title: "Price Volatility",
-                description: "Unpredictable pricing makes budgeting impossible and eats into margins.",
-                stat: "40%",
-                statLabel: "price swings",
+                title: "Comparing delivered costs",
+                description: "Produce cost, logistics, and applicable charges should be understood together when comparing offers.",
+                stat: "Cost",
+                statLabel: "Review included charges",
             },
         ],
     },
     hauler: {
-        title: "Haulers",
+        title: "Delivery partners",
         emoji: "🚚",
         subtitle: "Logistics partners face daily inefficiencies",
         accentHex: "#0891b2",          // cyan-600
-        impactStat: "60%",
-        impactLabel: "of trips return empty",
+        impactStat: "Planning",
+        impactLabel: "for routes, vehicle fit, and payout terms",
         problems: [
             {
                 icon: Truck,
-                title: "Empty Return Trips",
-                description: "60% of trips return empty, wasting fuel and time without earning potential.",
-                stat: "60%",
-                statLabel: "empty runs",
+                title: "Planning return journeys",
+                description: "Load availability and return routes affect trip economics; a return load cannot be assumed.",
+                stat: "Loads",
+                statLabel: "Check route availability",
             },
             {
                 icon: CreditCard,
-                title: "Delayed Payments",
-                description: "Waiting for payment after delivery creates cash flow and family planning issues.",
-                stat: "15-30",
-                statLabel: "days delay",
+                title: "Understanding payout terms",
+                description: "Delivery confirmation, deductions, and settlement timing should be agreed before accepting a trip.",
+                stat: "Payout",
+                statLabel: "Confirm the conditions",
             },
             {
                 icon: Route,
-                title: "Inefficient Routes",
-                description: "No optimization means longer drives, more fuel, and less daily earnings.",
-                stat: "40%",
-                statLabel: "extra distance",
+                title: "Evaluating a route",
+                description: "Distance, stops, vehicle capacity, and fuel costs matter when deciding whether a route is a fit.",
+                stat: "Route",
+                statLabel: "Account for trip costs",
             },
             {
                 icon: Phone,
-                title: "Fragmented Bookings",
-                description: "Finding loads requires constant phone calls and waiting at mandis.",
-                stat: "3+ hrs",
-                statLabel: "daily wasted",
+                title: "Coordinating pickups",
+                description: "Clear pickup details and contact information can help partners prepare for each delivery.",
+                stat: "Pickup",
+                statLabel: "Clarify the next step",
             },
         ],
     },
@@ -213,7 +213,7 @@ export function ProblemsSolved() {
                     <motion.div variants={fadeInUp} className="text-center mb-5">
                         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-xs font-semibold uppercase tracking-wider mb-6">
                             <AlertTriangle className="w-3.5 h-3.5" />
-                            The Problem
+                            Audience needs
                         </span>
                     </motion.div>
 
@@ -221,24 +221,15 @@ export function ProblemsSolved() {
                         variants={fadeInUp}
                         className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
-                        India&apos;s{" "}
-                        <span className="relative inline-block">
-                            <span className="text-red-600">₹40 Lakh Crore</span>
-                            <svg className="absolute -bottom-1.5 left-0 w-full" viewBox="0 0 200 6" fill="none">
-                                <path d="M1 4C50 1.5 150 1.5 199 4" stroke="#dc2626" strokeWidth="2" strokeLinecap="round" strokeDasharray="5 5" />
-                            </svg>
-                        </span>{" "}
-                        Agri Supply Chain
-                        <br className="hidden md:block" />
-                        <span className="text-white/60"> is </span>
-                        <span className="text-red-500">Broken</span>
+                        Better connections start with{" "}
+                        <span className="text-orange-400">clearer information</span>
                     </motion.h2>
 
                     <motion.p
                         variants={fadeInUp}
                         className="text-center text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-14"
                     >
-                        Every stakeholder suffers. Here&apos;s what each faces daily.
+                        Explore the questions CropFresh is being designed to help each audience address.
                     </motion.p>
 
                     {/* ── Tabs ── */}
@@ -252,10 +243,11 @@ export function ProblemsSolved() {
                             return (
                                 <button
                                     key={type}
+                                    aria-pressed={active}
                                     onClick={() => handleTabChange(type)}
                                     className={`
                                         relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold
-                                        transition-all duration-300 outline-none
+                                        transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white
                                         ${active
                                             ? "text-white shadow-lg shadow-black/20"
                                             : "glass-accent text-white/70 border border-white/10 hover:border-white/30 hover:text-white"
@@ -408,7 +400,7 @@ export function ProblemsSolved() {
                             }}
                         >
                             <span className="relative z-10 flex items-center gap-2">
-                                See How CropFresh Fixes This
+                                 Explore the product approach
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </span>
                         </a>

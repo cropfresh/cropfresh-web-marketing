@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Search, SlidersHorizontal, MapPin, Leaf, ShoppingCart, Loader2, Star, ShieldCheck } from 'lucide-react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { useAuth } from '@/contexts/AuthContext';
@@ -115,7 +116,7 @@ export default function BuyersDashboard() {
             
             {searchQuery && !isSearching && (
                 <p className="text-sm font-semibold text-neutral-500">
-                    Showing {filteredListings.length} results for "<span className="text-neutral-900 dark:text-white">{searchQuery}</span>"
+                     Showing {filteredListings.length} results for &quot;<span className="text-neutral-900 dark:text-white">{searchQuery}</span>&quot;
                 </p>
             )}
         </div>
@@ -150,7 +151,7 @@ export default function BuyersDashboard() {
                 {/* Produce visual placeholder */}
                 <div className="h-44 bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
                   {item.image_url ? (
-                    <img src={item.image_url} alt={item.commodity} className="absolute inset-0 w-full h-full object-cover" />
+                     <Image src={item.image_url} alt={item.commodity} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw" className="object-cover" />
                   ) : (
                     <Leaf className="w-12 h-12 text-neutral-300 dark:text-neutral-700" />
                   )}

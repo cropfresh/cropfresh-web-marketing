@@ -1,29 +1,22 @@
-import {
-  Navbar,
-  HeroSection,
-  ProblemsSolved,
-  SolutionsSection,
-  HowItWorks,
-  ProductsSection,
-  AITechnology,
-  TestimonialsCarousel,
-  ImpactStats,
-  Footer,
-} from "@/components/sections";
+import { Navbar, Footer } from "@/components/sections";
+import { AgricultureHero } from "@/components/sections/AgricultureHero";
+import { AgricultureStory, HarvestJourney, FarmTools, FarmTechnology, CropFreshFAQ } from "@/components/sections/AgricultureSections";
+import { AudiencePaths } from "@/components/sections/AudiencePaths";
+import { ParticipationNextSteps } from "@/components/sections/ParticipationNextSteps";
 
 export default function HomePage() {
   return (
     <>
       <Navbar />
-      <main>
-        <HeroSection />
-        <ProblemsSolved />
-        <SolutionsSection />
-        <HowItWorks />
-        <ProductsSection />
-        <AITechnology />
-        <TestimonialsCarousel />
-        <ImpactStats />
+      <main className="agri-home" id="main-content">
+        <AgricultureHero />
+        <AudiencePaths />
+        <AgricultureStory />
+        <HarvestJourney />
+        <FarmTools />
+        <FarmTechnology />
+        <CropFreshFAQ />
+        <ParticipationNextSteps />
       </main>
       <Footer />
     </>

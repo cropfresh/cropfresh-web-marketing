@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Container } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import {
-    Brain, Search, TrendingUp, Truck, Clock, Shield,
-    Zap, Leaf, MapPin, CheckCircle2, QrCode,
+    Brain, TrendingUp, Truck, Clock, Shield,
+    MapPin, CheckCircle2, QrCode,
     ArrowRight, Sparkles, Eye
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -17,8 +16,7 @@ interface AIFeature {
     name: string;
     description: string;
     accentHex: string;
-    stat: string;
-    statLabel: string;
+    status: "Planned" | "Illustrative demo";
     size: "large" | "medium" | "small";
 }
 
@@ -26,97 +24,53 @@ interface AIFeature {
 const aiFeatures: AIFeature[] = [
     {
         icon: Eye,
-        name: "Quality Grading AI",
-        description: "Deep learning analyzes produce photos to assign A/B/C quality grades with 95% accuracy. No subjective guesswork.",
+        name: "Quality-information workflow",
+        description: "Proposed photo-assisted grading to support inspection. Crop-specific evaluation and human-review requirements need validation before use in real sourcing decisions.",
         accentHex: "#16a34a",
-        stat: "95%",
-        statLabel: "accuracy",
+        status: "Planned",
         size: "large",
     },
     {
         icon: TrendingUp,
-        name: "Dynamic Pricing Engine",
-        description: "DPLE calculates fair All-Inclusive Single Prices using real-time demand, supply curves, and seasonal patterns.",
+        name: "Pricing calculator",
+        description: "A local calculator demonstrates possible price components. Illustrative calculations are not live market quotes or binding offers.",
         accentHex: "#ea580c",
-        stat: "Real-time",
-        statLabel: "pricing",
+        status: "Illustrative demo",
         size: "large",
     },
     {
         icon: Brain,
-        name: "Matchmaking Engine",
-        description: "Pairs farmers to best-fit buyers based on quality, quantity, proximity, and preference history.",
+        name: "Buyer-matching concept",
+        description: "The intended workflow considers crop, grade, quantity, and location. Sample matches do not establish real buyer demand or acceptance.",
         accentHex: "#7c3aed",
-        stat: "< 5 min",
-        statLabel: "match time",
+        status: "Planned",
         size: "medium",
     },
     {
         icon: Truck,
-        name: "Route Optimizer",
-        description: "Creates optimal multi-stop delivery routes for maximum load efficiency and 30% fuel savings.",
+        name: "Route-coordination concept",
+        description: "Proposed route planning brings pickup points, destinations, and vehicle capacity together. Fuel savings and live route availability have not been verified.",
         accentHex: "#0891b2",
-        stat: "30%",
-        statLabel: "fuel saved",
+        status: "Planned",
         size: "medium",
     },
     {
         icon: Clock,
-        name: "Shelf-Life Predictor",
-        description: "ML estimates freshness duration to minimize wastage and optimize inventory across the supply chain.",
+        name: "Freshness-information concept",
+        description: "The product direction explores how harvest and storage information could inform freshness estimates. This is not a validated shelf-life or food-safety prediction.",
         accentHex: "#d97706",
-        stat: "40%",
-        statLabel: "less waste",
+        status: "Planned",
         size: "small",
     },
     {
         icon: Shield,
-        name: "Digital Twin",
-        description: "Immutable, tamper-proof record of every batch — from field to fork. Complete traceability via QR.",
+        name: "Batch-record concept",
+        description: "A proposed record links origin, harvest, inspection, and delivery details. A QR code alone does not establish a complete or tamper-proof history.",
         accentHex: "#059669",
-        stat: "100%",
-        statLabel: "traceable",
+        status: "Planned",
         size: "small",
     },
 ];
-
-/* ─── Animated Counter ─── */
-function AnimatedStat({ value, label, accentHex }: { value: string; label: string; accentHex: string }) {
-    const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: "-50px" });
-    const numericMatch = value.match(/^(\d+)/);
-    const numericValue = numericMatch ? parseInt(numericMatch[1]) : null;
-    const suffix = numericMatch ? value.slice(numericMatch[1].length) : value;
-    const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        if (isInView && numericValue !== null) {
-            let start = 0;
-            const duration = 1200;
-            const step = Math.max(1, Math.floor(numericValue / 40));
-            const interval = duration / (numericValue / step);
-            const timer = setInterval(() => {
-                start += step;
-                if (start >= numericValue) {
-                    setCount(numericValue);
-                    clearInterval(timer);
-                } else {
-                    setCount(start);
-                }
-            }, interval);
-            return () => clearInterval(timer);
-        }
-    }, [isInView, numericValue]);
-
-    return (
-        <div ref={ref} className="flex items-baseline gap-1.5">
-            <span className="text-2xl sm:text-3xl font-display font-black leading-none drop-shadow-md" style={{ color: accentHex }}>
-                {numericValue !== null ? (isInView ? `${count}${suffix}` : "0") : value}
-            </span>
-            <span className="text-white/50 text-xs font-medium">{label}</span>
-        </div>
-    );
-}
 
 /* ─── Bento Card ─── */
 function BentoCard({ feature, index }: { feature: AIFeature; index: number }) {
@@ -149,11 +103,9 @@ function BentoCard({ feature, index }: { feature: AIFeature; index: number }) {
                     </div>
 
                     {/* Stat */}
-                    <AnimatedStat
-                        value={feature.stat}
-                        label={feature.statLabel}
-                        accentHex={feature.accentHex}
-                    />
+                    <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-orange-300">
+                        {feature.status}
+                    </span>
                 </div>
 
                 <h3 className="font-display font-bold text-white text-xl mb-2">
@@ -164,15 +116,6 @@ function BentoCard({ feature, index }: { feature: AIFeature; index: number }) {
                     {feature.description}
                 </p>
 
-                {/* Subtle hover indicator */}
-                <div
-                    className="mt-5 pt-5 border-t border-white/10 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                >
-                    <span className="text-xs font-semibold" style={{ color: feature.accentHex }}>
-                        Learn more
-                    </span>
-                    <ArrowRight className="w-3 h-3" style={{ color: feature.accentHex }} />
-                </div>
             </div>
         </motion.div>
     );
@@ -181,10 +124,10 @@ function BentoCard({ feature, index }: { feature: AIFeature; index: number }) {
 /* ─── Journey Flow ─── */
 const journeySteps = [
     { icon: MapPin, label: "Farm", color: "#16a34a" },
-    { icon: CheckCircle2, label: "Verified", color: "#0891b2" },
-    { icon: Brain, label: "AI Matched", color: "#7c3aed" },
-    { icon: Truck, label: "In Transit", color: "#ea580c" },
-    { icon: QrCode, label: "Delivered", color: "#059669" },
+    { icon: CheckCircle2, label: "Inspection", color: "#0891b2" },
+    { icon: Brain, label: "Sourcing", color: "#7c3aed" },
+    { icon: Truck, label: "Delivery", color: "#ea580c" },
+    { icon: QrCode, label: "Receipt", color: "#059669" },
 ];
 
 /* ─── Main Component ─── */
@@ -216,7 +159,7 @@ export function AITechnology() {
                     <motion.div variants={fadeInUp} className="text-center mb-5">
                         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md">
                             <Sparkles className="w-3.5 h-3.5" />
-                            Powered by Innovation
+                            Technology direction
                         </span>
                     </motion.div>
 
@@ -232,8 +175,8 @@ export function AITechnology() {
                         variants={fadeInUp}
                         className="text-center text-white/70 text-base sm:text-lg max-w-2xl mx-auto mb-16"
                     >
-                        Six intelligent systems working behind the scenes to ensure fair pricing,
-                        verified quality, and transparent operations — all powered by cutting-edge AI.
+                        Explore the proposed technology workflows and an illustrative pricing demo.
+                        Planned capabilities are not verified production services.
                     </motion.p>
 
                     {/* ── Bento Grid ── */}
@@ -259,12 +202,11 @@ export function AITechnology() {
                                     </div>
                                     <div>
                                         <h3 className="font-display font-bold text-white text-xl sm:text-2xl mb-2">
-                                            Trust Through{" "}
-                                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Transparency</span>
+                                            An illustrative batch journey
                                         </h3>
                                         <p className="text-white/70 text-sm sm:text-base leading-relaxed">
-                                            Every batch has a <strong className="text-emerald-400 font-semibold">Digital Twin</strong> — a tamper-proof
-                                            record from farm to fork. Buyers verify origin, grading, and journey via QR scan.
+                                            The proposed batch record would connect information across these stages.
+                                            This diagram explains the concept; it is not a record of a real delivery.
                                         </p>
                                     </div>
                                 </div>

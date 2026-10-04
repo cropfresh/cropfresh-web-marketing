@@ -13,14 +13,6 @@ export const apiClient = axios.create({
 
 export const aiClient = apiClient; // Alias for backward compatibility if imported elsewhere
 
-// Attach JWT token to requests if available in local storage
-if (typeof window !== 'undefined') {
-  const token = localStorage.getItem('auth_token');
-  if (token) {
-    apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }
-}
-
 // Interceptors to handle global errors
 apiClient.interceptors.response.use(
   (response) => response,
@@ -30,7 +22,9 @@ apiClient.interceptors.response.use(
   }
 );
 
-export default {
+const clients = {
   api: apiClient,
   ai: aiClient,
 };
+
+export default clients;

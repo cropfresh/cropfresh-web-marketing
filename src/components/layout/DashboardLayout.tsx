@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { Home, LayoutDashboard, Settings, ShoppingBag, Sprout, Truck, LogOut, Bell, User } from 'lucide-react';
+import Image from 'next/image';
+import { LayoutDashboard, Settings, ShoppingBag, Sprout, Truck, LogOut, Bell, User } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useShowcase } from '@/contexts/ShowcaseContext';
 
 interface SidebarItem {
     name: string;
@@ -35,7 +37,9 @@ const roleNavItems: Record<string, SidebarItem[]> = {
 
 export function DashboardLayout({ children, role }: DashboardLayoutProps) {
     const pathname = usePathname();
-    const { logout } = useAuth();
+    const { logout, isLoaded: isAuthLoaded } = useAuth();
+    const { isLoaded: isShowcaseLoaded } = useShowcase();
+    const isDemoReady = isAuthLoaded && isShowcaseLoaded;
     const navItems = roleNavItems[role] || [];
 
     return (
@@ -44,10 +48,12 @@ export function DashboardLayout({ children, role }: DashboardLayoutProps) {
             <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 hidden md:flex md:flex-col">
                 <div className="h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-700">
                     <Link href="/" className="flex items-center justify-center w-full">
-                        <img 
-                            src="/logo/logo_horizontal_web.png" 
-                            alt="CropFresh Logo" 
-                            className="h-8 w-auto object-contain" 
+                        <Image
+                            src="/logo/logo_horizontal_web.png"
+                            alt="CropFresh Logo"
+                            width={152}
+                            height={32}
+                            className="h-8 w-auto object-contain"
                         />
                     </Link>
                 </div>
@@ -109,7 +115,11 @@ export function DashboardLayout({ children, role }: DashboardLayoutProps) {
 
                 {/* Page Content */}
                 <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8">
-                    {children}
+                    <div className="mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100">
+                        <p className="font-semibold">Interactive demo — sample data</p>
+                        <p className="mt-1">Listings, grades, prices, earnings, and offers are illustrative. No real purchase or payment is made.</p>
+                    </div>
+                    {isDemoReady ? children : <p role="status" className="text-gray-700 dark:text-gray-200">Loading your browser demo…</p>}
                 </main>
             </div>
         </div>

@@ -41,30 +41,30 @@ const solutionsByUser: Record<string, UserSolutions> = {
     farmer: {
         title: "Farmers",
         emoji: "👨‍🌾",
-        tagline: "Empowering India's agricultural heroes",
+        tagline: "A clearer listing and selling process",
         accentHex: "#16a34a",
         accentLight: "#f0fdf4",
         solutions: [
             {
                 icon: Wallet,
-                title: "Better Prices, Instant Payment",
-                description: "Get 20-40% higher prices with T+0 UPI payment directly to your bank. No more waiting weeks for middlemen to pay.",
-                features: ["No middlemen cuts", "Same-day UPI payment", "Fair price discovery", "Transparent bidding"],
-                visual: { mainIcon: IndianRupee, supportIcons: [Wallet, Zap, Shield], stat: "40%", statLabel: "higher earnings" },
+                title: "Understand pricing and payout terms",
+                description: "The product direction brings listing and offer information together. Fees and payment conditions need confirmation before participation.",
+                features: ["Sample offer information", "Illustrative price breakdowns", "Fees subject to confirmation", "No income or payment guarantee"],
+                visual: { mainIcon: IndianRupee, supportIcons: [Wallet, Zap, Shield], stat: "Preview", statLabel: "pricing workflow" },
             },
             {
                 icon: Mic,
-                title: "Voice Listing in Kannada",
-                description: "List your produce using simple voice commands in your native language. Just speak — AI does the rest.",
-                features: ["Kannada & Hindi support", "Photo-based listing", "AI quality estimation", "Zero typing needed"],
-                visual: { mainIcon: Mic, supportIcons: [Globe, Star, Smartphone], stat: "30s", statLabel: "to list produce" },
+                title: "Explore assisted produce listing",
+                description: "Try the demonstration to see how crop information could be captured. Voice capability and supported languages depend on the configured service.",
+                features: ["Sample listing workflow", "Manual produce entry", "Review details before submitting", "Demo data stays separate from real sales"],
+                visual: { mainIcon: Mic, supportIcons: [Globe, Star, Smartphone], stat: "Demo", statLabel: "listing workflow" },
             },
             {
                 icon: BarChart3,
-                title: "Real-time Market Prices",
-                description: "See exactly what buyers are paying across all markets. Make informed decisions backed by live data.",
-                features: ["Live price updates", "Quality-based pricing", "Demand forecasts", "Price history trends"],
-                visual: { mainIcon: TrendingUp, supportIcons: [BarChart3, Leaf, Clock], stat: "100+", statLabel: "markets tracked" },
+                title: "Explore pricing information",
+                description: "Sample dashboard information illustrates a possible pricing experience. It is not a live market feed or a quote for your harvest.",
+                features: ["Illustrative price information", "Crop and quantity context", "Sample dashboard views", "Market-data integration planned"],
+                visual: { mainIcon: TrendingUp, supportIcons: [BarChart3, Leaf, Clock], stat: "Sample", statLabel: "price information" },
             },
         ],
     },
@@ -77,54 +77,54 @@ const solutionsByUser: Record<string, UserSolutions> = {
         solutions: [
             {
                 icon: CheckCircle2,
-                title: "Verified Quality Grades",
-                description: "Every batch is field-verified with our 5-point grading system. Know exactly what you're getting before it arrives.",
-                features: ["A/B/C quality grades", "Photo verification", "Digital Twin record", "Rejection-free ordering"],
-                visual: { mainIcon: CheckCircle2, supportIcons: [Shield, Star, Leaf], stat: "5-pt", statLabel: "grading system" },
+                title: "Review sample quality information",
+                description: "The demo shows how grades and produce details could be presented. Inspection criteria and dispute terms need confirmation for any real order.",
+                features: ["Illustrative quality grades", "Produce details", "Proposed inspection workflow", "No quality guarantee from a demo"],
+                visual: { mainIcon: CheckCircle2, supportIcons: [Shield, Star, Leaf], stat: "Demo", statLabel: "quality information" },
             },
             {
                 icon: QrCode,
-                title: "Farm-to-Fork Traceability",
-                description: "Know exactly where your produce comes from and when it was harvested. Complete transparency for food safety.",
-                features: ["QR code scanning", "Complete journey history", "Food safety compliance", "Origin certificates"],
-                visual: { mainIcon: QrCode, supportIcons: [Map, Clock, Shield], stat: "100%", statLabel: "traceable" },
+                title: "Understand the batch-record concept",
+                description: "A proposed batch record brings origin, harvest, inspection, and delivery information together. It does not establish certification or food-safety compliance.",
+                features: ["Origin information concept", "Harvest details", "Inspection context", "Proposed delivery history"],
+                visual: { mainIcon: QrCode, supportIcons: [Map, Clock, Shield], stat: "Planned", statLabel: "batch records" },
             },
             {
                 icon: CalendarCheck,
-                title: "Reliable Supply Chain",
-                description: "Consistent supply with scheduled deliveries you can count on. No more last-minute stockouts.",
-                features: ["Subscription ordering", "Demand forecasting", "Multi-farmer sourcing", "Guaranteed delivery"],
-                visual: { mainIcon: CalendarCheck, supportIcons: [Truck, Star, Clock], stat: "99%", statLabel: "delivery reliability" },
+                title: "Discuss your sourcing requirements",
+                description: "Crop, quantity, location, and delivery needs provide the starting point for a sourcing discussion. Supply and delivery windows are subject to confirmation.",
+                features: ["Crop requirements", "Quantity and grade needs", "Location and delivery expectations", "Availability confirmed separately"],
+                visual: { mainIcon: CalendarCheck, supportIcons: [Truck, Star, Clock], stat: "Planned", statLabel: "sourcing coordination" },
             },
         ],
     },
     hauler: {
-        title: "Haulers",
+        title: "Delivery partners",
         emoji: "🚚",
-        tagline: "Maximize earnings, minimize effort",
+        tagline: "Explore a proposed delivery workflow",
         accentHex: "#0891b2",
         accentLight: "#ecfeff",
         solutions: [
             {
                 icon: Map,
-                title: "Optimized Multi-Stop Routes",
-                description: "AI-planned routes that maximize loads and minimize distance. More deliveries, less fuel, more earnings.",
-                features: ["Smart routing", "Multi-pickup optimization", "Fuel savings up to 30%", "Live traffic updates"],
-                visual: { mainIcon: Route, supportIcons: [Map, Truck, Zap], stat: "30%", statLabel: "fuel saved" },
+                title: "Explore route coordination",
+                description: "The proposed workflow considers pickup points, destinations, and vehicle capacity. Route availability and trip costs need individual review.",
+                features: ["Pickup and destination context", "Vehicle-capacity requirements", "Trip-cost considerations", "No fuel-savings guarantee"],
+                visual: { mainIcon: Route, supportIcons: [Map, Truck, Zap], stat: "Planned", statLabel: "route workflow" },
             },
             {
                 icon: Zap,
-                title: "Instant Payment on Delivery",
-                description: "Get paid the moment buyer confirms delivery via QR scan. No more chasing payments for weeks.",
-                features: ["T+0 settlement", "Direct UPI transfer", "No payment delays", "Earnings dashboard"],
-                visual: { mainIcon: Zap, supportIcons: [Wallet, IndianRupee, Shield], stat: "T+0", statLabel: "instant payment" },
+                title: "Understand delivery and payout conditions",
+                description: "Delivery confirmation is part of the intended workflow. Payout timing, deductions, and exceptions must be agreed before a trip.",
+                features: ["Delivery confirmation concept", "Payout terms subject to confirmation", "Review applicable deductions", "No instant-payment promise"],
+                visual: { mainIcon: Zap, supportIcons: [Wallet, IndianRupee, Shield], stat: "Planned", statLabel: "payout workflow" },
             },
             {
                 icon: Smartphone,
-                title: "Easy Load Discovery",
-                description: "Find loads heading your way without endless phone calls. Get matched automatically based on your location.",
-                features: ["Location-based matching", "Load notifications", "Transparent pricing", "Rating system"],
-                visual: { mainIcon: Smartphone, supportIcons: [Globe, Star, Route], stat: "3x", statLabel: "more loads found" },
+                title: "Discuss load and vehicle fit",
+                description: "Area, vehicle type, and capacity help establish whether the proposed partner program is suitable. Registering interest does not guarantee loads or employment.",
+                features: ["Area and vehicle discussion", "Capacity requirements", "Program eligibility review", "Load availability confirmed separately"],
+                visual: { mainIcon: Smartphone, supportIcons: [Globe, Star, Route], stat: "Planned", statLabel: "partner workflow" },
             },
         ],
     },
@@ -136,12 +136,10 @@ const userTypes = ["farmer", "buyer", "hauler"] as const;
 function SolutionVisual({
     visual,
     accentHex,
-    accentLight,
     reversed,
 }: {
     visual: Solution["visual"];
     accentHex: string;
-    accentLight: string;
     reversed: boolean;
 }) {
     const MainIcon = visual.mainIcon;
@@ -312,7 +310,7 @@ export function SolutionsSection() {
                     <motion.div variants={fadeInUp} className="text-center mb-5">
                         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md">
                             <Sparkles className="w-3.5 h-3.5" />
-                            The Solution
+                            Product direction
                         </span>
                     </motion.div>
 
@@ -320,12 +318,12 @@ export function SolutionsSection() {
                         variants={fadeInUp}
                         className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
-                        How CropFresh{" "}
+                        What CropFresh is{" "}
                         <span
                             className="text-transparent bg-clip-text"
                             style={{ backgroundImage: `linear-gradient(135deg, ${activeData.accentHex} 0%, ${activeData.accentLight} 100%)` }}
                         >
-                            Solves It
+                            Building
                         </span>
                     </motion.h2>
 
@@ -333,8 +331,8 @@ export function SolutionsSection() {
                         variants={fadeInUp}
                         className="text-center text-white/70 text-base sm:text-lg max-w-2xl mx-auto mb-14"
                     >
-                        One platform connecting farmers, buyers, and haulers with
-                        transparency, instant payments, and verified quality.
+                        Explore the intended farmer, buyer, and delivery-partner workflows.
+                        Demo and planned features are described separately from service availability.
                     </motion.p>
 
                     {/* ── Tabs ── */}
@@ -348,10 +346,11 @@ export function SolutionsSection() {
                             return (
                                 <button
                                     key={type}
+                                    aria-pressed={active}
                                     onClick={() => handleTabChange(type)}
                                     className={`
                                         relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-semibold
-                                        transition-all duration-300 outline-none border
+                                        transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white border
                                         ${active
                                             ? "text-white shadow-lg"
                                             : "bg-white/5 backdrop-blur-sm text-white/60 border-white/10 hover:border-white/30 hover:text-white"
@@ -401,7 +400,6 @@ export function SolutionsSection() {
                                             <SolutionVisual
                                                 visual={solution.visual}
                                                 accentHex={activeData.accentHex}
-                                                accentLight={activeData.accentLight}
                                                 reversed={reversed}
                                             />
 
@@ -455,7 +453,7 @@ export function SolutionsSection() {
                                                     className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-white"
                                                     style={{ color: activeData.accentHex }}
                                                 >
-                                                    Learn more
+                                                     See the intended workflow
                                                     <ArrowUpRight className="w-4 h-4" />
                                                 </a>
                                             </div>

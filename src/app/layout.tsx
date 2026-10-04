@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Outfit, Inter } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ShowcaseProvider } from "@/contexts/ShowcaseContext";
+import { homepageMessage } from "@/data/marketing";
 import "./globals.css";
 
 // Display font - Outfit for headlines
@@ -22,11 +23,10 @@ const inter = Inter({
 // SEO Metadata
 export const metadata: Metadata = {
   title: {
-    default: "CropFresh - Farm-Fresh Produce, Direct to You",
+    default: homepageMessage.title,
     template: "%s | CropFresh",
   },
-  description:
-    "CropFresh connects farmers directly with buyers. Quality-verified produce, AI-powered pricing, instant payments, and full traceability from farm to fork.",
+  description: homepageMessage.description,
   keywords: [
     "CropFresh",
     "farm to fork",
@@ -49,15 +49,14 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: "https://cropfresh.in",
     siteName: "CropFresh",
-    title: "CropFresh - Farm-Fresh Produce, Direct to You",
-    description:
-      "AI-powered agriculture marketplace connecting farmers with buyers. Quality verified, instant payments, full traceability.",
+    title: homepageMessage.title,
+    description: homepageMessage.description,
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "CropFresh - Rewriting the Code of Agriculture",
+        alt: "CropFresh product vision for farms, buyers, and delivery partners",
       },
     ],
   },
@@ -65,11 +64,9 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "CropFresh - Farm-Fresh Produce, Direct to You",
-    description:
-      "AI-powered agriculture marketplace connecting farmers with buyers.",
+    title: homepageMessage.title,
+    description: homepageMessage.description,
     images: ["/og-image.png"],
-    creator: "@cropfresh",
   },
 
   // Additional SEO
@@ -101,7 +98,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#0F172A",
+  themeColor: "#FAF8EF",
 };
 
 export default function RootLayout({

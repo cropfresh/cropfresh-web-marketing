@@ -1,11 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Container, Button } from "@/components/ui";
-import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer } from "@/lib/animations";
+import { fadeInLeft, fadeInRight, staggerContainer } from "@/lib/animations";
 import { trackCTAClick } from "@/lib/analytics";
-import { Download, Smartphone } from "lucide-react";
+import { Download } from "lucide-react";
 
 export function FarmerDownload() {
     const handlePlayStoreClick = () => {

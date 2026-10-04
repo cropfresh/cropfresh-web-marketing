@@ -33,57 +33,57 @@ const steps: Step[] = [
     {
         number: 1,
         icon: Mic,
-        title: "Farmer Lists Produce",
-        shortDesc: "Voice or photo in Kannada — just speak, AI does the rest",
-        fullDesc: "Farmers list their produce using voice commands in Kannada or by uploading photos. Our AI estimates quality grade and suggests fair pricing based on current market conditions.",
+        title: "Describe the produce",
+        shortDesc: "Start with crop, quantity, location, and harvest details",
+        fullDesc: "The listing demo illustrates how a farmer could describe a harvest. Sample listings are not sent to real buyers; assisted voice capture depends on the configured service.",
         accentHex: "#16a34a",
         visual: {
             mainIcon: Mic,
             supportIcons: [Camera, Leaf, Star],
-            stat: "30 sec",
-            statLabel: "to list",
+            stat: "Demo",
+            statLabel: "produce listing",
         },
     },
     {
         number: 2,
         icon: ClipboardCheck,
-        title: "Field Agent Verifies",
-        shortDesc: "Physical inspection creates an immutable Digital Twin",
-        fullDesc: "A trained Field Agent visits the farm for physical inspection. They verify quality, capture photos, and create an immutable Digital Twin record that follows the produce throughout its journey.",
+        title: "Review quality information",
+        shortDesc: "Agree on grade definitions and inspection requirements",
+        fullDesc: "The proposed verification process would bring inspection notes and produce details into a batch record. Inspection availability and crop-specific criteria need confirmation.",
         accentHex: "#0891b2",
         visual: {
             mainIcon: ClipboardCheck,
             supportIcons: [Shield, Camera, QrCode],
-            stat: "5-pt",
-            statLabel: "quality grade",
+            stat: "Planned",
+            statLabel: "inspection process",
         },
     },
     {
         number: 3,
         icon: Brain,
-        title: "AI Matches Buyer",
-        shortDesc: "DPLE engine finds the best price/quality match instantly",
-        fullDesc: "Our AI-powered Dynamic Price Learning Engine (DPLE) analyzes quality, quantity, location, and buyer preferences to find the perfect match. The system calculates a fair All-Inclusive Single Price (AISP).",
+        title: "Review sourcing and pricing",
+        shortDesc: "Compare crop, quantity, location, and included charges",
+        fullDesc: "Sample buyer listings and illustrative offers show the intended sourcing experience. Any real price, fees, and supply commitment must be confirmed separately; a demo offer is not a purchase.",
         accentHex: "#ea580c",
         visual: {
             mainIcon: Brain,
             supportIcons: [Zap, Star, IndianRupee],
-            stat: "< 5 min",
-            statLabel: "match time",
+            stat: "Demo",
+            statLabel: "sample offers",
         },
     },
     {
         number: 4,
         icon: Truck,
-        title: "Hauler Delivers",
-        shortDesc: "Optimized route → QR confirmation → instant UPI payment",
-        fullDesc: "Haulers receive optimized multi-stop routes. Upon delivery confirmation by the buyer via QR scan, payments are instantly transferred to farmers and haulers via UPI. T+0 settlement!",
+        title: "Coordinate delivery and settlement",
+        shortDesc: "Confirm route, delivery window, and payment conditions",
+        fullDesc: "The intended delivery workflow links pickup, receipt, and settlement information. Supported lanes, partner availability, charges, and payment timing require operational confirmation.",
         accentHex: "#7c3aed",
         visual: {
             mainIcon: Truck,
             supportIcons: [Route, QrCode, IndianRupee],
-            stat: "T+0",
-            statLabel: "instant pay",
+            stat: "Planned",
+            statLabel: "delivery and payout",
         },
     },
 ];
@@ -315,7 +315,7 @@ export function HowItWorks() {
                     <motion.div variants={fadeInUp} className="text-center mb-5">
                         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-orange-400 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
                             <ArrowDown className="w-3.5 h-3.5" />
-                            Simple Process
+                            Intended workflow
                         </span>
                     </motion.div>
 
@@ -323,7 +323,7 @@ export function HowItWorks() {
                         variants={fadeInUp}
                         className="text-center text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white leading-tight mb-4"
                     >
-                        Farm to Table in{" "}
+                        Explore the journey in{" "}
                         <span className="text-gradient-accent">4 Steps</span>
                     </motion.h2>
 
@@ -331,7 +331,8 @@ export function HowItWorks() {
                         variants={fadeInUp}
                         className="text-center text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-16 lg:mb-20"
                     >
-                        From listing to delivery, everything happens on one platform.
+                        See the intended journey from produce listing to delivery.
+                        Demos use sample information; service availability and commercial terms are confirmed separately.
                     </motion.p>
                 </motion.div>
 
@@ -374,7 +375,7 @@ export function HowItWorks() {
                             <Zap className="w-5 h-5 text-white" />
                         </div>
                         <span className="text-white text-base font-medium">
-                            All done in <span className="font-bold text-emerald-400">under 24 hours</span> — from farm to buyer
+                            Delivery windows and payment terms are confirmed before participation.
                         </span>
                     </div>
                 </motion.div>

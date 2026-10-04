@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
+import { homepageMessage } from "@/data/marketing";
 
 /**
  * Base site configuration for SEO
  */
 export const siteConfig = {
     name: "CropFresh",
-    description:
-        "CropFresh connects farmers directly with buyers. Quality-verified produce, AI-powered pricing, instant payments, and full traceability from farm to fork.",
+    description: homepageMessage.description,
     url: "https://cropfresh.in",
     ogImage: "/og-image.png",
     links: {

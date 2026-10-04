@@ -1,5 +1,15 @@
 .git
-.env
+.github
+.next
+.verification
 node_modules
+coverage
 test/
-.next/
+data
+docs
+.env*
+*.log
+*.tsbuildinfo
+*errors.txt
+build_output.txt
+build_full_output.log

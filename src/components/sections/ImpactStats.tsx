@@ -72,7 +72,6 @@ function AnimatedCounter({
 
     const duration = 2500;
     const steps = 80;
-    const increment = stat.value / steps;
     let current = 0;
 
     // Easing function for smooth deceleration

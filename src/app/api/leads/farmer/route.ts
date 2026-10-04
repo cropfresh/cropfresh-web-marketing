@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isAdminRequestAuthorized } from "@/lib/admin-auth";
 import { z } from "zod";
 import { promises as fs } from "fs";
 import path from "path";
@@ -150,14 +151,10 @@ export async function POST(request: NextRequest) {
 
 /**
  * GET /api/leads/farmer
- * Retrieve leads (admin only - would need auth in production)
+ * Retrieve leads with the configured server-side administration key.
  */
 export async function GET(request: NextRequest) {
-    // In production, add authentication check here
-    const authHeader = request.headers.get("x-api-key");
-
-    // Simple API key check for MVP
-    if (authHeader !== process.env.ADMIN_API_KEY && process.env.NODE_ENV === "production") {
+    if (!isAdminRequestAuthorized(request)) {
         return NextResponse.json(
             { success: false, message: "Unauthorized" },
             { status: 401 }

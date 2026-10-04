@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Image as ImageIcon, Sparkles, CheckCircle2, TrendingUp, Users } from 'lucide-react';
+import { ArrowLeft, Sparkles, TrendingUp, Users } from 'lucide-react';
 import { useShowcase } from '@/contexts/ShowcaseContext';
 import { useAuth } from '@/contexts/AuthContext';
 

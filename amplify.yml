@@ -3,12 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm use 22 || nvm install 22
+        - nvm use || nvm install
         - node --version
         - npm --version
-        - npm ci --legacy-peer-deps
+        - npm ci
     build:
       commands:
+        - npm run typecheck
+        - npm run lint
+        - npm test -- --runInBand
+        - npm audit --omit=dev --audit-level=high
         - npm run build
   artifacts:
     baseDirectory: .next

@@ -3,9 +3,7 @@
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { 
-    Layers, Cpu, Database, Activity, Code2, Cloud, Brain, Sparkles, Server, ScanLine, Eye
-} from "lucide-react";
+import { Layers, Code2, Brain, Server, Eye } from "lucide-react";
 
 const techStack = [
     {
@@ -77,7 +75,7 @@ export function AITechStack() {
                             Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Next-Gen Open Source</span>
                         </h2>
                         <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto">
-                            We don't rely on brittle wrappers. The CropFresh platform is built on enterprise-grade, battle-tested open source frameworks deployed at the edge.
+                             We don&apos;t rely on brittle wrappers. The CropFresh platform is built on enterprise-grade, battle-tested open source frameworks deployed at the edge.
                         </p>
                     </motion.div>
 
@@ -90,8 +88,8 @@ export function AITechStack() {
                                     variants={fadeInUp}
                                     className="p-6 rounded-3xl bg-[#0A0D14] border border-white/10 hover:border-white/20 transition-all group"
                                 >
-                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 \${stack.bg} \${stack.border}`}>
-                                        <Icon className={`w-6 h-6 \${stack.color}`} />
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${stack.bg} ${stack.border}`}>
+                                        <Icon className={`w-6 h-6 ${stack.color}`} />
                                     </div>
                                     <h3 className="text-xl font-bold text-white mb-4">{stack.category}</h3>
                                     

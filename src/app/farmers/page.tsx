@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import {
   Sprout, DollarSign, TrendingUp, Clock, Plus, Mic,
-  ArrowUpRight, ArrowDownRight, Search, Filter, Leaf, Loader2, CheckCircle2
+  ArrowUpRight, ArrowDownRight, Search, Filter, Leaf, CheckCircle2
 } from 'lucide-react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { voiceApi } from '@/lib/services';
 import { useShowcase } from '@/contexts/ShowcaseContext';
@@ -30,6 +32,7 @@ const itemVariants = {
 };
 
 export default function FarmersDashboard() {
+  const router = useRouter();
   const { user } = useAuth();
   const { state: showcaseState, updateOrderStatus } = useShowcase();
   
@@ -62,7 +65,7 @@ export default function FarmersDashboard() {
             const params = new URLSearchParams();
             if (entities?.commodity) params.set("commodity", entities.commodity);
             if (entities?.quantity) params.set("quantity_kg", entities.quantity);
-            window.location.href = `/farmers/new-listing?${params.toString()}`;
+            router.push(`/farmers/new-listing?${params.toString()}`);
           }
         } catch {
           setVoiceStatus("Could not process audio. Please try again.");
@@ -108,7 +111,7 @@ export default function FarmersDashboard() {
             <h1 className="text-3xl font-display font-bold text-neutral-900 dark:text-white tracking-tight">
               Welcome back, {user?.name || "Farmer"}
             </h1>
-            <p className="text-neutral-500 mt-1">Here's a detailed overview of your farm's performance today.</p>
+           <p className="text-neutral-500 mt-1">Here&apos;s a detailed overview of your farm&apos;s performance today.</p>
           </div>
           <div className="flex gap-3 w-full sm:w-auto">
             <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-2.5 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 font-semibold shadow-sm transition-all active:scale-[0.98]">
@@ -279,7 +282,7 @@ export default function FarmersDashboard() {
                       <div className="flex items-start sm:items-center gap-4">
                         <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center shrink-0 border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden relative">
                           {item.image_url ? (
-                            <img src={item.image_url} alt={item.commodity} className="absolute inset-0 w-full h-full object-cover" />
+                             <Image src={item.image_url} alt={item.commodity} fill sizes="48px" className="object-cover" />
                           ) : (
                             <Leaf className="w-5 h-5 text-neutral-400" />
                           )}

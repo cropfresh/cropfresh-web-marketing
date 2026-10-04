@@ -81,7 +81,7 @@ export function AIVoiceFlow() {
                             </motion.h2>
 
                             <motion.p variants={fadeInUp} className="text-white/60 text-lg leading-relaxed mb-8">
-                                Farmers don't type. They speak. Our custom Pipecat integration handles full-duplex conversational audio with barge-in support, mapping rural dialects to complex multi-agent workflows.
+                                 Farmers don&apos;t type. They speak. Our custom Pipecat integration handles full-duplex conversational audio with barge-in support, mapping rural dialects to complex multi-agent workflows.
                             </motion.p>
 
                             <motion.div variants={fadeInUp} className="grid grid-cols-2 gap-6 mb-10">
@@ -102,7 +102,7 @@ export function AIVoiceFlow() {
                             <div className="absolute top-8 bottom-8 left-8 w-0.5 bg-gradient-to-b from-blue-500 via-pink-500 to-teal-500 opacity-20" />
                             
                             <div className="flex flex-col gap-4">
-                                {voiceSteps.map((step, index) => {
+                                 {voiceSteps.map((step) => {
                                     const Icon = step.icon;
                                     return (
                                         <motion.div 
