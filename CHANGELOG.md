@@ -21,6 +21,6 @@
 
 - Add regression tests for browser-controlled identity, legacy logout/storage failure, and unconfigured/incorrect admin keys.
 - Add clean-snapshot and normal/standalone HTTP verification with saved dependency/runtime evidence.
-- Record remaining development-only lint dependency findings and external CI/branch/container/hosting gates in the Phase 0 verification handoff.
+- Record successful committed-checkout and published PR CI verification, remaining development-only lint findings, and branch/container/hosting gates in the Phase 0 handoff.
 
-No release tag, remote CI success, deployment, or production readiness is implied by this unreleased entry.
+Remote CI evidence is linked in the Phase 0 handoff. This unreleased entry does not establish a release tag, required branch enforcement, deployment, or production readiness.

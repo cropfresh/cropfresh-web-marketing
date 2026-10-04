@@ -4,7 +4,7 @@
 **Status:** Deliverables prepared; first homepage content implementation completed on 2026-10-04; business approval pending.\
 **Parent plan:** [Website development phase plan](../../WEBSITE_DEVELOPMENT_PHASE_PLAN.md#phase-1--product-strategy-evidence-and-content)
 
-**Development handoff:** [Phase 0](../phase-0/README.md) now passes fresh local installation/quality/runtime checks; required remote CI/branch verification remains open. This pack is the next-phase starting point after that gate is confirmed. Remaining public sample/planned/unsupported content and owner approvals have not been accepted by the Phase 0 changes.
+**Development handoff:** [Phase 0](../phase-0/README.md) now passes clean committed-checkout and published PR CI installation/quality/runtime checks; required branch-check enforcement remains open. This pack is the next-phase starting point after that gate is confirmed. Remaining public sample/planned/unsupported content and owner approvals have not been accepted by the Phase 0 changes.
 
 > **Current publication rule — 2026-10-04:** The [measured audit](../WEBSITE_AUDIT_AND_IMPROVEMENT_PLAN.md) supersedes earlier public demo/illustrative-price/coming-soon recommendations in this pack. Remove unsupported or unfinished public material; keep evidence and owner TODOs private/in documentation. DEC-001 remains lead-first direction; its public-demo component is withdrawn.
 

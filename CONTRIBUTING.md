@@ -41,7 +41,7 @@ CI reads `.nvmrc`; Amplify reads the same file using nvm and runs a clean instal
 - Use concise conventional messages consistent with repository history, for example `fix(build): restore reproducible dependency installation`.
 - Keep commits focused. Review existing modified/untracked files before staging; attach test/HTTP/audit evidence to the intended change. Include necessary new source/tests/configuration so a clean checkout is self-contained.
 - Pull requests describe the change and its purpose, linked phase tasks, actual checks, and remaining owner dependencies. Source CI is declared in `.github/workflows/ci.yml`.
-- Repository owners must configure and verify the quality job's status as a required branch check (`Typecheck, lint, test, and build` in the `Quality checks` workflow). Confirm the actual observed check name from a run. Protection and remote execution are pending until observed; a workflow file alone is insufficient evidence.
+- Repository owners must configure and verify the quality job's observed status as a required branch check (`Typecheck, lint, test, and build`; source workflow name `Quality checks`). Record actual run and branch-enforcement evidence in the [Phase 0 handoff](docs/phase-0/README.md); a workflow file or successful run alone does not establish enforcement.
 - Use release notes in `CHANGELOG.md`; tag approved releases as `v<major>.<minor>.<patch>` after deployment acceptance. Record the deployed commit, verification artifacts, and previous known-good rollback target.
 
 ## Published scope and QA

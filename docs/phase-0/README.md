@@ -1,8 +1,8 @@
 # Phase 0 — stabilization and verification record
 
-**Verified locally:** 2026-10-04; clean working-tree snapshot at 04:39 UTC, exported staged application tree at 05:33 UTC
+**Verified:** 2026-10-04; clean working-tree snapshot at 04:39 UTC, staged application tree at 05:33 UTC, committed checkout at 06:07 UTC, published PR CI at 06:10 UTC
 
-**Status:** Local engineering implementation and verification passed. Full Phase 0 exit remains open for a successful published-checkout GitHub run and required branch protection. Phase 1 is queued after that gate is confirmed.
+**Status:** Local engineering, clean committed-checkout verification, and published PR CI passed. Full Phase 0 exit remains open for required branch-check enforcement. Phase 1 is queued after that gate is confirmed.
 
 **Parent:** [development phase plan](../../WEBSITE_DEVELOPMENT_PHASE_PLAN.md#phase-0--governance-and-technical-stabilization)
 
@@ -53,6 +53,8 @@ An additional check exported the Git index with `git checkout-index --all` to `/
 
 The first install attempt in this export encountered temporary-filesystem quota errors and left incomplete dependency files. After older generated snapshot dependencies/build output were cleared, a fresh `npm ci` and the complete verification sequence passed. No application change was required for that retry.
 
+A fresh detached Git worktree of committed `e05b0e844a205a1fa5e41fa3dd9bebe8eaf477af` passed `npm ci`, `npm run check`, and `npm run verify:phase0` at 06:07 UTC, with the same **15 tests, zero production findings, five development-only high findings, and 52 HTTP assertions**. All **26 tracked Markdown documents and 101 relative links** also passed checks against that committed publication set. Generated files were ignored and its tracked tree remained clean. Evidence is under `.verification/phase-0/checkout-rIhedn/.verification/phase-0/` in the primary workspace.
+
 Regression tests cover browser-controlled saved identity/token, legacy cleanup with unavailable storage, and missing/empty/incorrect administration keys. None uses real customer information or a production credential.
 
 Raw install/quality logs, audit JSON, runtime requests, and results are in ignored `.verification/phase-0/`. A normal working-tree pipeline/runtime check also passed before the final isolated snapshot. Do not commit generated runtime copies or local secrets.
@@ -87,13 +89,13 @@ Raw browser/Lighthouse files: `/tmp/omnirush/cropfresh-phase0-browser-results/su
 | Mock listing/order APIs | Seeded arrays, fake prices, unverified writes | Tested GET/POST routes 404 |
 | Lead admin configuration | Empty configured key could match an empty header; non-production reads bypassed the key | Fail-closed shared authorization; unit and production HTTP checks pass |
 | Standalone runtime | Output absent; Docker workdir/static assumptions inconsistent | Output exists; independent standalone smoke passes; actual image build still unverified |
-| CI | Incompatible `npm ci`; quality workflow unverified | Workflow declares strict install/quality/audit/runtime steps; current changes not remotely executed |
+| CI | Incompatible `npm ci`; quality workflow unverified | Published PR workflow passed install/typecheck/lint/tests/production audit/build/normal and standalone verification; run linked below |
 
 ## 5. Known-error and external-verification register
 
 | ID | Remaining item | Evidence / next action | Phase / owner dependency |
 |---|---|---|---|
-| P0-EXT-001 | Current changes have no verified GitHub run | Publish a self-contained reviewed branch/PR, run the updated workflow, attach commit/run URL; required check protection must be observed | **Phase 0 exit gate**, repository publishing/admin access |
+| P0-EXT-001 | Resolved: published PR CI passed | [Run 37181963106](https://github.com/cropfresh/cropfresh-web-marketing/actions/runs/37181963106) succeeded for `e05b0e844a205a1fa5e41fa3dd9bebe8eaf477af`; required branch enforcement remains separately open as P0-EXT-002 | Verified remotely, 2026-10-04 |
 | P0-EXT-002 | Required branch-check enforcement is absent on `main` | GitHub's branch API reports `protected: false`, protection disabled and required status checks off; the applied branch-rules API returns `[]`. Configure and verify the required quality check after its updated workflow runs | **Phase 0 exit gate**, repository administrator |
 | P0-PUB-001 | Resolved locally: Git author/committer identity configured | `git var GIT_AUTHOR_IDENT` and `git var GIT_COMMITTER_IDENT` now succeed; the configured identity is available for commits | Verified locally, 2026-10-04 |
 | P0-PUB-002 | Resolved: GitHub CLI authentication verified | `gh auth status` and `gh api user` identify `shrikantha-m`; the token includes `repo` and `workflow` scopes | Verified remotely, 2026-10-04 |
@@ -104,7 +106,11 @@ Raw browser/Lighthouse files: `/tmp/omnirush/cropfresh-phase0-browser-results/su
 | P1-CNT-001 | Remaining public demo/planned/unsupported content | Homepage previews and farmer/buyer/AI/sample article/hauler content still require removal or verified replacement; Phase 0 removed credential/API surfaces, not all content | **Phase 1 next**, approved public scope and owner facts |
 | P1-OPS-001 | Policies, monitored contacts, service/commercial facts and durable lead delivery unapproved | Current audit's owner TODOs and DEC-002–010 remain open; do not invent facts or claim production receipt | Phases 1/7/8, business/operations/privacy owner |
 
-Branch `fix/phase-0-stabilization` starts from `a9f6b63`. The reviewed application baseline is committed as `1e254a6`, and Phase 0 engineering changes as `a1b1655`; the latter's tree exactly matches the verified staged application tree above. Git author and committer identity are configured. GitHub CLI authentication succeeds as `shrikantha-m`, with repository Write access. PR publication and updated remote CI evidence are being prepared. Authenticated branch/rules API checks establish that `main` currently has no enabled protection or applied branch rules; configuration requires the repository administrator.
+Branch `fix/phase-0-stabilization` starts from `a9f6b63`. The reviewed application baseline is committed as `1e254a6`, Phase 0 engineering as `a1b1655`, and the measured audit/handoff documents as `e05b0e8`. The engineering commit's tree exactly matches the verified staged application tree above. Git author identity and GitHub authentication as `shrikantha-m` are configured, with repository Write access.
+
+**Published PR:** [#1 — Phase 0 builds, security, and verification](https://github.com/cropfresh/cropfresh-web-marketing/pull/1). Its first updated CI run completed successfully at **2026-10-04 06:10:28 UTC**, including every install/quality/audit/build/runtime step. The observed check is **`Typecheck, lint, test, and build`**; GitHub currently displays the registered workflow as `CI`, while the updated source declares `Quality checks`. This record is a documentation-only follow-up; current-head checks are visible on the PR.
+
+The latest authenticated branch/rules API checks still report `main` as unprotected, with required status checks off and no applied rules. A company administrator must enable and verify the observed quality check as required. Contributor credentials have no Admin permission. PR CI success does not establish branch enforcement or deployment acceptance.
 
 ## 6. Exit decision and Phase 1 handoff
 
@@ -114,8 +120,9 @@ Branch `fix/phase-0-stabilization` starts from `a9f6b63`. The reviewed applicati
 - [x] Current-source mock credential/signing/API paths are withdrawn and verified locally.
 - [x] Normal and standalone production runtime regression checks pass.
 - [x] Runtime/environment/branch/release policy and known-error register are documented.
-- [ ] **Published checkout has a successful updated GitHub run and required branch-check enforcement is verified.**
+- [x] A clean committed checkout and published PR have a successful updated quality/runtime pipeline.
+- [ ] **Required branch-check enforcement is verified on `main`.**
 
-**Decision:** Local engineering verification is complete; full Phase 0 sign-off is pending P0-EXT-001. Do not mark that checkbox complete or declare the live site stabilized using local evidence.
+**Decision:** Engineering, committed-checkout, and remote CI verification are complete; full Phase 0 sign-off is pending P0-EXT-002. Keep the required-enforcement checkbox open until the administrator's change is observed. Live deployment acceptance remains separate.
 
 After the gate is confirmed, Phase 1 starts with the existing [product/evidence pack](../phase-1/README.md): remove remaining unsupported/demonstration publication, reconcile master messages and claims, and collect owner approval for retained facts. Commercial, contact, legal, media, language, and operational approvals remain individual Phase 1 requirements. No new public business facts have been invented during Phase 0.

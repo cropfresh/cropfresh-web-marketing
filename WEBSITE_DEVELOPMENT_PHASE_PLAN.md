@@ -6,7 +6,7 @@
 **Updated:** 2026-10-04\
 **Confirmed domain:** `https://cropfresh.in`\
 **Audit homepage baseline (before Phase 0):** mobile Lighthouse performance **87/100** (three-run median), desktop **100/100**; mobile LCP **4,061.75ms**\
-**Plan status:** Phase 0 local implementation/verification complete; remote exit gate open; Phase 1 queued\
+**Plan status:** Phase 0 engineering, committed-checkout, and remote CI verification complete; branch-enforcement gate open; Phase 1 queued\
 **Related audit:** [Current measured audit and readiness ledger](./docs/WEBSITE_AUDIT_AND_IMPROVEMENT_PLAN.md)
 
 > The current audit replaces the historical subjective 5.6/10 baseline and 8.5+/10 target with measured tool results and an explicit pass/fail/blocked readiness ledger. No unmeasured improvement score or search ranking is promised. The current requirement removes public demos, placeholders, unsupported claims, and unfinished sections; earlier approvals for a public `/demo` area are superseded. Keep owner-dependent TODOs in documentation.
@@ -38,7 +38,7 @@ The final website must have:
 
 ### Measured audit baseline before Phase 0 — 2026-10-04
 
-**Latest verification:** [Phase 0 record](./docs/phase-0/README.md). A fresh source snapshot passes install/typecheck/zero-warning lint/15 tests/strict build, with zero production dependency vulnerabilities and passing normal/standalone smoke checks. Current homepage mobile median performance is 87, LCP 3,845.57ms, TBT 64ms, CLS 0; desktop performance is 100. Five development-only lint findings and required remote CI/branch enforcement remain open. The table below retains the earlier audit baseline.
+**Latest verification:** [Phase 0 record](./docs/phase-0/README.md). Fresh committed-checkout and published PR CI checks pass install/typecheck/zero-warning lint/15 tests/strict build, with zero production dependency vulnerabilities and passing normal/standalone smoke checks. Current homepage mobile median performance is 87, LCP 3,845.57ms, TBT 64ms, CLS 0; desktop performance is 100. Five development-only lint findings and required branch enforcement remain open. The table below retains the earlier audit baseline.
 
 | Area | Audit baseline before Phase 0 | Required outcome |
 |---|---|---|
@@ -184,7 +184,7 @@ Do not postpone owner-dependent policy, support, security, or operational blocke
 **Owner:** Engineering lead\
 **Goal:** Create a trustworthy foundation before visual or feature work continues.
 
-**Implementation status:** Local engineering implementation and verification completed on 2026-10-04. Fresh Node 22.23.3 source snapshot passes clean installation, regenerated types, zero-warning lint, 5 suites/15 tests, zero production dependency findings, strict build, and 52 production/standalone HTTP assertions. Mock login/JWT/listing/order routes and embedded credentials are withdrawn; lead administration fails closed. The [Phase 0 record](./docs/phase-0/README.md) contains changes, measured results, known errors, and the next-phase handoff. Full Phase 0 exit remains pending a successful published-checkout remote CI run and required branch protection; actual staging/hosting/container verification remains in Phases 9/11.
+**Implementation status:** Engineering, clean committed-checkout verification, and published PR CI completed on 2026-10-04. Fresh Node 22.23.3 installation, regenerated types, zero-warning lint, 5 suites/15 tests, zero production findings, strict build, and 52 production/standalone HTTP assertions pass. Mock login/JWT/listing/order routes and embedded credentials are withdrawn; lead administration fails closed. The [Phase 0 record](./docs/phase-0/README.md) contains actual commit/run evidence and the known-error register. Full Phase 0 exit remains pending required branch-check enforcement; actual staging/hosting/container verification remains in Phases 9/11.
 
 ### Work items
 
@@ -231,19 +231,19 @@ Delivered locally: updated `.github/workflows/ci.yml`, aligned host/build files,
 - [x] Installed working tree passes lint.
 - [x] Installed working tree production build passes without ignored validation.
 - [x] An isolated current-source snapshot installs and passes all quality commands without peer bypass.
-- [ ] The published committed checkout and updated GitHub pipeline pass; attach commit/run evidence.
-- [ ] Remote CI/branch checks are verified; workflow declaration alone is insufficient.
+- [x] Clean committed checkout and updated PR pipeline pass; [commit/run evidence](./docs/phase-0/README.md) attached.
+- [ ] Required branch checks are enforced on `main`; a passing workflow alone is insufficient.
 - [x] Current-source mock signing-key/embedded credential/API paths are removed and return 404 locally; secrets policy is documented.
 - [x] Current-source production dependency audit reports no vulnerabilities; five development-only lint findings are recorded separately.
 - [x] A meaningful test suite passes with `npm test -- --runInBand`.
 
-**Transition rule:** Confirm the published-checkout/remote protection gate before declaring full Phase 0 sign-off and starting Phase 1 implementation. Local evidence is complete; no remote/production success has been assumed.
+**Transition rule:** Confirm required branch-check enforcement before declaring full Phase 0 sign-off and starting Phase 1 implementation. Published-checkout and remote CI evidence are complete; production deployment acceptance remains separate.
 
 ---
 
 ## Phase 1 — Product strategy, evidence, and content
 
-**Next-phase handoff:** [Phase 0 local verification](./docs/phase-0/README.md) is complete. Phase 1 implementation is queued behind the remaining required published-checkout CI/branch gate; retained business facts and DEC-002–010 still require owner input.
+**Next-phase handoff:** [Phase 0 engineering/committed-checkout/CI verification](./docs/phase-0/README.md) is complete. Phase 1 implementation is queued behind required branch-check enforcement; retained business facts and DEC-002–010 still require owner input.
 
 **Duration:** 2–4 days\
 **Owner:** Product marketing lead\
