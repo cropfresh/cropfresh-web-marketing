@@ -6,7 +6,7 @@ import { Container } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import {
     Mic, MicOff, Send, Volume2, VolumeX,
-    Loader2, MessageCircle, Globe, User, Bot,
+    Loader2, Globe, User, Bot,
     AlertCircle, Activity, Keyboard,
 } from "lucide-react";
 

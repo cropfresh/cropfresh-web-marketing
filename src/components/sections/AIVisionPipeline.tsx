@@ -3,10 +3,8 @@
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
-import { 
-    Camera, ScanLine, BrainCircuit, Activity, Eye,
-    ArrowRight, CheckCircle2, AlertTriangle, ShieldCheck
-} from "lucide-react";
+import { ScanLine, BrainCircuit, Eye, ArrowRight, AlertTriangle, ShieldCheck } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 /* ─── Animated Flow Line ─── */
 function FlowLine() {
@@ -26,7 +24,7 @@ function FlowLine() {
 function PipelineStage({ 
     stage, title, description, icon: Icon, delay, color, activeCode 
 }: { 
-    stage: string; title: string; description: string; icon: any; delay: number; color: string; activeCode: string;
+    stage: string; title: string; description: string; icon: LucideIcon; delay: number; color: string; activeCode: string;
 }) {
     return (
         <motion.div
@@ -141,7 +139,7 @@ export function AIVisionPipeline() {
                         <div>
                             <h4 className="text-white font-semibold text-sm mb-1">Human-In-The-Loop (HITL) Fallback</h4>
                             <p className="text-white/60 text-xs leading-relaxed">
-                                If DINOv2 confidence falls below 0.70, or if a defect count triggers an override, the system automatically routes the photo to a human expert for manual "A+" verification.
+                                 If DINOv2 confidence falls below 0.70, or if a defect count triggers an override, the system automatically routes the photo to a human expert for manual &quot;A+&quot; verification.
                             </p>
                         </div>
                     </motion.div>

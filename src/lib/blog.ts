@@ -37,8 +37,9 @@ export function getAllPosts(): BlogPostMeta[] {
                 const slug = filename.replace(".mdx", "");
                 const post = getPostBySlug(slug);
                 if (!post) return null;
-                const { content, ...meta } = post;
-                return meta;
+                 const meta = { ...post } as BlogPostMeta & { content?: string };
+                 delete meta.content;
+                 return meta;
             })
             .filter((post): post is BlogPostMeta =>
                 post !== null &&

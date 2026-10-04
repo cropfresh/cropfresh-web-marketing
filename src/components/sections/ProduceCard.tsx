@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf, DollarSign, Store, Clock, Award } from 'lucide-react';
+import { Leaf, Store, Award } from 'lucide-react';
 import Image from 'next/image';
 
 interface ProduceCardProps {
@@ -28,7 +28,6 @@ const gradeLabels = {
 };
 
 export function ProduceCard({
-    id,
     name,
     farmerName,
     location,
@@ -36,7 +35,6 @@ export function ProduceCard({
     grade,
     quantity,
     unit,
-    harvestDate,
     imageUrl,
 }: ProduceCardProps) {
     return (

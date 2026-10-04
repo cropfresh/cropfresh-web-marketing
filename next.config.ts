@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
-
 const nextConfig: NextConfig = {
+  output: "standalone",
   // Image optimization domains
   images: {
     remotePatterns: [
@@ -27,20 +24,7 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   experimental: {
     // Enable optimized package imports
-    optimizePackageImports: ["framer-motion", "@next/third-parties"],
-  },
-
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
-    ignoreBuildErrors: true,
+    optimizePackageImports: ["framer-motion"],
   },
 
   // Headers for security and caching
@@ -89,11 +73,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-const finalConfig = withNextIntl(nextConfig);
-
-// Next 16.1.1 strict validation workaround for next-intl injecting invalid 'turbo'
-if (finalConfig.experimental && 'turbo' in finalConfig.experimental) {
-  delete finalConfig.experimental.turbo;
-}
-
-export default finalConfig;
+export default nextConfig;
